@@ -26,6 +26,13 @@ import { globalHotkeysAreSafe } from './interaction/global-hotkeys-are-safe.js';
 import { itemsBelongToGroups } from './interaction/items-belong-to-groups.js';
 import { mobileNavPresent } from './interaction/mobile-nav-present.js';
 import { themeHotkeyPresent } from './interaction/theme-hotkey-present.js';
+import { fieldErrorsRendered } from './forms/field-errors-rendered.js';
+import { formButtonsHaveExplicitType } from './forms/form-buttons-have-explicit-type.js';
+import { formsHaveLabels } from './forms/forms-have-labels.js';
+import { groupedControlsHaveLegend } from './forms/grouped-controls-have-legend.js';
+import { invalidFieldsAssociatedWithErrors } from './forms/invalid-fields-associated-with-errors.js';
+import { personalDataAutocompletePresent } from './forms/personal-data-autocomplete-present.js';
+import { validationWiredToForm } from './forms/validation-wired-to-form.js';
 import { asyncActionPendingState } from './states/async-action-pending-state.js';
 import { emptyStatePresent } from './states/empty-state-present.js';
 import { errorStateRetryPresent } from './states/error-state-retry-present.js';
@@ -88,6 +95,14 @@ export const defaultRules: readonly AuditRule[] = [
   iframesHaveTitle,
   interactiveElementsAreSemantic,
   noNestedInteractiveControls,
+  // Forms and data entry
+  formsHaveLabels,
+  fieldErrorsRendered,
+  invalidFieldsAssociatedWithErrors,
+  formButtonsHaveExplicitType,
+  groupedControlsHaveLegend,
+  personalDataAutocompletePresent,
+  validationWiredToForm,
   // Production polish
   noStarterCopy,
   metadataTitleDescriptionComplete,

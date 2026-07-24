@@ -59,7 +59,7 @@ export const walkTemplate = (
   const walkChildren = (children: readonly TemplateChildNode[]): void => {
     for (const child of children) {
       if (isElementNode(child)) {
-        visit(child, stack);
+        visit(child, [...stack]);
         stack.push(child);
         walkChildren(child.children);
         stack.pop();
