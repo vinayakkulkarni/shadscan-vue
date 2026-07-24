@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { promises as fs } from 'node:fs';
+import { existsSync, promises as fs } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -103,6 +103,38 @@ describe('human renderer roast toggle', () => {
     const grade = result.report.grade;
     expect(grade).toBeDefined();
     expect(output).toContain(roastLine(grade, undefined)!.split(' ')[0]!);
+  });
+});
+
+describe('roast flag resolution through the built binary', () => {
+  const repoRoot = path.resolve(here, '..', '..', '..');
+  const cliBin = path.join(repoRoot, 'packages', 'cli', 'bin', 'shadscan-vue.mjs');
+  const target = path.join(fixturesDir, 'vite-vue-minimal');
+  const built = existsSync(path.join(repoRoot, 'packages', 'cli', 'dist', 'index.js'));
+
+  const roastLineOf = (args: string[], env: NodeJS.ProcessEnv = {}): string => {
+    const stdout = execFileSync('node', [cliBin, target, ...args], {
+      cwd: repoRoot,
+      encoding: 'utf8',
+      env: { ...process.env, ...env },
+    });
+    return stdout.split('\n')[4] ?? '';
+  };
+
+  it.skipIf(!built)('stays silent when output is piped', () => {
+    expect(roastLineOf([])).toBe('');
+  });
+
+  it.skipIf(!built)('stays silent in CI', () => {
+    expect(roastLineOf([], { CI: '1' })).toBe('');
+  });
+
+  it.skipIf(!built)('speaks when explicitly requested', () => {
+    expect(roastLineOf(['--roast']).length).toBeGreaterThan(0);
+  });
+
+  it.skipIf(!built)('stays silent when explicitly disabled', () => {
+    expect(roastLineOf(['--no-roast'])).toBe('');
   });
 });
 

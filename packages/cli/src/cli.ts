@@ -60,6 +60,24 @@ const parseCategory = (value: string | undefined): AuditCategoryId | undefined =
   return known.id;
 };
 
+/**
+ * cac defaults a negatable option to true as soon as `--no-roast` is declared,
+ * so the flag alone cannot distinguish "asked for roast" from "did not ask".
+ * Reading argv keeps the default (interactive terminals only) intact.
+ */
+const resolveRoast = (
+  argv: readonly string[],
+  caps: { isTTY: boolean; isCI: boolean },
+): boolean => {
+  if (argv.includes('--no-roast')) {
+    return false;
+  }
+  if (argv.includes('--roast')) {
+    return true;
+  }
+  return caps.isTTY && !caps.isCI;
+};
+
 const emitError = (error: unknown, format: OutputFormat): number => {
   const cliError = isCliError(error)
     ? error
@@ -108,8 +126,9 @@ export const run = async (argv: readonly string[]): Promise<number> => {
         process.stdout.write(`${renderAgentPrompt(result, engineVersion)}\n`);
       } else {
         const caps = resolveTerminalCapabilities();
-        const roast = flags.roast ?? (caps.isTTY && !caps.isCI);
-        process.stdout.write(`${renderHuman(result, engineVersion, caps, roast)}\n`);
+        process.stdout.write(
+          `${renderHuman(result, engineVersion, caps, resolveRoast(argv, caps))}\n`,
+        );
       }
 
       if (failUnder !== undefined) {

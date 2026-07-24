@@ -11,3 +11,4 @@ coverage
 !.env.example
 tmp
 *.tsbuildinfo
+*.tgz
