@@ -33,20 +33,27 @@ const hasEmptyBranch = (fileText: string, collection: string, identifier: string
   const escapedCollection = collection.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&');
   const escapedId = identifier.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&');
   const ref = `(?:${escapedCollection}|${escapedId})`;
-  const patterns = [
-    // .length === 0 / == 0
+  const emptyCaseGuards = [
     new RegExp(`${ref}(?:\\.value)?\\.length\\s*===?\\s*0`, 'u'),
-    // !collection.length
     new RegExp(`!\\s*${ref}(?:\\.value)?\\.length`, 'u'),
-    // v-else paired with a v-if on the same collection's length
-    new RegExp(`v-if=["']${ref}(?:\\.value)?\\.length["']`, 'u'),
+    new RegExp(`${ref}(?:\\.value)?\\.length\\s*<\\s*1`, 'u'),
   ];
-  const hasLengthGuard = patterns.some((pattern) => pattern.test(fileText));
-  if (!hasLengthGuard) {
-    return false;
+  if (emptyCaseGuards.some((pattern) => pattern.test(fileText))) {
+    return /v-else\b|v-else-if=|v-if=/u.test(fileText);
   }
-  // Require a v-else / v-else-if / v-if branch to actually exist in the file.
-  return /v-else\b|v-else-if=|v-if=/u.test(fileText);
+
+  // Inverse form: the populated branch is length-guarded and a v-else supplies
+  // the empty case, e.g. v-if="items.length > 0" ... v-else.
+  const populatedGuard = new RegExp(
+    `v-(?:if|show)=["'][^"']*${ref}(?:\\.value)?\\.length\\s*(?:>|>=)\\s*\\d`,
+    'u',
+  );
+  const bareLengthGuard = new RegExp(`v-(?:if|show)=["']${ref}(?:\\.value)?\\.length["']`, 'u');
+  if (populatedGuard.test(fileText) || bareLengthGuard.test(fileText)) {
+    return /v-else\b/u.test(fileText);
+  }
+
+  return false;
 };
 
 export const emptyStatePresent: AuditRule = {

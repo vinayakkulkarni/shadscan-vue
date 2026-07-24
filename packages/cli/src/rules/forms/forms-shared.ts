@@ -23,7 +23,11 @@ export const NON_LABELLED_INPUT_TYPES = new Set(['hidden', 'submit', 'button', '
 export const collectFormElements = (files: readonly ParsedFile[]): FormElement[] => {
   const elements: FormElement[] = [];
   for (const file of files) {
-    if (file.kind !== 'vue' || file.sfc?.templateAst === undefined) {
+    if (
+      file.kind !== 'vue' ||
+      file.sfc?.templateAst === undefined ||
+      isGeneratedUiPrimitive(file.relPath)
+    ) {
       continue;
     }
     walkTemplate(file.sfc.templateAst, (element, ancestors) => {
@@ -33,14 +37,19 @@ export const collectFormElements = (files: readonly ParsedFile[]): FormElement[]
   return elements;
 };
 
+const NATIVE_CONTROL_TAGS = new Set(['input', 'textarea', 'select']);
+
+/**
+ * shadcn `Select` is a headless root provider, not a focusable control: the
+ * labellable element is `SelectTrigger`. Native lowercase `select` is a real
+ * control, so the distinction is made on the tag as authored.
+ */
 export const isControlTag = (tag: string): boolean => {
+  if (NATIVE_CONTROL_TAGS.has(tag)) {
+    return true;
+  }
   const normalized = pascalToKebab(tag);
-  return (
-    normalized === 'input' ||
-    normalized === 'textarea' ||
-    normalized === 'select' ||
-    normalized === 'select-trigger'
-  );
+  return normalized === 'input' || normalized === 'textarea' || normalized === 'select-trigger';
 };
 
 export const inputType = (element: ElementNode): string | undefined =>
@@ -84,6 +93,14 @@ export const isFormFieldWrapper = (tag: string): boolean => {
   const normalized = pascalToKebab(tag);
   return normalized === 'form-field' || normalized === 'form-item';
 };
+
+/**
+ * shadcn primitives under components/ui are generated wrappers: they expose
+ * props for labelling and are always consumed by application code, so auditing
+ * them reports failures the user cannot act on.
+ */
+export const isGeneratedUiPrimitive = (relPath: string): boolean =>
+  /(?:^|\/)components\/ui\//u.test(relPath);
 
 export const hasFormSurface = (elements: readonly FormElement[]): boolean =>
   elements.some(

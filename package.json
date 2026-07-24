@@ -2,22 +2,22 @@
   "name": "shadscan-vue-monorepo",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "description": "Audit shadcn-vue and shadcn-nuxt apps for missing UI fundamentals. Vue port of shadscan by TheOrcDev.",
+  "homepage": "https://github.com/vinayakkulkarni/shadscan-vue#readme",
+  "bugs": {
+    "url": "https://github.com/vinayakkulkarni/shadscan-vue/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "Vinayak Kulkarni",
     "email": "inbox.vinayak@gmail.com",
     "url": "https://vinayakkulkarni.dev"
   },
-  "license": "MIT",
-  "homepage": "https://github.com/vinayakkulkarni/shadscan-vue#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vinayakkulkarni/shadscan-vue.git"
   },
-  "bugs": {
-    "url": "https://github.com/vinayakkulkarni/shadscan-vue/issues"
-  },
+  "type": "module",
   "scripts": {
     "build": "pnpm --filter shadscan-vue run build",
     "test": "pnpm --filter shadscan-vue run test",
@@ -26,7 +26,9 @@
     "lint:fix": "vp lint --fix",
     "format": "vp fmt",
     "format:check": "vp fmt --check",
-    "prepare": "is-ci || husky"
+    "prepare": "is-ci || husky",
+    "qa:expected": "node scripts/qa-expected.ts",
+    "qa:scan": "node packages/cli/bin/shadscan-vue.mjs qa/vite-app && node packages/cli/bin/shadscan-vue.mjs qa/nuxt-app"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.1",
@@ -39,14 +41,14 @@
     "vite-plus": "^0.2.4",
     "vitest": "^4.1.10"
   },
-  "engines": {
-    "node": ">=24.11.0"
-  },
   "devEngines": {
     "runtime": {
       "name": "node",
       "version": ">=24.11.0"
     }
+  },
+  "engines": {
+    "node": ">=24.11.0"
   },
   "packageManager": "pnpm@11.17.0"
 }

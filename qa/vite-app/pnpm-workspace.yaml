@@ -1,0 +1,10 @@
+# Standalone workspace marker.
+# This makes qa/vite-app resolve as its OWN pnpm root so `pnpm install` here
+# installs into qa/vite-app/node_modules and does NOT hoist to the monorepo root.
+# It must NOT be added to the parent monorepo's pnpm-workspace.yaml globs.
+packages: []
+
+# Allow the transitive vue-demi postinstall (used by @vueuse/core) so builds
+# don't get blocked by pnpm's ignored-build-scripts gate.
+allowBuilds:
+  vue-demi: true

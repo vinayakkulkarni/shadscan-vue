@@ -1,0 +1,13 @@
+# Standalone workspace marker.
+# Makes qa/nuxt-app its OWN pnpm root: installs stay in qa/nuxt-app/node_modules
+# and do NOT hoist to the monorepo root. Must NOT be added to the parent
+# monorepo's pnpm-workspace.yaml globs.
+packages: []
+
+# Native/postinstall build scripts Nuxt's toolchain needs during install.
+allowBuilds:
+  esbuild: true
+  vue-demi: true
+  "@parcel/watcher": true
+  unrs-resolver: true
+  better-sqlite3: true

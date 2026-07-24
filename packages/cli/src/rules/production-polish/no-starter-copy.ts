@@ -17,8 +17,15 @@ const STARTER_PATTERNS: { pattern: RegExp; label: string }[] = [
   { pattern: /Check out\s+<a[^>]*>\s*create-vue/iu, label: 'create-vue starter copy' },
   { pattern: /\bTODO:?\s*replace\b/iu, label: 'unreplaced TODO placeholder' },
   { pattern: /\byour-domain\.com\b/iu, label: 'placeholder domain' },
-  { pattern: /\bexample\.com\b/iu, label: 'placeholder domain' },
 ];
+
+/**
+ * example.com appears legitimately in input placeholders (you@example.com is
+ * the conventional email hint), so it only counts as leftover scaffolding when
+ * it is a real destination.
+ */
+const PLACEHOLDER_DOMAIN_AS_DESTINATION =
+  /(?:href|src|action|:to|\bto)\s*=\s*["'][^"']*example\.com/iu;
 
 export const noStarterCopy: AuditRule = {
   id: 'no-starter-copy',
@@ -43,7 +50,11 @@ export const noStarterCopy: AuditRule = {
       if (templateText.length === 0) {
         continue;
       }
-      for (const { pattern, label } of STARTER_PATTERNS) {
+      const checks = [
+        ...STARTER_PATTERNS,
+        { pattern: PLACEHOLDER_DOMAIN_AS_DESTINATION, label: 'placeholder domain' },
+      ];
+      for (const { pattern, label } of checks) {
         const match = pattern.exec(templateText);
         if (match === null) {
           continue;
