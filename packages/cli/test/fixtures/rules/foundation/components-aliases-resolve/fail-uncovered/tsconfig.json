@@ -1,0 +1,8 @@
+{
+  // Only maps ~/, not @/
+  "compilerOptions": {
+    "paths": {
+      "~/*": ["./src/*"]
+    }
+  }
+}

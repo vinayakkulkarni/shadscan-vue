@@ -1,0 +1,7 @@
+{
+  "name": "theme-provider-manual",
+  "private": true,
+  "type": "module",
+  "dependencies": { "vue": "^3.5.22" },
+  "devDependencies": { "vite": "^7.1.0" }
+}

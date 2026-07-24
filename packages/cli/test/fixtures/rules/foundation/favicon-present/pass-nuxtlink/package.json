@@ -1,0 +1,6 @@
+{
+  "name": "favicon-pass-nuxtlink",
+  "private": true,
+  "type": "module",
+  "dependencies": { "nuxt": "^4.2.2", "vue": "^3.5.22" }
+}

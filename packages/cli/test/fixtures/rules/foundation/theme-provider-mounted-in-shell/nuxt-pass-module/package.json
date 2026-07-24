@@ -1,0 +1,7 @@
+{
+  "name": "mounted-nuxt-pass-module",
+  "private": true,
+  "type": "module",
+  "dependencies": { "nuxt": "^4.2.2", "vue": "^3.5.22" },
+  "devDependencies": { "@nuxtjs/color-mode": "^3.5.2" }
+}
