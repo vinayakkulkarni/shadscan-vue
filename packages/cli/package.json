@@ -1,0 +1,82 @@
+{
+  "name": "shadscan-vue",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Audit shadcn-vue and shadcn-nuxt apps for missing UI fundamentals. Deterministic checks. Evidence. Agent-ready fixes. Vue port of shadscan.",
+  "author": {
+    "name": "Vinayak Kulkarni",
+    "email": "inbox.vinayak@gmail.com",
+    "url": "https://vinayakkulkarni.dev"
+  },
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/vinayakkulkarni/shadscan-vue#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinayakkulkarni/shadscan-vue.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/vinayakkulkarni/shadscan-vue/issues"
+  },
+  "keywords": [
+    "shadcn-vue",
+    "shadcn-nuxt",
+    "reka-ui",
+    "audit",
+    "accessibility",
+    "a11y",
+    "cli",
+    "vue",
+    "nuxt",
+    "ui-fundamentals"
+  ],
+  "bin": {
+    "shadscan-vue": "./bin/shadscan-vue.mjs"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "bin",
+    "LICENSE.md",
+    "THIRD_PARTY_NOTICES.md",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "vp pack",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "vp lint src",
+    "lint:fix": "vp lint src --fix"
+  },
+  "dependencies": {
+    "@vue/compiler-dom": "^3.5.22",
+    "@vue/compiler-sfc": "^3.5.22",
+    "cross-spawn": "^7.0.6",
+    "jsonc-parser": "^3.3.1",
+    "picocolors": "^1.1.1",
+    "tinyglobby": "^0.2.17",
+    "typescript": "^6.0.3",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/cross-spawn": "^6.0.6",
+    "@types/node": "^26.1.1",
+    "cac": "^7.0.0",
+    "execa": "^9.6.1",
+    "vitest": "^4.1.10"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}
