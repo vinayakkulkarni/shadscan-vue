@@ -26,6 +26,14 @@ import { globalHotkeysAreSafe } from './interaction/global-hotkeys-are-safe.js';
 import { itemsBelongToGroups } from './interaction/items-belong-to-groups.js';
 import { mobileNavPresent } from './interaction/mobile-nav-present.js';
 import { themeHotkeyPresent } from './interaction/theme-hotkey-present.js';
+import { asyncActionPendingState } from './states/async-action-pending-state.js';
+import { emptyStatePresent } from './states/empty-state-present.js';
+import { errorStateRetryPresent } from './states/error-state-retry-present.js';
+import { notFoundRecoveryPresent } from './states/not-found-recovery-present.js';
+import { routeLoadingBoundaryPresent } from './states/route-loading-boundary-present.js';
+import { suspenseFallbackUseful } from './states/suspense-fallback-useful.js';
+import { toastProviderMounted } from './states/toast-provider-mounted.js';
+import { toastProviderPresent } from './states/toast-provider-present.js';
 import { animationsRespectReducedMotion } from './production-polish/animations-respect-reduced-motion.js';
 import { buttonIconsHaveDataIcon } from './production-polish/button-icons-have-data-icon.js';
 import { metadataTitleDescriptionComplete } from './production-polish/metadata-title-description-complete.js';
@@ -60,6 +68,15 @@ export const defaultRules: readonly AuditRule[] = [
   focusVisibleNotSuppressed,
   itemsBelongToGroups,
   destructiveActionsConfirmed,
+  // States
+  toastProviderPresent,
+  toastProviderMounted,
+  routeLoadingBoundaryPresent,
+  suspenseFallbackUseful,
+  emptyStatePresent,
+  errorStateRetryPresent,
+  notFoundRecoveryPresent,
+  asyncActionPendingState,
   // Accessibility
   htmlLangPresent,
   imagesHaveAlt,
