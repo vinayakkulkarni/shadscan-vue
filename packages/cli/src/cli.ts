@@ -8,7 +8,10 @@ import { resolveOutputFormat, type OutputFormat } from './output-format.js';
 import { renderAgentPrompt } from './render-agent-prompt.js';
 import { renderHuman } from './render-human.js';
 import { renderJson } from './render-json.js';
+import { buildRuleCatalog, renderCatalogMarkdown } from './rule-catalog.js';
 import { scanProject } from './scan.js';
+import { installPreCommitHook } from './setup.js';
+import { resolveTerminalCapabilities } from './terminal-capabilities.js';
 
 const readEngineVersion = (): string => {
   const packageJsonPath = path.join(
@@ -104,7 +107,9 @@ export const run = async (argv: readonly string[]): Promise<number> => {
       } else if (format === 'prompt') {
         process.stdout.write(`${renderAgentPrompt(result, engineVersion)}\n`);
       } else {
-        process.stdout.write(`${renderHuman(result, engineVersion)}\n`);
+        const caps = resolveTerminalCapabilities();
+        const roast = flags.roast ?? (caps.isTTY && !caps.isCI);
+        process.stdout.write(`${renderHuman(result, engineVersion, caps, roast)}\n`);
       }
 
       if (failUnder !== undefined) {
@@ -125,6 +130,41 @@ export const run = async (argv: readonly string[]): Promise<number> => {
           );
         }
       }
+    });
+
+  cli
+    .command('setup', 'Install shadscan-vue into a project workflow.')
+    .option('--pre-commit', 'Install a git pre-commit hook that runs a scan before each commit.')
+    .action(async (flags: { preCommit?: boolean }) => {
+      if (flags.preCommit !== true) {
+        throw new CliError(
+          'invalid-flag',
+          'setup requires --pre-commit. Run `shadscan-vue setup --pre-commit`.',
+        );
+      }
+      const outcome = await installPreCommitHook(process.cwd());
+      const message =
+        outcome.action === 'already-present'
+          ? `A shadscan-vue pre-commit hook is already installed at ${outcome.hookPath}.`
+          : `Installed the shadscan-vue pre-commit hook at ${outcome.hookPath}.`;
+      process.stdout.write(`${message}\n`);
+    });
+
+  cli
+    .command('rules', 'Print the rule catalog.')
+    .option('--format <format>', 'Choose markdown or json output.')
+    .action((flags: { format?: string }) => {
+      const catalogFormat = flags.format ?? 'markdown';
+      if (catalogFormat !== 'markdown' && catalogFormat !== 'json') {
+        throw new CliError('invalid-flag', 'rules --format expects markdown or json.');
+      }
+      const catalog = buildRuleCatalog();
+      if (catalogFormat === 'json') {
+        format = 'json';
+        process.stdout.write(`${JSON.stringify(catalog, null, 2)}\n`);
+        return;
+      }
+      process.stdout.write(`${renderCatalogMarkdown(catalog)}\n`);
     });
 
   cli.help();

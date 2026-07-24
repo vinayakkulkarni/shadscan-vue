@@ -56,7 +56,7 @@ const expectedFailingRules = (app: string): string[] => {
   const doc = readFileSync(expectedPath, 'utf8');
   const section = doc.split(`## ${app}`)[1] ?? '';
   const failing = section.split('### Failing')[1]?.split('###')[0] ?? '';
-  return [...failing.matchAll(/^\| `([\w-]+)` \|/gmu)].map((match) => match[1]!);
+  return [...failing.matchAll(/^\|\s*`([\w-]+)`\s*\|/gmu)].map((match) => match[1]!);
 };
 
 describe.skipIf(!cliIsBuilt || !qaAppsExist)('end-to-end scans of real shadcn apps', () => {

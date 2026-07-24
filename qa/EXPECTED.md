@@ -13,45 +13,45 @@ Regenerate with `pnpm qa:expected` after an intentional rule change.
 - files scanned: 49 (complete coverage)
 - ruleset: 0.1.0 · report schema: 1
 
-| Category             | Score | Rules |
-| -------------------- | ----: | ----: |
-| Foundation           |    68 |     9 |
-| Interaction          |    52 |     8 |
-| States               |   100 |     8 |
-| Accessibility        |    45 |    10 |
-| Forms and Data Entry |     0 |     7 |
-| Production Polish    |    33 |     9 |
+| Category | Score | Rules |
+| --- | ---: | ---: |
+| Foundation | 68 | 9 |
+| Interaction | 52 | 8 |
+| States | 100 | 8 |
+| Accessibility | 45 | 10 |
+| Forms and Data Entry | 0 | 7 |
+| Production Polish | 33 | 9 |
 
 ### Failing (19)
 
-| Rule                                  | Category          | Evidence                                               |
-| ------------------------------------- | ----------------- | ------------------------------------------------------ |
-| `not-found-route-present`             | foundation        | `src/router.ts`                                        |
-| `error-boundary-present`              | foundation        | `src/main.ts`                                          |
-| `components-aliases-resolve`          | foundation        | `tsconfig.json`                                        |
-| `theme-hotkey-present`                | interaction       | —                                                      |
-| `mobile-nav-present`                  | interaction       | `src/App.vue`                                          |
-| `focus-visible-not-suppressed`        | interaction       | `src/views/HomeView.vue:57`                            |
-| `images-have-alt`                     | accessibility     | `src/views/HomeView.vue:30`                            |
-| `icon-buttons-have-labels`            | accessibility     | `src/views/HomeView.vue:38`                            |
-| `no-positive-tabindex`                | accessibility     | `src/views/HomeView.vue:54`                            |
-| `iframes-have-title`                  | accessibility     | `src/views/HomeView.vue:60`                            |
-| `interactive-elements-are-semantic`   | accessibility     | `src/views/HomeView.vue:33`                            |
-| `forms-have-labels`                   | forms             | `src/views/SettingsView.vue:48`                        |
-| `form-buttons-have-explicit-type`     | forms             | `src/views/SettingsView.vue:78`                        |
-| `personal-data-autocomplete-present`  | forms             | `src/views/SettingsView.vue:48`                        |
+| Rule | Category | Evidence |
+| --- | --- | --- |
+| `not-found-route-present` | foundation | `src/router.ts` |
+| `error-boundary-present` | foundation | `src/main.ts` |
+| `components-aliases-resolve` | foundation | `tsconfig.json` |
+| `theme-hotkey-present` | interaction | — |
+| `mobile-nav-present` | interaction | `src/App.vue` |
+| `focus-visible-not-suppressed` | interaction | `src/views/HomeView.vue:57` |
+| `images-have-alt` | accessibility | `src/views/HomeView.vue:30` |
+| `icon-buttons-have-labels` | accessibility | `src/views/HomeView.vue:38` |
+| `no-positive-tabindex` | accessibility | `src/views/HomeView.vue:54` |
+| `iframes-have-title` | accessibility | `src/views/HomeView.vue:60` |
+| `interactive-elements-are-semantic` | accessibility | `src/views/HomeView.vue:33` |
+| `forms-have-labels` | forms | `src/views/SettingsView.vue:48` |
+| `form-buttons-have-explicit-type` | forms | `src/views/SettingsView.vue:78` |
+| `personal-data-autocomplete-present` | forms | `src/views/SettingsView.vue:48` |
 | `metadata-title-description-complete` | production-polish | `src/views/HomeView.vue`, `src/views/SettingsView.vue` |
-| `social-preview-present`              | production-polish | `index.html`                                           |
-| `public-app-seo-files-present`        | production-polish | `public/robots.txt`, `public/sitemap.xml`              |
-| `responsive-shell-present`            | production-polish | `src/App.vue`                                          |
-| `button-icons-have-data-icon`         | production-polish | `src/views/HomeView.vue:39`                            |
+| `social-preview-present` | production-polish | `index.html` |
+| `public-app-seo-files-present` | production-polish | `public/robots.txt`, `public/sitemap.xml` |
+| `responsive-shell-present` | production-polish | `src/App.vue` |
+| `button-icons-have-data-icon` | production-polish | `src/views/HomeView.vue:39` |
 
 ### Advisory (2)
 
-| Rule                            | Category    | Evidence                                     |
-| ------------------------------- | ----------- | -------------------------------------------- |
-| `items-belong-to-groups`        | interaction | `src/components/ui/select/SelectItem.vue:17` |
-| `destructive-actions-confirmed` | interaction | `src/views/HomeView.vue:73`                  |
+| Rule | Category | Evidence |
+| --- | --- | --- |
+| `items-belong-to-groups` | interaction | `src/components/ui/select/SelectItem.vue:17` |
+| `destructive-actions-confirmed` | interaction | `src/views/HomeView.vue:73` |
 
 ### Passing (19)
 
@@ -68,40 +68,40 @@ Regenerate with `pnpm qa:expected` after an intentional rule change.
 - files scanned: 46 (complete coverage)
 - ruleset: 0.1.0 · report schema: 1
 
-| Category             | Score | Rules |
-| -------------------- | ----: | ----: |
-| Foundation           |    84 |     9 |
-| Interaction          |    52 |     8 |
-| States               |   100 |     8 |
-| Accessibility        |    45 |    10 |
-| Forms and Data Entry |    18 |     7 |
-| Production Polish    |    78 |     9 |
+| Category | Score | Rules |
+| --- | ---: | ---: |
+| Foundation | 84 | 9 |
+| Interaction | 52 | 8 |
+| States | 100 | 8 |
+| Accessibility | 45 | 10 |
+| Forms and Data Entry | 18 | 7 |
+| Production Polish | 78 | 9 |
 
 ### Failing (14)
 
-| Rule                                 | Category          | Evidence                    |
-| ------------------------------------ | ----------------- | --------------------------- |
-| `shadcn-config-present`              | foundation        | `components.json`           |
-| `theme-hotkey-present`               | interaction       | —                           |
-| `mobile-nav-present`                 | interaction       | `app/layouts/default.vue`   |
-| `focus-visible-not-suppressed`       | interaction       | `app/pages/index.vue:41`    |
-| `images-have-alt`                    | accessibility     | `app/pages/index.vue:23`    |
-| `icon-buttons-have-labels`           | accessibility     | `app/pages/index.vue:31`    |
-| `no-positive-tabindex`               | accessibility     | `app/pages/index.vue:38`    |
-| `iframes-have-title`                 | accessibility     | `app/pages/index.vue:44`    |
-| `interactive-elements-are-semantic`  | accessibility     | `app/pages/index.vue:26`    |
-| `forms-have-labels`                  | forms             | `app/pages/settings.vue:19` |
-| `form-buttons-have-explicit-type`    | forms             | `app/pages/settings.vue:42` |
-| `personal-data-autocomplete-present` | forms             | `app/pages/settings.vue:19` |
-| `public-app-seo-files-present`       | production-polish | `public/sitemap.xml`        |
-| `button-icons-have-data-icon`        | production-polish | `app/pages/index.vue:32`    |
+| Rule | Category | Evidence |
+| --- | --- | --- |
+| `shadcn-config-present` | foundation | `components.json` |
+| `theme-hotkey-present` | interaction | — |
+| `mobile-nav-present` | interaction | `app/layouts/default.vue` |
+| `focus-visible-not-suppressed` | interaction | `app/pages/index.vue:41` |
+| `images-have-alt` | accessibility | `app/pages/index.vue:23` |
+| `icon-buttons-have-labels` | accessibility | `app/pages/index.vue:31` |
+| `no-positive-tabindex` | accessibility | `app/pages/index.vue:38` |
+| `iframes-have-title` | accessibility | `app/pages/index.vue:44` |
+| `interactive-elements-are-semantic` | accessibility | `app/pages/index.vue:26` |
+| `forms-have-labels` | forms | `app/pages/settings.vue:19` |
+| `form-buttons-have-explicit-type` | forms | `app/pages/settings.vue:42` |
+| `personal-data-autocomplete-present` | forms | `app/pages/settings.vue:19` |
+| `public-app-seo-files-present` | production-polish | `public/sitemap.xml` |
+| `button-icons-have-data-icon` | production-polish | `app/pages/index.vue:32` |
 
 ### Advisory (2)
 
-| Rule                            | Category    | Evidence                                     |
-| ------------------------------- | ----------- | -------------------------------------------- |
-| `items-belong-to-groups`        | interaction | `app/components/ui/select/SelectItem.vue:17` |
-| `destructive-actions-confirmed` | interaction | `app/pages/index.vue:57`                     |
+| Rule | Category | Evidence |
+| --- | --- | --- |
+| `items-belong-to-groups` | interaction | `app/components/ui/select/SelectItem.vue:17` |
+| `destructive-actions-confirmed` | interaction | `app/pages/index.vue:57` |
 
 ### Passing (28)
 

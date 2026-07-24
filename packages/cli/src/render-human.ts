@@ -1,4 +1,6 @@
 import pc from 'picocolors';
+import type { CategoryScore } from './audit.js';
+import { roastLine } from './roast.js';
 import type { ScanResult } from './scan.js';
 import { resolveTerminalCapabilities, type TerminalCapabilities } from './terminal-capabilities.js';
 
@@ -33,6 +35,7 @@ export const renderHuman = (
   result: ScanResult,
   engineVersion: string,
   caps: TerminalCapabilities = resolveTerminalCapabilities(),
+  roast = false,
 ): string => {
   const { discovery, report } = result;
   const lines: string[] = [];
@@ -48,6 +51,18 @@ export const renderHuman = (
     lines.push(
       paint(gradeText, report.score >= 80 ? pc.green : report.score >= 60 ? pc.yellow : pc.red),
     );
+    if (roast) {
+      const scored = report.categories.filter((category) => category.score !== undefined);
+      const weakest = scored.reduce<CategoryScore | undefined>(
+        (lowest, category) =>
+          lowest === undefined || (category.score ?? 0) < (lowest.score ?? 0) ? category : lowest,
+        undefined,
+      );
+      const line = roastLine(report.grade, weakest?.id);
+      if (line !== undefined) {
+        lines.push(paint(line, pc.dim));
+      }
+    }
   } else {
     lines.push('Score: unassessed (no applicable scored rules)');
   }

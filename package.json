@@ -28,7 +28,8 @@
     "format:check": "vp fmt --check",
     "prepare": "is-ci || husky",
     "qa:expected": "node scripts/qa-expected.ts",
-    "qa:scan": "node packages/cli/bin/shadscan-vue.mjs qa/vite-app && node packages/cli/bin/shadscan-vue.mjs qa/nuxt-app"
+    "qa:scan": "node packages/cli/bin/shadscan-vue.mjs qa/vite-app && node packages/cli/bin/shadscan-vue.mjs qa/nuxt-app",
+    "docs:rules": "node packages/cli/bin/shadscan-vue.mjs rules > docs/RULES.md"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.1",
