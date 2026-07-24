@@ -1,0 +1,768 @@
+{
+  "rulesetVersion": "0.1.0",
+  "ruleCount": 51,
+  "categories": [
+    {
+      "id": "foundation",
+      "title": "Foundation",
+      "weight": 20,
+      "totalPoints": 27,
+      "rules": [
+        {
+          "id": "shadcn-config-present",
+          "title": "shadcn configuration is present",
+          "description": "Checks that a components.json file exists at the project root and parses cleanly, so shadcn-vue tooling and alias-aware audits can work.",
+          "category": "foundation",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 4,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "theme-provider-configured",
+          "title": "A theme provider or theme management is configured",
+          "description": "Confirms the app ships light/dark theme management: the Nuxt color-mode module, a @vueuse/core useColorMode/useDark composable, or a manual documentElement dark-class toggle.",
+          "category": "foundation",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 5,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "metadata-configured",
+          "title": "Document metadata is configured",
+          "description": "Confirms the app declares a document title and description so pages have meaningful metadata for browsers, search, and sharing.",
+          "category": "foundation",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "favicon-present",
+          "title": "A favicon is present",
+          "description": "Confirms the app ships a favicon: a public/favicon or icon asset, or an explicit icon <link> in index.html or the Nuxt head config.",
+          "category": "foundation",
+          "severity": "info",
+          "confidence": "high",
+          "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "not-found-route-present",
+          "title": "A not-found route is present",
+          "description": "Confirms unmatched routes are handled: a Nuxt error.vue page, or a Vue Router catch-all route / NotFound view in the router configuration.",
+          "category": "foundation",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "error-boundary-present",
+          "title": "An error boundary is present",
+          "description": "Confirms runtime render errors are caught: a Nuxt error page or <NuxtErrorBoundary>, or a Vue onErrorCaptured hook / app.config.errorHandler in the entry.",
+          "category": "foundation",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "components-aliases-resolve",
+          "title": "Shadcn aliases resolve to path mappings",
+          "description": "When components.json configures import aliases, tsconfig.json or jsconfig.json must declare matching compilerOptions.paths so the aliases resolve at build time.",
+          "category": "foundation",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "theme-provider-mounted-in-shell",
+          "title": "The theme provider is mounted in the app shell",
+          "description": "Confirms theme management is actually wired into the app shell (app.vue/layout or App.vue/main.ts), not merely present somewhere in the codebase.",
+          "category": "foundation",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "theme-hydration-safe",
+          "title": "Theme state is hydration-safe",
+          "description": "For Nuxt apps, confirms theme state is read in an SSR-safe way: via the color-mode module, or a manual client-side theme read guarded by an inline head script that runs before hydration.",
+          "category": "foundation",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "interaction",
+      "title": "Interaction",
+      "weight": 20,
+      "totalPoints": 23,
+      "rules": [
+        {
+          "id": "theme-hotkey-present",
+          "title": "A safe dark-mode keyboard shortcut exists",
+          "description": "A keyboard shortcut should toggle the color theme, guarded so it does not fire while the user is typing in an input, textarea, select, or contenteditable element.",
+          "category": "interaction",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 5,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "command-menu-present",
+          "title": "A complete command menu is mounted",
+          "description": "A discoverable command palette should be mounted at the app level: the shadcn command module is used and a single template renders the dialog, input, empty state, and command items together.",
+          "category": "interaction",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 5,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "command-menu-hotkey-present",
+          "title": "The command menu opens with Cmd/Ctrl+K",
+          "description": "The command palette should be reachable via the conventional Cmd/Ctrl+K shortcut that prevents the default action and toggles the menu open.",
+          "category": "interaction",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 4,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "global-hotkeys-are-safe",
+          "title": "Global keyboard shortcuts are registered safely",
+          "description": "Global keydown listeners must be cleaned up on unmount and must not hijack bare printable keys while the user is typing. VueUse listener helpers, which clean up automatically, are treated as safe.",
+          "category": "interaction",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "mobile-nav-present",
+          "title": "App navigation has a mobile affordance",
+          "description": "When an app-level navigation shell exists, mobile users need a responsive affordance: a mobile-visibility trigger opening a Sheet/Drawer/Dialog, or a responsive fixed bottom navigation.",
+          "category": "interaction",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "focus-visible-not-suppressed",
+          "title": "Focus outlines are not suppressed",
+          "description": "Removing the focus outline without a visible replacement makes keyboard navigation invisible. Every `outline-none`/`outline: none` must be paired with a focus-visible indicator.",
+          "category": "interaction",
+          "severity": "error",
+          "confidence": "medium",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "items-belong-to-groups",
+          "title": "Menu items belong to their groups",
+          "description": "Select, dropdown, and command items should be composed inside their content or group wrappers. This advisory highlights items that appear misplaced within a single template.",
+          "category": "interaction",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 0,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "destructive-actions-confirmed",
+          "title": "Destructive actions are confirmed",
+          "description": "Destructive controls should be paired with a confirmation or undo affordance so users do not lose data by accident. This advisory flags destructive controls with no correlated confirmation in the same file.",
+          "category": "interaction",
+          "severity": "warning",
+          "confidence": "low",
+          "points": 0,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "states",
+      "title": "States",
+      "weight": 20,
+      "totalPoints": 28,
+      "rules": [
+        {
+          "id": "toast-provider-present",
+          "title": "A toast provider is present",
+          "description": "A recognized toast runtime must be installed and a matching provider element (Toaster/SonnerToaster/UNotifications, or a sonner ui-dir component) must be mounted in a template.",
+          "category": "states",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "toast-provider-mounted",
+          "title": "The toast provider is mounted from the app shell",
+          "description": "A toast provider element must be rendered from an app-shell file (app.vue, App.vue, a layout, or error.vue), not merely present somewhere in the component tree.",
+          "category": "states",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "route-loading-boundary-present",
+          "title": "Route transitions expose a loading boundary",
+          "description": "Navigations should surface progress: a <NuxtLoadingIndicator> for Nuxt, or a router progress hook / top-level Suspense fallback for lazy-loaded Vue Router routes.",
+          "category": "states",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 4,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "suspense-fallback-useful",
+          "title": "Suspense boundaries provide a useful fallback",
+          "description": "Every <Suspense> element must declare a #fallback template slot containing non-empty content, so users see a real loading affordance while async setup resolves.",
+          "category": "states",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "empty-state-present",
+          "title": "Iterated collections render an empty state",
+          "description": "Templates that iterate a script-defined collection with v-for must also render an empty branch (a length-guarded v-if/v-else-if/v-else) so an empty list is not a blank screen.",
+          "category": "states",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 4,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "error-state-retry-present",
+          "title": "Error states offer a way forward",
+          "description": "An error surface that only reports failure strands the user. It needs a wired retry, reload, or navigation control.",
+          "category": "states",
+          "severity": "error",
+          "confidence": "high",
+          "points": 4,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "not-found-recovery-present",
+          "title": "Not-found pages offer recovery",
+          "description": "A not-found page should route the user back into the product through navigation, a back action, or search rather than ending the session.",
+          "category": "states",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "async-action-pending-state",
+          "title": "Async submissions show pending feedback",
+          "description": "A form that submits asynchronously without a pending state gives no feedback and allows duplicate submissions on repeated clicks.",
+          "category": "states",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 4,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accessibility",
+      "title": "Accessibility",
+      "weight": 20,
+      "totalPoints": 29,
+      "rules": [
+        {
+          "id": "html-lang-present",
+          "title": "Document declares a language",
+          "description": "The document root must declare a meaningful lang attribute so assistive technology can select the right voice and hyphenation.",
+          "category": "accessibility",
+          "severity": "error",
+          "confidence": "high",
+          "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "images-have-alt",
+          "title": "Images have alternative text",
+          "description": "Native <img> elements and Nuxt image components must declare alternative text. Bound :alt values pass; missing or empty static alt fails.",
+          "category": "accessibility",
+          "severity": "error",
+          "confidence": "high",
+          "points": 4,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "icon-buttons-have-labels",
+          "title": "Icon-only buttons have accessible names",
+          "description": "A button whose entire content is an icon has no accessible name unless one is supplied explicitly, leaving screen reader users with an unlabelled control.",
+          "category": "accessibility",
+          "severity": "error",
+          "confidence": "high",
+          "points": 4,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "links-have-accessible-names",
+          "title": "Links have accessible names",
+          "description": "A link with no text, no label, and no described image is announced as an anonymous destination and cannot be understood out of context.",
+          "category": "accessibility",
+          "severity": "error",
+          "confidence": "high",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "nav-landmarks-have-names",
+          "title": "Multiple navigation landmarks are distinguishable",
+          "description": "When an app exposes more than one navigation landmark, each needs its own name so screen reader users can tell primary navigation from secondary.",
+          "category": "accessibility",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "heading-structure-sane",
+          "title": "Heading levels form a coherent outline",
+          "description": "Screen reader users navigate by heading level. A page with no level-one heading, or one that skips levels, produces an outline that cannot be scanned reliably.",
+          "category": "accessibility",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "no-positive-tabindex",
+          "title": "No positive tabindex values",
+          "description": "A positive tabindex pulls an element out of document order and forces every other focusable element behind it, which breaks keyboard navigation across the page.",
+          "category": "accessibility",
+          "severity": "error",
+          "confidence": "high",
+          "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "iframes-have-title",
+          "title": "Embedded frames are titled",
+          "description": "An iframe without a title is announced only as \"frame\", giving no indication of what it contains before a user enters it.",
+          "category": "accessibility",
+          "severity": "error",
+          "confidence": "high",
+          "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "interactive-elements-are-semantic",
+          "title": "Click handlers live on semantic controls",
+          "description": "A clickable div is invisible to keyboard and assistive technology unless it declares a role, is focusable, and handles keyboard activation.",
+          "category": "accessibility",
+          "severity": "error",
+          "confidence": "medium",
+          "points": 4,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "no-nested-interactive-controls",
+          "title": "Interactive controls are not nested",
+          "description": "Nesting a control inside another control produces invalid markup with undefined activation behavior and ambiguous announcements in assistive technology.",
+          "category": "accessibility",
+          "severity": "error",
+          "confidence": "high",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "forms",
+      "title": "Forms and Data Entry",
+      "weight": 10,
+      "totalPoints": 20,
+      "rules": [
+        {
+          "id": "forms-have-labels",
+          "title": "Form controls have labels",
+          "description": "Every data-entry control needs a programmatic label. Placeholder text is not a label and disappears the moment a user starts typing.",
+          "category": "forms",
+          "severity": "error",
+          "confidence": "high",
+          "points": 4,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "field-errors-rendered",
+          "title": "Validation errors reach the user",
+          "description": "A validation library that never renders its messages fails silently: the form refuses to submit and the user is given no reason why.",
+          "category": "forms",
+          "severity": "error",
+          "confidence": "medium",
+          "points": 4,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "invalid-fields-associated-with-errors",
+          "title": "Invalid fields point at their error message",
+          "description": "A visible error message that is not linked to its control never reaches screen reader users, who hear only that the field is required after submission fails.",
+          "category": "forms",
+          "severity": "error",
+          "confidence": "medium",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "form-buttons-have-explicit-type",
+          "title": "Buttons inside forms declare a type",
+          "description": "A button inside a form defaults to type=\"submit\". Any secondary action without an explicit type silently submits the form when clicked.",
+          "category": "forms",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "grouped-controls-have-legend",
+          "title": "Grouped controls declare a group label",
+          "description": "Radio groups and fieldsets need a group-level name, otherwise each option is announced without the question it answers.",
+          "category": "forms",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "personal-data-autocomplete-present",
+          "title": "Personal-data fields declare autocomplete",
+          "description": "Autocomplete tokens let browsers and password managers fill known values, which removes the most error-prone typing in any form.",
+          "category": "forms",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "validation-wired-to-form",
+          "title": "Forms are wired to their validation library",
+          "description": "An installed validation library that no form is connected to provides no protection: submissions bypass the schema entirely.",
+          "category": "forms",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "production-polish",
+      "title": "Production Polish",
+      "weight": 10,
+      "totalPoints": 22,
+      "rules": [
+        {
+          "id": "no-starter-copy",
+          "title": "No scaffolded starter copy remains",
+          "description": "Detects leftover framework starter text, placeholder domains, and lorem ipsum that ships to users when a scaffold is never replaced.",
+          "category": "production-polish",
+          "severity": "warning",
+          "confidence": "high",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "metadata-title-description-complete",
+          "title": "Routable pages declare a title and description",
+          "description": "Every routable page should set its own title and description so search results and browser tabs are not inherited from a generic app-level default.",
+          "category": "production-polish",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "social-preview-present",
+          "title": "Shared links render a social preview",
+          "description": "Checks for Open Graph or Twitter card metadata so links shared in chat apps and social feeds render a title and image instead of a bare URL.",
+          "category": "production-polish",
+          "severity": "info",
+          "confidence": "high",
+          "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "public-app-seo-files-present",
+          "title": "Crawler and indexing files are published",
+          "description": "Checks that robots.txt and a sitemap are served, either as static files or through a framework module that generates them.",
+          "category": "production-polish",
+          "severity": "info",
+          "confidence": "high",
+          "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "responsive-shell-present",
+          "title": "App shell adapts across breakpoints",
+          "description": "The app shell should change layout across breakpoints instead of rendering one fixed desktop composition on every viewport.",
+          "category": "production-polish",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "mobile-overflow-absent",
+          "title": "No fixed widths overflow small viewports",
+          "description": "Fixed pixel widths wider than a small phone viewport cause horizontal scrolling. Responsive-prefixed utilities are exempt because they only apply above a breakpoint.",
+          "category": "production-polish",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "animations-respect-reduced-motion",
+          "title": "Animations respect reduced-motion preferences",
+          "description": "Continuous or large-scale animation should be guarded by a reduced-motion preference so users with vestibular sensitivity are not forced into motion.",
+          "category": "production-polish",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "pointer-target-size-passes",
+          "title": "Pointer targets meet a minimum size",
+          "description": "Interactive controls sized below the WCAG 2.2 minimum target area are hard to hit on touch devices. Only statically-sized controls are evaluated.",
+          "category": "production-polish",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "button-icons-have-data-icon",
+          "title": "Icons inside controls are marked decorative",
+          "description": "Icons rendered inside a labelled control should be hidden from assistive technology so screen readers announce the label once instead of reading icon markup.",
+          "category": "production-polish",
+          "severity": "info",
+          "confidence": "medium",
+          "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -46,10 +46,13 @@ jobs:
       - name: Test
         run: pnpm run test
 
+      - name: Build the site
+        run: pnpm --filter www run generate
+
       - name: Verify the rule catalog is current
         run: |
           pnpm run docs:rules
-          git diff --exit-code -- docs/RULES.md
+          git diff --exit-code -- docs/RULES.md apps/www/app/data/rules.json
 
       - name: Verify the scan oracle is current
         run: |

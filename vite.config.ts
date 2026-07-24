@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite-plus';
 
-const generatedFiles = ['qa/EXPECTED.md', 'docs/RULES.md'];
+const generatedFiles = ['qa/EXPECTED.md', 'docs/RULES.md', 'apps/www/app/data/rules.json'];
 
 export default defineConfig({
   lint: {

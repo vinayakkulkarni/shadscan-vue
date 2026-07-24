@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-bg: oklch(1 0 0);
+  --color-ink: oklch(0 0 0);
+  --color-accent: oklch(0.86 0.21 110);
+  --color-accent-2: oklch(0.62 0.27 25);
+  --color-rule: oklch(0 0 0);
+
+  --font-display: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-sans: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --radius-none: 0;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-radius: 0 !important;
+  }
+
+  html {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-ink);
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 3px solid var(--color-accent-2);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .rule-b {
+    border-bottom: 3px solid var(--color-rule);
+  }
+  .rule-t {
+    border-top: 3px solid var(--color-rule);
+  }
+  .rule-r {
+    border-right: 3px solid var(--color-rule);
+  }
+  .rule-l {
+    border-left: 3px solid var(--color-rule);
+  }
+  .rule-all {
+    border: 3px solid var(--color-rule);
+  }
+  .invert-hover {
+    transition: none;
+  }
+  .invert-hover:hover {
+    background: var(--color-ink);
+    color: var(--color-bg);
+  }
+}
