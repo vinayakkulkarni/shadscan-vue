@@ -1,6 +1,6 @@
 {
   "rulesetVersion": "0.1.0",
-  "ruleCount": 51,
+  "ruleCount": 52,
   "categories": [
     {
       "id": "foundation",
@@ -380,7 +380,7 @@
       "id": "accessibility",
       "title": "Accessibility",
       "weight": 20,
-      "totalPoints": 29,
+      "totalPoints": 33,
       "rules": [
         {
           "id": "html-lang-present",
@@ -432,6 +432,20 @@
           "severity": "error",
           "confidence": "high",
           "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "dialogs-have-accessible-names",
+          "title": "Dialogs have accessible names",
+          "description": "A dialog without a title is announced as an unnamed region, so a screen reader user entering it has no idea what it is for. Covers shadcn-vue dialog, alert dialog, sheet, and drawer surfaces, and the reka-ui primitives beneath them.",
+          "category": "accessibility",
+          "severity": "error",
+          "confidence": "high",
+          "points": 4,
           "adapters": [
             "nuxt",
             "vite-vue",

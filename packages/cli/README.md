@@ -41,7 +41,7 @@ Findings
 
 ## Scoring
 
-51 rules across six weighted categories:
+52 rules across six weighted categories:
 
 | Category             | Weight |
 | -------------------- | -----: |

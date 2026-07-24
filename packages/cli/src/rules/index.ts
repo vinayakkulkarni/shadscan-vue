@@ -1,4 +1,5 @@
 import type { AuditRule } from '../audit.js';
+import { dialogsHaveAccessibleNames } from './accessibility/dialogs-have-accessible-names.js';
 import { headingStructureSane } from './accessibility/heading-structure-sane.js';
 import { htmlLangPresent } from './accessibility/html-lang-present.js';
 import { iconButtonsHaveLabels } from './accessibility/icon-buttons-have-labels.js';
@@ -89,6 +90,7 @@ export const defaultRules: readonly AuditRule[] = [
   imagesHaveAlt,
   iconButtonsHaveLabels,
   linksHaveAccessibleNames,
+  dialogsHaveAccessibleNames,
   navLandmarksHaveNames,
   headingStructureSane,
   noPositiveTabindex,

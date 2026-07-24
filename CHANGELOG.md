@@ -15,7 +15,7 @@ permission.
 
 - Static audit engine for shadcn-vue and shadcn-nuxt applications, with adapter
   detection for `nuxt`, `vite-vue`, and `generic-vue` projects.
-- 51 rules across six weighted categories: Foundation, Interaction, States,
+- 52 rules across six weighted categories: Foundation, Interaction, States,
   Accessibility, Forms and Data Entry, and Production Polish.
 - Vue-native analysis built on `@vue/compiler-sfc` template ASTs and the
   TypeScript compiler API, covering explicit imports and Nuxt auto-imports.

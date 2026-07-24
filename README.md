@@ -33,7 +33,7 @@ handed to an agent.
 
 ## What it checks
 
-51 rules across six weighted categories:
+52 rules across six weighted categories:
 
 | Category             | Weight | Examples                                                            |
 | -------------------- | -----: | ------------------------------------------------------------------- |

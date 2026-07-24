@@ -2,6 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { discoverProject, runAudit, type AuditRule } from '../src/index.js';
+import { dialogsHaveAccessibleNames } from '../src/rules/accessibility/dialogs-have-accessible-names.js';
 import { headingStructureSane } from '../src/rules/accessibility/heading-structure-sane.js';
 import { iconButtonsHaveLabels } from '../src/rules/accessibility/icon-buttons-have-labels.js';
 import { iframesHaveTitle } from '../src/rules/accessibility/iframes-have-title.js';
@@ -133,5 +134,35 @@ describe('heading-structure-sane', () => {
 
   it('exempts components from the missing-h1 check', async () => {
     expect((await outcomeOf('heading-component', headingStructureSane)).status).toBe('pass');
+  });
+});
+
+describe('dialogs-have-accessible-names', () => {
+  it('fails a shadcn dialog with no title', async () => {
+    const outcome = await outcomeOf('dialog-fail', dialogsHaveAccessibleNames);
+    expect(outcome.status).toBe('fail');
+    expect(outcome.findings[0]!.evidence[0]!.path).toBe('src/App.vue');
+  });
+
+  it('passes when a title component is rendered', async () => {
+    expect((await outcomeOf('dialog-pass', dialogsHaveAccessibleNames)).status).toBe('pass');
+  });
+
+  it('audits raw reka-ui primitives', async () => {
+    expect((await outcomeOf('dialog-reka', dialogsHaveAccessibleNames)).status).toBe('fail');
+  });
+
+  it('accepts aria-label as an accessible name', async () => {
+    expect((await outcomeOf('dialog-arialabel', dialogsHaveAccessibleNames)).status).toBe('pass');
+  });
+
+  it('audits Nuxt auto-imported dialogs with no import statement', async () => {
+    expect((await outcomeOf('dialog-nuxt-fail', dialogsHaveAccessibleNames)).status).toBe('fail');
+  });
+
+  it('is not applicable without dialogs', async () => {
+    expect((await outcomeOf('dialog-na', dialogsHaveAccessibleNames)).status).toBe(
+      'not-applicable',
+    );
   });
 });

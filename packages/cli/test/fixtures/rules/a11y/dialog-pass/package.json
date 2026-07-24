@@ -1,0 +1,1 @@
+{"name":"dialog-pass","private":true,"type":"module","dependencies":{"vue":"^3.5.22","reka-ui":"^2.10.1"},"devDependencies":{"vite":"^7.1.0"}}

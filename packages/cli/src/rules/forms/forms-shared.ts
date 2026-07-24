@@ -2,6 +2,7 @@ import type { ElementNode } from '@vue/compiler-dom';
 import { NodeTypes } from '@vue/compiler-dom';
 import type { ParsedFile } from '../../parse/project-files.js';
 import { findAttribute, pascalToKebab, walkTemplate } from '../../parse/sfc.js';
+import { isGeneratedUiPrimitive } from '../generated-ui.js';
 
 export interface FormElement {
   file: ParsedFile;
@@ -93,14 +94,6 @@ export const isFormFieldWrapper = (tag: string): boolean => {
   const normalized = pascalToKebab(tag);
   return normalized === 'form-field' || normalized === 'form-item';
 };
-
-/**
- * shadcn primitives under components/ui are generated wrappers: they expose
- * props for labelling and are always consumed by application code, so auditing
- * them reports failures the user cannot act on.
- */
-export const isGeneratedUiPrimitive = (relPath: string): boolean =>
-  /(?:^|\/)components\/ui\//u.test(relPath);
 
 export const hasFormSurface = (elements: readonly FormElement[]): boolean =>
   elements.some(

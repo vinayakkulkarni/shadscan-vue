@@ -9,7 +9,7 @@ Regenerate with `pnpm qa:expected` after an intentional rule change.
 ## vite-app
 
 - adapter: `vite-vue`
-- score: **56/100** (grade F)
+- score: **55/100** (grade F)
 - files scanned: 49 (complete coverage)
 - ruleset: 0.1.0 · report schema: 1
 
@@ -18,11 +18,11 @@ Regenerate with `pnpm qa:expected` after an intentional rule change.
 | Foundation | 68 | 9 |
 | Interaction | 52 | 8 |
 | States | 100 | 8 |
-| Accessibility | 45 | 10 |
+| Accessibility | 39 | 11 |
 | Forms and Data Entry | 0 | 7 |
 | Production Polish | 33 | 9 |
 
-### Failing (19)
+### Failing (20)
 
 | Rule | Category | Evidence |
 | --- | --- | --- |
@@ -34,6 +34,7 @@ Regenerate with `pnpm qa:expected` after an intentional rule change.
 | `focus-visible-not-suppressed` | interaction | `src/views/HomeView.vue:57` |
 | `images-have-alt` | accessibility | `src/views/HomeView.vue:30` |
 | `icon-buttons-have-labels` | accessibility | `src/views/HomeView.vue:38` |
+| `dialogs-have-accessible-names` | accessibility | `src/views/HomeView.vue:67` |
 | `no-positive-tabindex` | accessibility | `src/views/HomeView.vue:54` |
 | `iframes-have-title` | accessibility | `src/views/HomeView.vue:60` |
 | `interactive-elements-are-semantic` | accessibility | `src/views/HomeView.vue:33` |
@@ -64,7 +65,7 @@ Regenerate with `pnpm qa:expected` after an intentional rule change.
 ## nuxt-app
 
 - adapter: `nuxt`
-- score: **66/100** (grade D)
+- score: **65/100** (grade D)
 - files scanned: 46 (complete coverage)
 - ruleset: 0.1.0 · report schema: 1
 
@@ -73,11 +74,11 @@ Regenerate with `pnpm qa:expected` after an intentional rule change.
 | Foundation | 84 | 9 |
 | Interaction | 52 | 8 |
 | States | 100 | 8 |
-| Accessibility | 45 | 10 |
+| Accessibility | 39 | 11 |
 | Forms and Data Entry | 18 | 7 |
 | Production Polish | 78 | 9 |
 
-### Failing (14)
+### Failing (15)
 
 | Rule | Category | Evidence |
 | --- | --- | --- |
@@ -87,6 +88,7 @@ Regenerate with `pnpm qa:expected` after an intentional rule change.
 | `focus-visible-not-suppressed` | interaction | `app/pages/index.vue:41` |
 | `images-have-alt` | accessibility | `app/pages/index.vue:23` |
 | `icon-buttons-have-labels` | accessibility | `app/pages/index.vue:31` |
+| `dialogs-have-accessible-names` | accessibility | `app/pages/index.vue:51` |
 | `no-positive-tabindex` | accessibility | `app/pages/index.vue:38` |
 | `iframes-have-title` | accessibility | `app/pages/index.vue:44` |
 | `interactive-elements-are-semantic` | accessibility | `app/pages/index.vue:26` |

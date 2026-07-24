@@ -1,6 +1,6 @@
 # Rule catalog
 
-shadscan-vue ships 51 rules across 6 categories (ruleset 0.1.0).
+shadscan-vue ships 52 rules across 6 categories (ruleset 0.1.0).
 
 Every rule is deterministic: it reports what it can prove from source. A rule
 that cannot apply to a project returns *not applicable* and leaves the score
@@ -12,7 +12,7 @@ subtracts points.
 | [Foundation](#foundation) | 20 | 9 | 27 |
 | [Interaction](#interaction) | 20 | 8 | 23 |
 | [States](#states) | 20 | 8 | 28 |
-| [Accessibility](#accessibility) | 20 | 10 | 29 |
+| [Accessibility](#accessibility) | 20 | 11 | 33 |
 | [Forms and Data Entry](#forms) | 10 | 7 | 20 |
 | [Production Polish](#production-polish) | 10 | 9 | 22 |
 
@@ -205,7 +205,7 @@ A form that submits asynchronously without a pending state gives no feedback and
 
 ## Accessibility
 
-<a id="accessibility"></a>Weight 20 of 100 · 10 rules
+<a id="accessibility"></a>Weight 20 of 100 · 11 rules
 
 ### `html-lang-present`
 
@@ -233,6 +233,13 @@ A button whose entire content is an icon has no accessible name unless one is su
 A link with no text, no label, and no described image is announced as an anonymous destination and cannot be understood out of context.
 
 - Error · high confidence · 3 points
+- Applies to: all adapters
+
+### `dialogs-have-accessible-names`
+
+A dialog without a title is announced as an unnamed region, so a screen reader user entering it has no idea what it is for. Covers shadcn-vue dialog, alert dialog, sheet, and drawer surfaces, and the reka-ui primitives beneath them.
+
+- Error · high confidence · 4 points
 - Applies to: all adapters
 
 ### `nav-landmarks-have-names`

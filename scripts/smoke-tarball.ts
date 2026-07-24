@@ -1,11 +1,17 @@
 import { execFileSync } from 'node:child_process';
-import { cpSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const cliDir = path.join(repoRoot, 'packages', 'cli');
+
+const expectedRuleCount = (
+  JSON.parse(
+    readFileSync(path.join(repoRoot, 'apps', 'www', 'app', 'data', 'rules.json'), 'utf8'),
+  ) as { ruleCount: number }
+).ruleCount;
 
 const run = (command: string, args: string[], cwd: string): string =>
   execFileSync(command, args, { cwd, encoding: 'utf8', maxBuffer: 32 * 1024 * 1024 });
@@ -108,7 +114,11 @@ try {
   };
   check('emits schema version 1', report.schemaVersion === 1);
   check('detects the vite-vue adapter', report.framework.adapter === 'vite-vue');
-  check('reports every rule', report.findings.length === 51, `${report.findings.length} findings`);
+  check(
+    'reports every rule',
+    report.findings.length === expectedRuleCount,
+    `${report.findings.length} findings, expected ${expectedRuleCount}`,
+  );
 
   const prompt = run(bin, ['target', '--prompt'], consumer);
   check(
@@ -119,7 +129,7 @@ try {
   const catalog = JSON.parse(run(bin, ['rules', '--format', 'json'], consumer)) as {
     ruleCount: number;
   };
-  check('prints the rule catalog', catalog.ruleCount === 51);
+  check('prints the rule catalog', catalog.ruleCount === expectedRuleCount);
 
   check(
     'exits non-zero below the threshold',

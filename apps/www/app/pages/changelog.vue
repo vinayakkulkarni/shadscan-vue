@@ -14,7 +14,7 @@ const releases = [
     summary: 'Initial release. A Vue and Nuxt port of shadscan, with permission.',
     added: [
       'Static audit engine with nuxt, vite-vue, and generic-vue adapters.',
-      '51 rules across six weighted categories.',
+      '52 rules across six weighted categories.',
       'Vue-native analysis over SFC template ASTs and the TypeScript compiler API.',
       'Human, JSON, and agent-prompt output formats.',
       '--fail-under gating that also fails on unassessed scores and partial coverage.',
