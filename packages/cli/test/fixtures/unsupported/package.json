@@ -1,0 +1,5 @@
+{
+  "name": "not-a-vue-app",
+  "private": true,
+  "dependencies": { "express": "^5.0.0" }
+}

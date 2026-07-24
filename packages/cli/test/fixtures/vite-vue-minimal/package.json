@@ -1,0 +1,7 @@
+{
+  "name": "vite-vue-minimal",
+  "private": true,
+  "type": "module",
+  "dependencies": { "vue": "^3.5.22" },
+  "devDependencies": { "vite": "^7.1.0", "@vitejs/plugin-vue": "^6.0.0" }
+}
