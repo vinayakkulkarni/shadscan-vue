@@ -10,6 +10,14 @@ import { shadcnConfigPresent } from './foundation/shadcn-config-present.js';
 import { themeHydrationSafe } from './foundation/theme-hydration-safe.js';
 import { themeProviderConfigured } from './foundation/theme-provider-configured.js';
 import { themeProviderMountedInShell } from './foundation/theme-provider-mounted-in-shell.js';
+import { commandMenuHotkeyPresent } from './interaction/command-menu-hotkey-present.js';
+import { commandMenuPresent } from './interaction/command-menu-present.js';
+import { destructiveActionsConfirmed } from './interaction/destructive-actions-confirmed.js';
+import { focusVisibleNotSuppressed } from './interaction/focus-visible-not-suppressed.js';
+import { globalHotkeysAreSafe } from './interaction/global-hotkeys-are-safe.js';
+import { itemsBelongToGroups } from './interaction/items-belong-to-groups.js';
+import { mobileNavPresent } from './interaction/mobile-nav-present.js';
+import { themeHotkeyPresent } from './interaction/theme-hotkey-present.js';
 
 /**
  * Canonical ordered rule registry. Order is part of the deterministic output
@@ -26,6 +34,15 @@ export const defaultRules: readonly AuditRule[] = [
   componentsAliasesResolve,
   themeProviderMountedInShell,
   themeHydrationSafe,
+  // Interaction
+  themeHotkeyPresent,
+  commandMenuPresent,
+  commandMenuHotkeyPresent,
+  globalHotkeysAreSafe,
+  mobileNavPresent,
+  focusVisibleNotSuppressed,
+  itemsBelongToGroups,
+  destructiveActionsConfirmed,
   // Accessibility
   htmlLangPresent,
   imagesHaveAlt,
