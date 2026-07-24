@@ -1,6 +1,14 @@
 import type { AuditRule } from '../audit.js';
+import { headingStructureSane } from './accessibility/heading-structure-sane.js';
 import { htmlLangPresent } from './accessibility/html-lang-present.js';
+import { iconButtonsHaveLabels } from './accessibility/icon-buttons-have-labels.js';
+import { iframesHaveTitle } from './accessibility/iframes-have-title.js';
 import { imagesHaveAlt } from './accessibility/images-have-alt.js';
+import { interactiveElementsAreSemantic } from './accessibility/interactive-elements-are-semantic.js';
+import { linksHaveAccessibleNames } from './accessibility/links-have-accessible-names.js';
+import { navLandmarksHaveNames } from './accessibility/nav-landmarks-have-names.js';
+import { noNestedInteractiveControls } from './accessibility/no-nested-interactive-controls.js';
+import { noPositiveTabindex } from './accessibility/no-positive-tabindex.js';
 import { componentsAliasesResolve } from './foundation/components-aliases-resolve.js';
 import { errorBoundaryPresent } from './foundation/error-boundary-present.js';
 import { faviconPresent } from './foundation/favicon-present.js';
@@ -55,6 +63,14 @@ export const defaultRules: readonly AuditRule[] = [
   // Accessibility
   htmlLangPresent,
   imagesHaveAlt,
+  iconButtonsHaveLabels,
+  linksHaveAccessibleNames,
+  navLandmarksHaveNames,
+  headingStructureSane,
+  noPositiveTabindex,
+  iframesHaveTitle,
+  interactiveElementsAreSemantic,
+  noNestedInteractiveControls,
   // Production polish
   noStarterCopy,
   metadataTitleDescriptionComplete,
