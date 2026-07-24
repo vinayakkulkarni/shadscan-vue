@@ -16,16 +16,16 @@ export default defineConfig({
     bracketSpacing: true,
     arrowParens: 'always',
     endOfLine: 'lf',
-    // Generated artifacts are byte-compared against a fresh run, so reformatting
-    // them would make every regeneration look like a change.
+    // Generated artifacts are byte-compared against a fresh run, and QA apps are
+    // scan targets whose evidence is reported by line number, so reformatting
+    // either would look like a change or silently invalidate qa/EXPECTED.md.
     ignorePatterns: [
       'dist',
       'node_modules',
       'coverage',
       'pnpm-lock.yaml',
       '**/test/fixtures',
-      'qa/*/src',
-      'qa/*/app',
+      'qa',
       ...generatedFiles,
     ],
   },
