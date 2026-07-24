@@ -18,6 +18,15 @@ import { globalHotkeysAreSafe } from './interaction/global-hotkeys-are-safe.js';
 import { itemsBelongToGroups } from './interaction/items-belong-to-groups.js';
 import { mobileNavPresent } from './interaction/mobile-nav-present.js';
 import { themeHotkeyPresent } from './interaction/theme-hotkey-present.js';
+import { animationsRespectReducedMotion } from './production-polish/animations-respect-reduced-motion.js';
+import { buttonIconsHaveDataIcon } from './production-polish/button-icons-have-data-icon.js';
+import { metadataTitleDescriptionComplete } from './production-polish/metadata-title-description-complete.js';
+import { mobileOverflowAbsent } from './production-polish/mobile-overflow-absent.js';
+import { noStarterCopy } from './production-polish/no-starter-copy.js';
+import { pointerTargetSizePasses } from './production-polish/pointer-target-size-passes.js';
+import { publicAppSeoFilesPresent } from './production-polish/public-app-seo-files-present.js';
+import { responsiveShellPresent } from './production-polish/responsive-shell-present.js';
+import { socialPreviewPresent } from './production-polish/social-preview-present.js';
 
 /**
  * Canonical ordered rule registry. Order is part of the deterministic output
@@ -46,4 +55,14 @@ export const defaultRules: readonly AuditRule[] = [
   // Accessibility
   htmlLangPresent,
   imagesHaveAlt,
+  // Production polish
+  noStarterCopy,
+  metadataTitleDescriptionComplete,
+  socialPreviewPresent,
+  publicAppSeoFilesPresent,
+  responsiveShellPresent,
+  mobileOverflowAbsent,
+  animationsRespectReducedMotion,
+  pointerTargetSizePasses,
+  buttonIconsHaveDataIcon,
 ];
