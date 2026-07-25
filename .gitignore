@@ -3,6 +3,11 @@ dist
 .output
 .nuxt
 .data
+
+# Fixtures mirror the real Nuxt layout, where path mappings live in generated
+# .nuxt configs, so these committed files must survive the ignores above.
+!packages/cli/test/fixtures/**/.nuxt/
+!packages/cli/test/fixtures/**/.nuxt/**
 coverage
 *.log
 .DS_Store
