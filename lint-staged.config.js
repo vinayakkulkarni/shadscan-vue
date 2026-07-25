@@ -4,6 +4,10 @@ const ignorePatterns = [
   /(?:^|\/)test\/fixtures\//,
   /(?:^|\/)qa\//,
   /(?:^|\/)docs\/RULES\.md$/,
+  /(?:^|\/)\.agents\//,
+  /(?:^|\/)\.claude\//,
+  /(?:^|\/)skills-lock\.json$/,
+  /(?:^|\/)\.release-please-manifest\.json$/,
 ];
 
 const isIgnored = (file) => ignorePatterns.some((p) => p.test(file));

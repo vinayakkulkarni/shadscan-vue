@@ -11,7 +11,7 @@ const generatedFiles = [
 export default defineConfig({
   lint: {
     plugins: ['typescript', 'import'],
-    ignorePatterns: ['dist', 'node_modules', 'coverage', 'qa', '**/test/fixtures'],
+    ignorePatterns: ['dist', 'node_modules', 'coverage', 'qa', '**/test/fixtures', '.agents'],
   },
   fmt: {
     printWidth: 100,
@@ -33,6 +33,9 @@ export default defineConfig({
       'pnpm-lock.yaml',
       '**/test/fixtures',
       'qa',
+      '.agents',
+      '.claude',
+      'skills-lock.json',
       ...generatedFiles,
     ],
   },
