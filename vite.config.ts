@@ -1,6 +1,12 @@
 import { defineConfig } from 'vite-plus';
 
-const generatedFiles = ['qa/EXPECTED.md', 'docs/RULES.md', 'apps/www/app/data/rules.json'];
+const generatedFiles = [
+  'qa/EXPECTED.md',
+  'docs/RULES.md',
+  'apps/www/app/data/rules.json',
+  'packages/cli/CHANGELOG.md',
+  '.release-please-manifest.json',
+];
 
 export default defineConfig({
   lint: {
@@ -16,9 +22,10 @@ export default defineConfig({
     bracketSpacing: true,
     arrowParens: 'always',
     endOfLine: 'lf',
-    // Generated artifacts are byte-compared against a fresh run, and QA apps are
-    // scan targets whose evidence is reported by line number, so reformatting
-    // either would look like a change or silently invalidate qa/EXPECTED.md.
+    // Generated artifacts are byte-compared against a fresh run, QA apps are
+    // scan targets whose evidence is reported by line number, and release-please
+    // rewrites its own files on every release, so reformatting any of them
+    // either looks like a change or silently invalidates qa/EXPECTED.md.
     ignorePatterns: [
       'dist',
       'node_modules',
