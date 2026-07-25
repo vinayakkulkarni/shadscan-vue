@@ -6,6 +6,8 @@ import type { ShadcnAliases } from '../../discovery.js';
 
 interface TsConfigShape {
   compilerOptions?: { paths?: Record<string, unknown> };
+  references?: { path?: string }[];
+  extends?: string | string[];
 }
 
 /** The lookup prefix an alias needs covered, e.g. `@/components` → `@/`. */
@@ -23,21 +25,55 @@ const pathKeyCovers = (pathKey: string, prefix: string): boolean => {
   return normalizedKey === prefix || prefix.startsWith(normalizedKey);
 };
 
+const readConfig = async (filePath: string): Promise<TsConfigShape | undefined> => {
+  let raw: string;
+  try {
+    raw = await fs.readFile(filePath, 'utf8');
+  } catch {
+    return undefined;
+  }
+  const errors: ParseError[] = [];
+  return parseJsonc(raw, errors, { allowTrailingComma: true }) as TsConfigShape | undefined;
+};
+
+const pathKeysOf = (config: TsConfigShape | undefined): string[] => {
+  const paths = config?.compilerOptions?.paths;
+  return paths !== undefined && typeof paths === 'object' ? Object.keys(paths) : [];
+};
+
+/**
+ * A Nuxt root tsconfig is a project-references stub: the real path mappings
+ * live in the generated .nuxt configs it points at. Follow `references` and
+ * `extends` one level so generated mappings count.
+ */
 const readPaths = async (rootDir: string): Promise<{ found: boolean; keys: string[] }> => {
   for (const file of ['tsconfig.json', 'jsconfig.json']) {
-    let raw: string;
-    try {
-      raw = await fs.readFile(path.join(rootDir, file), 'utf8');
-    } catch {
+    const config = await readConfig(path.join(rootDir, file));
+    if (config === undefined) {
       continue;
     }
-    const errors: ParseError[] = [];
-    const parsed = parseJsonc(raw, errors, { allowTrailingComma: true }) as
-      | TsConfigShape
-      | undefined;
-    const paths = parsed?.compilerOptions?.paths;
-    const keys = paths !== undefined && typeof paths === 'object' ? Object.keys(paths) : [];
-    return { found: true, keys };
+
+    const keys = new Set(pathKeysOf(config));
+    const linked = [
+      ...(Array.isArray(config.references)
+        ? config.references
+            .map((reference) => reference?.path)
+            .filter((value): value is string => typeof value === 'string')
+        : []),
+      ...(typeof config.extends === 'string' ? [config.extends] : (config.extends ?? [])),
+    ];
+
+    for (const target of linked) {
+      const resolved = path.resolve(rootDir, target);
+      const candidate = resolved.endsWith('.json')
+        ? resolved
+        : path.join(resolved, 'tsconfig.json');
+      for (const key of pathKeysOf(await readConfig(candidate))) {
+        keys.add(key);
+      }
+    }
+
+    return { found: true, keys: [...keys] };
   }
   return { found: false, keys: [] };
 };

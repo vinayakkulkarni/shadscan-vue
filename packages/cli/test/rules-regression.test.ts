@@ -2,6 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { discoverProject, runAudit, type AuditRule } from '../src/index.js';
+import { componentsAliasesResolve } from '../src/rules/foundation/components-aliases-resolve.js';
 import { formsHaveLabels } from '../src/rules/forms/forms-have-labels.js';
 import { noStarterCopy } from '../src/rules/production-polish/no-starter-copy.js';
 import { emptyStatePresent } from '../src/rules/states/empty-state-present.js';
@@ -44,5 +45,21 @@ describe('false positives found by scanning real applications', () => {
 
   it('treats SelectTrigger as the labellable control, not the Select root', async () => {
     expect((await outcomeOf('select-root', formsHaveLabels)).status).toBe('pass');
+  });
+});
+
+describe('alias resolution through project references', () => {
+  it('follows a create-vue references stub to tsconfig.app.json', async () => {
+    expect((await outcomeOf('alias-references', componentsAliasesResolve)).status).toBe('pass');
+  });
+
+  it('follows a Nuxt references stub to the generated .nuxt config', async () => {
+    expect((await outcomeOf('alias-nuxt-generated', componentsAliasesResolve)).status).toBe('pass');
+  });
+
+  it('still fails when no referenced config declares a mapping', async () => {
+    const outcome = await outcomeOf('alias-uncovered', componentsAliasesResolve);
+    expect(outcome.status).toBe('fail');
+    expect(outcome.findings[0]!.message).toContain('not covered');
   });
 });

@@ -9,26 +9,25 @@ Regenerate with `pnpm qa:expected` after an intentional rule change.
 ## vite-app
 
 - adapter: `vite-vue`
-- score: **55/100** (grade F)
+- score: **57/100** (grade F)
 - files scanned: 49 (complete coverage)
 - ruleset: 0.1.0 · report schema: 1
 
 | Category | Score | Rules |
 | --- | ---: | ---: |
-| Foundation | 68 | 9 |
+| Foundation | 76 | 9 |
 | Interaction | 52 | 8 |
 | States | 100 | 8 |
 | Accessibility | 39 | 11 |
 | Forms and Data Entry | 0 | 7 |
 | Production Polish | 33 | 9 |
 
-### Failing (20)
+### Failing (19)
 
 | Rule | Category | Evidence |
 | --- | --- | --- |
 | `not-found-route-present` | foundation | `src/router.ts` |
 | `error-boundary-present` | foundation | `src/main.ts` |
-| `components-aliases-resolve` | foundation | `tsconfig.json` |
 | `theme-hotkey-present` | interaction | — |
 | `mobile-nav-present` | interaction | `src/App.vue` |
 | `focus-visible-not-suppressed` | interaction | `src/views/HomeView.vue:57` |
@@ -54,9 +53,9 @@ Regenerate with `pnpm qa:expected` after an intentional rule change.
 | `items-belong-to-groups` | interaction | `src/components/ui/select/SelectItem.vue:17` |
 | `destructive-actions-confirmed` | interaction | `src/views/HomeView.vue:73` |
 
-### Passing (19)
+### Passing (20)
 
-`shadcn-config-present`, `theme-provider-configured`, `metadata-configured`, `favicon-present`, `theme-provider-mounted-in-shell`, `command-menu-present`, `command-menu-hotkey-present`, `global-hotkeys-are-safe`, `toast-provider-present`, `toast-provider-mounted`, `empty-state-present`, `async-action-pending-state`, `html-lang-present`, `links-have-accessible-names`, `nav-landmarks-have-names`, `heading-structure-sane`, `no-nested-interactive-controls`, `no-starter-copy`, `mobile-overflow-absent`
+`shadcn-config-present`, `theme-provider-configured`, `metadata-configured`, `favicon-present`, `components-aliases-resolve`, `theme-provider-mounted-in-shell`, `command-menu-present`, `command-menu-hotkey-present`, `global-hotkeys-are-safe`, `toast-provider-present`, `toast-provider-mounted`, `empty-state-present`, `async-action-pending-state`, `html-lang-present`, `links-have-accessible-names`, `nav-landmarks-have-names`, `heading-structure-sane`, `no-nested-interactive-controls`, `no-starter-copy`, `mobile-overflow-absent`
 
 ### Not applicable (11)
 
