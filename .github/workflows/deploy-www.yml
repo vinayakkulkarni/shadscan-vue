@@ -69,16 +69,18 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
+      # A first deploy has to wait for the custom domain to be provisioned and
+      # for DNS to propagate, which takes longer than a warm redeploy.
       - name: Verify the deployment responds
         run: |
-          for attempt in 1 2 3 4 5; do
+          for attempt in $(seq 1 20); do
             code="$(curl -s -o /dev/null -w '%{http_code}' https://shadscan-vue.geoql.in/ || true)"
             if [ "$code" = "200" ]; then
-              echo "Site responded with 200"
+              echo "Site responded with 200 on attempt $attempt"
               exit 0
             fi
             echo "Attempt $attempt: got $code, retrying in 15s"
             sleep 15
           done
-          echo "Site did not return 200 after the deploy"
+          echo "Site did not return 200 within 5 minutes of the deploy"
           exit 1
