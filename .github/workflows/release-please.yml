@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  release:
+    types: [published]
   workflow_dispatch:
 
 permissions:
@@ -31,7 +33,7 @@ jobs:
   publish:
     name: 'Publish to npm'
     needs: release-please
-    if: needs.release-please.outputs.releases_created == 'true'
+    if: needs.release-please.outputs.releases_created == 'true' || github.event_name == 'release'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment: npm
