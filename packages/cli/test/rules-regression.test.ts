@@ -63,3 +63,13 @@ describe('alias resolution through project references', () => {
     expect(outcome.findings[0]!.message).toContain('not covered');
   });
 });
+
+describe('alias resolution when generated configs are absent', () => {
+  it('reports advisory instead of failing on a fresh checkout', async () => {
+    const outcome = await outcomeOf('alias-nuxt-ungenerated', componentsAliasesResolve);
+    expect(outcome.status).toBe('advisory');
+    expect(outcome.findings[0]!.message).toContain('not been generated yet');
+    expect(outcome.impactsScore).toBe(true);
+    expect(outcome.score).toBe(componentsAliasesResolve.maxScore);
+  });
+});

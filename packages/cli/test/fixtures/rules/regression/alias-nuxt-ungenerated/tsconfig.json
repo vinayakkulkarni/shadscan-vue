@@ -1,0 +1,5 @@
+{
+  // Fresh checkout: .nuxt has not been generated yet.
+  "files": [],
+  "references": [{ "path": "./.nuxt/tsconfig.app.json" }]
+}

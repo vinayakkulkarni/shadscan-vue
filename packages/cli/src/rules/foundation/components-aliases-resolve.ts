@@ -46,7 +46,13 @@ const pathKeysOf = (config: TsConfigShape | undefined): string[] => {
  * live in the generated .nuxt configs it points at. Follow `references` and
  * `extends` one level so generated mappings count.
  */
-const readPaths = async (rootDir: string): Promise<{ found: boolean; keys: string[] }> => {
+interface ResolvedPaths {
+  found: boolean;
+  keys: string[];
+  referencedConfigsNotYetGenerated: string[];
+}
+
+const readPaths = async (rootDir: string): Promise<ResolvedPaths> => {
   for (const file of ['tsconfig.json', 'jsconfig.json']) {
     const config = await readConfig(path.join(rootDir, file));
     if (config === undefined) {
@@ -54,6 +60,7 @@ const readPaths = async (rootDir: string): Promise<{ found: boolean; keys: strin
     }
 
     const keys = new Set(pathKeysOf(config));
+    const referencedConfigsNotYetGenerated: string[] = [];
     const linked = [
       ...(Array.isArray(config.references)
         ? config.references
@@ -68,14 +75,19 @@ const readPaths = async (rootDir: string): Promise<{ found: boolean; keys: strin
       const candidate = resolved.endsWith('.json')
         ? resolved
         : path.join(resolved, 'tsconfig.json');
-      for (const key of pathKeysOf(await readConfig(candidate))) {
+      const linkedConfig = await readConfig(candidate);
+      if (linkedConfig === undefined) {
+        referencedConfigsNotYetGenerated.push(path.relative(rootDir, candidate));
+        continue;
+      }
+      for (const key of pathKeysOf(linkedConfig)) {
         keys.add(key);
       }
     }
 
-    return { found: true, keys: [...keys] };
+    return { found: true, keys: [...keys], referencedConfigsNotYetGenerated };
   }
-  return { found: false, keys: [] };
+  return { found: false, keys: [], referencedConfigsNotYetGenerated: [] };
 };
 
 const aliasValues = (aliases: ShadcnAliases): string[] =>
@@ -100,7 +112,7 @@ export const componentsAliasesResolve: AuditRule = {
       return result.notApplicable();
     }
 
-    const { found, keys } = await readPaths(discovery.rootDir);
+    const { found, keys, referencedConfigsNotYetGenerated } = await readPaths(discovery.rootDir);
     if (!found) {
       return result.fail([
         {
@@ -116,6 +128,20 @@ export const componentsAliasesResolve: AuditRule = {
     const prefixes = [...new Set(aliases.map(aliasPrefix))];
     const uncovered = prefixes.filter((prefix) => !keys.some((key) => pathKeyCovers(key, prefix)));
     if (uncovered.length > 0) {
+      if (referencedConfigsNotYetGenerated.length > 0) {
+        return result.advisory([
+          {
+            message: `Alias resolution could not be verified: ${referencedConfigsNotYetGenerated
+              .map((file) => `"${file}"`)
+              .join(
+                ', ',
+              )} ${referencedConfigsNotYetGenerated.length === 1 ? 'has' : 'have'} not been generated yet.`,
+            evidence: [{ path: 'tsconfig.json' }],
+            remediation:
+              'Run the framework prepare step (for Nuxt, `nuxt prepare`) so generated path mappings exist, then re-run the scan.',
+          },
+        ]);
+      }
       return result.fail([
         {
           message: `Shadcn alias ${uncovered.length === 1 ? 'prefix' : 'prefixes'} ${uncovered
