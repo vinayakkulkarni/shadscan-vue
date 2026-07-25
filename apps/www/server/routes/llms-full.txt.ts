@@ -24,13 +24,13 @@ interface Catalog {
   categories: CatalogCategory[];
 }
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
   const origin = siteOrigin();
   const data: Catalog = catalog;
 
-  await trackOpenPanelEvent(event, 'llms_full_txt_fetch', {
+  trackOpenPanelEvent(event, 'llms_full_txt_fetch', {
     userAgent: getHeader(event, 'user-agent') ?? 'unknown',
-  });
+  }).catch(() => {});
 
   const overview = SITE_PAGES.map(
     (page) => `## ${page.title}\n\nURL: ${origin}${page.path}\n\n${page.summary}`,
