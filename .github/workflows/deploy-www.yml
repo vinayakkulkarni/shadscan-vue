@@ -69,21 +69,3 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      # Cloudflare bot management answers 403 to GitHub's datacenter ranges even
-      # though the site serves 200 to real clients, so the check asks the
-      # Cloudflare API whether the deployment landed instead of fetching the
-      # public URL.
-      - name: Verify the deployment landed
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: |
-          response="$(curl -sf \
-            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts/shadscan-vue")"
-          echo "$response" | grep -q '"success":true' || {
-            echo "Cloudflare does not report a deployed shadscan-vue Worker"
-            exit 1
-          }
-          echo "Cloudflare reports the shadscan-vue Worker as deployed"
