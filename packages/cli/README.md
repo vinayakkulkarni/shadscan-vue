@@ -4,6 +4,8 @@
 
 Deterministic checks. Evidence. Agent-ready fixes. Static audit — no AI required.
 
+**[shadscan-vue.geoql.in](https://shadscan-vue.geoql.in)** — rule catalog, docs, and changelog.
+
 `shadscan-vue` audits **shadcn-vue** (Vue 3 + Vite) and **shadcn-nuxt** (Nuxt 4)
 applications for the fundamentals that are easy to skip and expensive to miss:
 theme wiring, command menus, route and error states, accessible controls, form
