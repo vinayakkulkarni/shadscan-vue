@@ -1,11 +1,11 @@
 <script setup lang="ts">
-useSeoMeta({
+usePageSeo({
   title: 'Credits',
   description:
     'shadscan-vue is a Vue and Nuxt port of shadscan by TheOrcDev, built with the original author permission and under the MIT license.',
   ogTitle: 'shadscan-vue — credits',
   ogDescription: 'A Vue and Nuxt port of shadscan by TheOrcDev, with permission.',
-  ogImage: '/og.svg',
+  ogSlug: 'credits',
 });
 
 const ported = [

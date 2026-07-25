@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import catalog from '~/data/rules.json';
 
-useSeoMeta({
+usePageSeo({
   title: 'Find the UI fundamentals your shadcn-vue app forgot',
   description:
     'Static auditor for shadcn-vue and shadcn-nuxt apps. 52 deterministic rules, evidence on every finding, agent-ready output. No network, no telemetry.',
   ogTitle: 'shadscan-vue — find the UI fundamentals your shadcn-vue app forgot',
   ogDescription:
     'Static auditor for shadcn-vue and shadcn-nuxt apps. 52 deterministic rules, evidence on every finding.',
-  ogImage: '/og.svg',
 });
 
 const taxonomy = [

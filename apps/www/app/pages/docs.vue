@@ -1,11 +1,11 @@
 <script setup lang="ts">
-useSeoMeta({
+usePageSeo({
   title: 'Docs',
   description:
     'Install shadscan-vue, run it locally or in CI, gate a pipeline with --fail-under, and hand findings to an agent.',
   ogTitle: 'shadscan-vue — docs',
   ogDescription: 'Install, run, gate CI, and hand findings to an agent.',
-  ogImage: '/og.svg',
+  ogSlug: 'docs',
 });
 
 const commands = [

@@ -4,14 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
+    "build": "node scripts/build-og-images.ts && nuxt build",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
+    "generate": "node scripts/build-og-images.ts && nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "nuxt typecheck",
+    "build:og": "node scripts/build-og-images.ts"
   },
   "dependencies": {
+    "@cf-wasm/og": "^0.4.1",
     "nuxt": "^4.5.0",
     "vue": "^3.5.40"
   },
@@ -19,9 +21,12 @@
     "@iconify-json/lucide": "^1.2.119",
     "@nuxt/fonts": "^0.13.0",
     "@nuxt/icon": "^2.3.1",
+    "@nuxtjs/plausible": "^3.0.2",
+    "@openpanel/nuxt": "^0.4.1",
     "@tailwindcss/vite": "^4.3.3",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3",
-    "vue-tsc": "^3.3.8"
+    "vue-tsc": "^3.3.8",
+    "wrangler": "^4.114.0"
   }
 }

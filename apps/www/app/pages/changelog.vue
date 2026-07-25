@@ -1,10 +1,10 @@
 <script setup lang="ts">
-useSeoMeta({
+usePageSeo({
   title: 'Changelog',
   description: 'Release history for shadscan-vue.',
   ogTitle: 'shadscan-vue — changelog',
   ogDescription: 'Release history for shadscan-vue.',
-  ogImage: '/og.svg',
+  ogSlug: 'changelog',
 });
 
 const releases = [

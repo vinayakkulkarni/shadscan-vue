@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import catalog from '~/data/rules.json';
 
-useSeoMeta({
+usePageSeo({
   title: 'Rule catalog',
   description: `All ${catalog.ruleCount} shadscan-vue rules across six weighted categories, with severity, confidence, and point values.`,
   ogTitle: `shadscan-vue — ${catalog.ruleCount} rules`,
   ogDescription: 'Every rule shadscan-vue runs, with severity, confidence, and points.',
-  ogImage: '/og.svg',
+  ogSlug: 'rules',
 });
 
 const active = ref<string>('all');
