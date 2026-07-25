@@ -25,5 +25,6 @@
   ],
   "plugins": [{ "type": "node-workspace" }],
   "include-component-in-tag": false,
-  "separate-pull-requests": false
+  "separate-pull-requests": false,
+  "always-update": true
 }
