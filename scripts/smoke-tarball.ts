@@ -13,6 +13,10 @@ const expectedRuleCount = (
   ) as { ruleCount: number }
 ).ruleCount;
 
+const expectedVersion = (
+  JSON.parse(readFileSync(path.join(cliDir, 'package.json'), 'utf8')) as { version: string }
+).version;
+
 const run = (command: string, args: string[], cwd: string): string =>
   execFileSync(command, args, { cwd, encoding: 'utf8', maxBuffer: 32 * 1024 * 1024 });
 
@@ -92,7 +96,7 @@ try {
   process.stdout.write('Running the installed binary\n');
 
   const version = run(bin, ['--version'], consumer);
-  check('reports its version', version.includes('0.1.0'), version.trim());
+  check('reports its version', version.includes(expectedVersion), version.trim());
 
   const human = run(bin, ['target'], consumer);
   check('renders a score banner', human.includes('Score'));

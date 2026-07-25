@@ -17,3 +17,8 @@ coverage
 tmp
 *.tsbuildinfo
 *.tgz
+
+# One-shot local bootstrap that publishes the 0.0.0 placeholder with a personal
+# npm login. It exists so npm has a package to attach a trusted publisher to;
+# every real release is cut by release-please through OIDC.
+scripts/bootstrap-npm-publish.sh

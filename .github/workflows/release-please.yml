@@ -1,28 +1,43 @@
-name: 'Publish'
+name: Release Please
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
   workflow_dispatch:
-    inputs:
-      dry-run:
-        description: 'Pack and verify without publishing'
-        type: boolean
-        default: true
 
 permissions:
   contents: read
 
 jobs:
+  release-please:
+    name: 'Prepare release'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
+    steps:
+      - name: Release Please
+        id: release
+        uses: googleapis/release-please-action@v5
+        with:
+          token: ${{ secrets.RELEASE_PAT || secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
   publish:
     name: 'Publish to npm'
+    needs: release-please
+    if: needs.release-please.outputs.releases_created == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     environment: npm
     permissions:
       contents: read
       id-token: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -51,19 +66,8 @@ jobs:
       - name: Verify the package installs and runs from a tarball
         run: node scripts/smoke-tarball.ts
 
-      - name: Verify the tag matches the package version
-        if: github.event_name == 'release'
-        run: |
-          PACKAGE_VERSION="$(node -p "require('./packages/cli/package.json').version")"
-          RELEASE_TAG="${GITHUB_REF_NAME#v}"
-          if [ "$PACKAGE_VERSION" != "$RELEASE_TAG" ]; then
-            echo "Release tag $RELEASE_TAG does not match package version $PACKAGE_VERSION"
-            exit 1
-          fi
-
-      # npm performs the OIDC token exchange for trusted publishing, so the
-      # publish runs through npm even though the workspace uses pnpm.
+      # npm CLI performs the OIDC token exchange for trusted publishing, so the
+      # publish itself runs through npm even though the workspace uses pnpm.
       - name: Publish
-        if: github.event_name == 'release' || inputs.dry-run == false
         run: npm publish --access public
         working-directory: packages/cli
