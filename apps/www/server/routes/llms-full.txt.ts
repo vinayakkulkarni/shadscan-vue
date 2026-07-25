@@ -1,4 +1,5 @@
 import catalog from '~/data/rules.json';
+import { trackOpenPanelEvent } from '~~/server/utils/openpanel';
 import { SITE_PAGES, siteOrigin } from '~~/server/utils/site-pages';
 
 interface CatalogRule {
@@ -23,9 +24,13 @@ interface Catalog {
   categories: CatalogCategory[];
 }
 
-export default defineEventHandler((event) => {
+export default defineEventHandler(async (event) => {
   const origin = siteOrigin();
   const data: Catalog = catalog;
+
+  await trackOpenPanelEvent(event, 'llms_full_txt_fetch', {
+    userAgent: getHeader(event, 'user-agent') ?? 'unknown',
+  });
 
   const overview = SITE_PAGES.map(
     (page) => `## ${page.title}\n\nURL: ${origin}${page.path}\n\n${page.summary}`,

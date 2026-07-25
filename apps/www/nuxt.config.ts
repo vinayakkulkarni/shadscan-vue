@@ -3,6 +3,8 @@ import tailwindcss from '@tailwindcss/vite';
 const siteUrl = process.env.NUXT_PUBLIC_SITE_URL ?? 'https://shadscan-vue.geoql.in';
 
 const workerRuntimeFeatures = {
+  cache: { enabled: true },
+  placement: { mode: 'smart' as const },
   observability: {
     logs: { enabled: true, invocation_logs: true },
     traces: { enabled: true },
@@ -27,23 +29,29 @@ export default defineNuxtConfig({
     '@openpanel/nuxt',
   ],
 
-  css: ['~/assets/css/main.css'],
-
-  runtimeConfig: {
-    public: {
-      siteUrl,
-    },
-  },
-
   openpanel: {
     clientId: process.env.NUXT_PUBLIC_OPENPANEL_CLIENT_ID ?? '',
     apiUrl: 'https://events.geoql.in/api',
     trackScreenViews: true,
     trackOutgoingLinks: true,
     trackAttributes: true,
-    // proxy: false — the proxy handler hardcodes api.openpanel.dev and would
-    // bypass the self-hosted apiUrl; the direct client POST is correct here.
+    // The bundled proxy handler hardcodes api.openpanel.dev and would bypass
+    // the self-hosted apiUrl.
     proxy: false,
+  },
+
+  css: ['~/assets/css/main.css'],
+
+  runtimeConfig: {
+    // Server-only: never exposed to the client bundle. Used by
+    // server/utils/openpanel.ts to authenticate server-side track calls.
+    openpanel: {
+      clientId: process.env.NUXT_PUBLIC_OPENPANEL_CLIENT_ID ?? '',
+      clientSecret: process.env.NUXT_OPENPANEL_CLIENT_SECRET ?? '',
+    },
+    public: {
+      siteUrl,
+    },
   },
 
   vite: {
@@ -76,7 +84,7 @@ export default defineNuxtConfig({
     '/**': {
       headers: {
         'Content-Security-Policy':
-          "base-uri 'none'; connect-src 'self' https://analytics.geoql.in https://events.geoql.in; font-src 'self' https: data:; form-action 'self'; frame-ancestors 'none'; img-src 'self' data: blob: https:; object-src 'none'; script-src 'self' https://analytics.geoql.in 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; worker-src 'self' blob:; upgrade-insecure-requests",
+          "base-uri 'none'; connect-src 'self' https://analytics.geoql.in https://events.geoql.in https://cloudflareinsights.com; font-src 'self' https: data:; form-action 'self'; frame-ancestors 'none'; img-src 'self' data: blob: https:; object-src 'none'; script-src 'self' https://analytics.geoql.in https://static.cloudflareinsights.com 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; worker-src 'self' blob:; upgrade-insecure-requests",
         'Permissions-Policy':
           'camera=(), display-capture=(), fullscreen=(self), geolocation=(), microphone=()',
         'Referrer-Policy': 'strict-origin-when-cross-origin',
@@ -118,7 +126,7 @@ export default defineNuxtConfig({
       deployConfig: true,
       wrangler: {
         name: 'shadscan-vue',
-        compatibility_date: '2026-07-25',
+        compatibility_date: '2026-06-16',
         compatibility_flags: ['nodejs_compat'],
         workers_dev: false,
         ...workerRuntimeFeatures,

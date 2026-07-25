@@ -59,6 +59,7 @@ jobs:
           NITRO_PRESET: cloudflare_module
           NODE_OPTIONS: --max-old-space-size=8192
           NUXT_PUBLIC_OPENPANEL_CLIENT_ID: ${{ secrets.NUXT_PUBLIC_OPENPANEL_CLIENT_ID }}
+          NUXT_OPENPANEL_CLIENT_SECRET: ${{ secrets.NUXT_OPENPANEL_CLIENT_SECRET }}
 
       # Nitro writes the merged Worker config to .output/server/wrangler.json
       # via nitro.cloudflare.deployConfig, so there is no hand-maintained

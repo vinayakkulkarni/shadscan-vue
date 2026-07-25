@@ -1,7 +1,12 @@
+import { trackOpenPanelEvent } from '~~/server/utils/openpanel';
 import { SITE_PAGES, siteOrigin } from '~~/server/utils/site-pages';
 
-export default defineEventHandler((event) => {
+export default defineEventHandler(async (event) => {
   const origin = siteOrigin();
+
+  await trackOpenPanelEvent(event, 'llms_txt_fetch', {
+    userAgent: getHeader(event, 'user-agent') ?? 'unknown',
+  });
 
   const body = [
     '# shadscan-vue',
