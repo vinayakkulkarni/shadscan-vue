@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.1.0...v0.1.1) (2026-07-25)
+
+
+### Documentation
+
+* point the package and readmes at the live site ([72c9546](https://github.com/vinayakkulkarni/shadscan-vue/commit/72c9546592d4d95474c4266b1e62f654f4f21320))
+
 ## 0.1.0 (2026-07-25)
 
 
