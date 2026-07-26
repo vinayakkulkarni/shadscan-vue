@@ -1,0 +1,1 @@
+{ "name": "magic-keys-destructured", "private": true, "dependencies": { "nuxt": "^4.0.0", "@vueuse/core": "^13.0.0" } }

@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { discoverProject, runAudit, type AuditRule } from '../src/index.js';
 import { componentsAliasesResolve } from '../src/rules/foundation/components-aliases-resolve.js';
 import { formsHaveLabels } from '../src/rules/forms/forms-have-labels.js';
+import { commandMenuHotkeyPresent } from '../src/rules/interaction/command-menu-hotkey-present.js';
 import { buttonIconsHaveDataIcon } from '../src/rules/production-polish/button-icons-have-data-icon.js';
 import { metadataTitleDescriptionComplete } from '../src/rules/production-polish/metadata-title-description-complete.js';
 import { noStarterCopy } from '../src/rules/production-polish/no-starter-copy.js';
@@ -103,5 +104,12 @@ describe('icons already hidden by the icon module', () => {
   it('still flags a raw svg inside a control', async () => {
     const outcome = await outcomeOf('raw-icon-exposed', buttonIconsHaveDataIcon);
     expect(outcome.status).toBe('fail');
+  });
+});
+
+describe('command-menu hotkey detection across VueUse idioms', () => {
+  it('accepts the destructured snake_case useMagicKeys binding', async () => {
+    const outcome = await outcomeOf('magic-keys-destructured', commandMenuHotkeyPresent);
+    expect(outcome.status).toBe('pass');
   });
 });

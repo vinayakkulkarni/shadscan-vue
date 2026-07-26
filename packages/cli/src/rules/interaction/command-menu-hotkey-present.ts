@@ -14,7 +14,12 @@ const PREVENT_DEFAULT_PATTERN = /preventDefault\s*\(/u;
 const TOGGLE_PATTERN = /\.value\s*=|=\s*!|toggle|open\s*=|\bset[A-Z]/u;
 const KEYDOWN_PATTERN = /keydown/u;
 
-const MAGIC_KEYS_CMD_K_PATTERN = /useMagicKeys[\s\S]*?(?:Meta|Cmd|Ctrl|Control)\s*\+\s*[Kk]/u;
+// useMagicKeys exposes a combination both as a string key (`keys['Meta+K']`)
+// and as a destructured snake_case ref (`const { meta_k } = useMagicKeys()`).
+// Matching only the string form misses the destructured idiom, which is the
+// one VueUse documents first.
+const MAGIC_KEYS_CMD_K_PATTERN =
+  /useMagicKeys[\s\S]*?(?:(?:Meta|Cmd|Ctrl|Control)\s*\+\s*K|\b(?:meta|cmd|ctrl|control)_k\b)/iu;
 const WATCH_PATTERN = /\bwatch\s*\(/u;
 
 const isSourceFile = (file: ParsedFile): boolean =>
