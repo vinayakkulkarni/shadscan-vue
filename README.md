@@ -35,7 +35,7 @@ handed to an agent.
 
 ## What it checks
 
-52 rules across six weighted categories:
+62 rules across six weighted categories:
 
 | Category             | Weight | Examples                                                            |
 | -------------------- | -----: | ------------------------------------------------------------------- |
@@ -75,6 +75,17 @@ shadscan-vue setup --pre-commit          # install a git pre-commit hook
 
 `--fail-under` also fails when the score is unassessed or when source coverage
 was partial, so a silently-skipped scan cannot pass a gate.
+
+### What gets scanned
+
+Application source under `app/`, `pages/`, `src/`, `components/`, `layouts/`,
+`composables/`, `plugins/`, `middleware/`, `utils/`, `server/`, and `lib/`.
+
+Illustrative code is skipped, because a deliberately minimal example documents
+an API rather than shipping a surface: `demo/`, `demos/`, `example/`,
+`examples/`, `__registry__/`, and underscore-prefixed directories, alongside
+tests, fixtures, stories, and generated files. Matching is on directory names,
+so a component named `DemoBanner.vue` is still audited.
 
 ## GitHub Action
 

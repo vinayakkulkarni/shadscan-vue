@@ -3,11 +3,9 @@ import catalog from '~/data/rules.json';
 
 usePageSeo({
   title: 'Find the UI fundamentals your shadcn-vue app forgot',
-  description:
-    'Static auditor for shadcn-vue and shadcn-nuxt apps. 52 deterministic rules, evidence on every finding, agent-ready output. No network, no telemetry.',
+  description: `Static auditor for shadcn-vue and shadcn-nuxt apps. ${catalog.ruleCount} deterministic rules, evidence on every finding, agent-ready output. No network, no telemetry.`,
   ogTitle: 'shadscan-vue — find the UI fundamentals your shadcn-vue app forgot',
-  ogDescription:
-    'Static auditor for shadcn-vue and shadcn-nuxt apps. 52 deterministic rules, evidence on every finding.',
+  ogDescription: `Static auditor for shadcn-vue and shadcn-nuxt apps. ${catalog.ruleCount} deterministic rules, evidence on every finding.`,
 });
 
 const taxonomy = [

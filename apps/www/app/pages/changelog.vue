@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import changelog from '~/data/changelog.json';
+
 usePageSeo({
   title: 'Changelog',
   description: 'Release history for shadscan-vue.',
@@ -7,25 +9,7 @@ usePageSeo({
   ogSlug: 'changelog',
 });
 
-const releases = [
-  {
-    version: '0.1.0',
-    date: '2026-07-25',
-    summary: 'Initial release. A Vue and Nuxt port of shadscan, with permission.',
-    added: [
-      'Static audit engine with nuxt, vite-vue, and generic-vue adapters.',
-      '52 rules across six weighted categories.',
-      'Vue-native analysis over SFC template ASTs and the TypeScript compiler API.',
-      'Human, JSON, and agent-prompt output formats.',
-      '--fail-under gating that also fails on unassessed scores and partial coverage.',
-      'shadscan-vue rules and shadscan-vue setup --pre-commit.',
-    ],
-    security: [
-      'Read-only by design: no app start, no writes, no model calls, no uploads.',
-      'Source collection rejects symlinks and enforces file and byte budgets.',
-    ],
-  },
-];
+const releases = changelog.releases;
 </script>
 
 <template>
@@ -49,19 +33,15 @@ const releases = [
         </div>
 
         <div class="px-5 py-8 md:px-8">
-          <p class="max-w-3xl text-lg font-bold leading-tight md:text-2xl">
-            {{ release.summary }}
-          </p>
-
-          <h2 class="mt-8 text-xs font-bold tracking-[0.25em]">ADDED</h2>
-          <ul class="mt-4 space-y-2 text-sm leading-relaxed">
-            <li v-for="item in release.added" :key="item" class="rule-l pl-4">{{ item }}</li>
-          </ul>
-
-          <h2 class="mt-8 text-xs font-bold tracking-[0.25em]">SECURITY</h2>
-          <ul class="mt-4 space-y-2 text-sm leading-relaxed">
-            <li v-for="item in release.security" :key="item" class="rule-l pl-4">{{ item }}</li>
-          </ul>
+          <div v-for="group in release.groups" :key="group.heading" class="mt-8 first:mt-0">
+            <h2 class="text-xs font-bold uppercase tracking-[0.25em]">{{ group.heading }}</h2>
+            <ul class="mt-4 space-y-2 text-sm leading-relaxed">
+              <li v-for="item in group.items" :key="item.summary" class="rule-l pl-4">
+                <span v-if="item.scope" class="font-bold">{{ item.scope }}:</span>
+                {{ item.summary }}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>

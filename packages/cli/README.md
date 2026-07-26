@@ -43,7 +43,7 @@ Findings
 
 ## Scoring
 
-52 rules across six weighted categories:
+62 rules across six weighted categories:
 
 | Category             | Weight |
 | -------------------- | -----: |
@@ -83,6 +83,12 @@ Exit codes are `0` (completed) and `1` (threshold not met, or an error).
 
 `--fail-under` also fails when the score is unassessed or when source coverage
 was partial, so a silently-skipped scan cannot pass a gate.
+
+Illustrative code is skipped, because a deliberately minimal example documents
+an API rather than shipping a surface: `demo/`, `demos/`, `example/`,
+`examples/`, `__registry__/`, and underscore-prefixed directories, alongside
+tests, fixtures, stories, and generated files. Matching is on directory names,
+so a component named `DemoBanner.vue` is still audited.
 
 There is also a composite action, which writes the score and every failing
 rule to the job summary:

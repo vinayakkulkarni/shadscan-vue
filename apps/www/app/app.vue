@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import changelog from '~/data/changelog.json';
+import catalog from '~/data/rules.json';
+
 const { public: config } = useRuntimeConfig();
 const siteUrl = config.siteUrl.replace(/\/$/, '');
+const latestVersion = changelog.releases[0]?.version ?? catalog.rulesetVersion;
 
 useSeoMeta({
   titleTemplate: (title) => (title ? `${title} — shadscan-vue` : 'shadscan-vue'),
@@ -22,11 +26,10 @@ useHead({
             name: 'shadscan-vue',
             applicationCategory: 'DeveloperApplication',
             operatingSystem: 'Node.js 24 or newer',
-            description:
-              'Static auditor for shadcn-vue and shadcn-nuxt applications. 52 deterministic rules with file and line evidence on every finding.',
+            description: `Static auditor for shadcn-vue and shadcn-nuxt applications. ${catalog.ruleCount} deterministic rules with file and line evidence on every finding.`,
             url: siteUrl,
             downloadUrl: 'https://www.npmjs.com/package/shadscan-vue',
-            softwareVersion: '0.1.0',
+            softwareVersion: latestVersion,
             license: 'https://opensource.org/licenses/MIT',
             isAccessibleForFree: true,
             offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },

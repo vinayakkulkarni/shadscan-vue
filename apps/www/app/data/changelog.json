@@ -1,0 +1,191 @@
+{
+  "releases": [
+    {
+      "version": "0.3.0",
+      "date": "2026-07-26",
+      "groups": [
+        {
+          "heading": "Features",
+          "items": [
+            {
+              "scope": "scan",
+              "summary": "skip illustrative directories"
+            }
+          ]
+        },
+        {
+          "heading": "Documentation",
+          "items": [
+            {
+              "scope": "",
+              "summary": "reference the action by its moving major tag"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.2.1",
+      "date": "2026-07-26",
+      "groups": [
+        {
+          "heading": "Bug Fixes",
+          "items": [
+            {
+              "scope": "rules",
+              "summary": "treat slot-projected content as an accessible name"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.2.0",
+      "date": "2026-07-26",
+      "groups": [
+        {
+          "heading": "Features",
+          "items": [
+            {
+              "scope": "rules",
+              "summary": "port the ten upstream checks that translate to Vue"
+            }
+          ]
+        },
+        {
+          "heading": "Bug Fixes",
+          "items": [
+            {
+              "scope": "rules",
+              "summary": "follow a project SEO composable to its head call"
+            },
+            {
+              "scope": "rules",
+              "summary": "skip redirect-only pages in the metadata check"
+            }
+          ]
+        },
+        {
+          "heading": "Documentation",
+          "items": [
+            {
+              "scope": "cli",
+              "summary": "mention the GitHub Action on the npm readme"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.1.2",
+      "date": "2026-07-26",
+      "groups": [
+        {
+          "heading": "Bug Fixes",
+          "items": [
+            {
+              "scope": "rules",
+              "summary": "detect the destructured useMagicKeys hotkey binding"
+            },
+            {
+              "scope": "rules",
+              "summary": "exempt icon-module icons and clarify the command-menu message"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.1.1",
+      "date": "2026-07-25",
+      "groups": [
+        {
+          "heading": "Documentation",
+          "items": [
+            {
+              "scope": "",
+              "summary": "point the package and readmes at the live site"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.1.0",
+      "date": "2026-07-25",
+      "groups": [
+        {
+          "heading": "Features",
+          "items": [
+            {
+              "scope": "cli",
+              "summary": "add rule catalog, setup hook, and roast copy"
+            },
+            {
+              "scope": "cli",
+              "summary": "engine core with discovery, parsing, audit runtime"
+            },
+            {
+              "scope": "rules",
+              "summary": "8 accessibility rules with fixture-based TDD suite"
+            },
+            {
+              "scope": "rules",
+              "summary": "8 foundation rules with fixture-based TDD suite"
+            },
+            {
+              "scope": "rules",
+              "summary": "8 interaction rules with fixture-based TDD suite"
+            },
+            {
+              "scope": "rules",
+              "summary": "9 production-polish rules with fixture-based TDD suite"
+            },
+            {
+              "scope": "rules",
+              "summary": "audit dialog accessible names across reka-ui primitives"
+            },
+            {
+              "scope": "rules",
+              "summary": "complete forms category with 7 rules and TDD suite"
+            },
+            {
+              "scope": "rules",
+              "summary": "complete states category with 8 rules and TDD suite"
+            }
+          ]
+        },
+        {
+          "heading": "Bug Fixes",
+          "items": [
+            {
+              "scope": "cli",
+              "summary": "honour roast defaults and ship the package readme"
+            },
+            {
+              "scope": "rules",
+              "summary": "do not fail alias resolution before configs are generated"
+            },
+            {
+              "scope": "rules",
+              "summary": "resolve shadcn aliases through project references"
+            },
+            {
+              "scope": "test",
+              "summary": "commit the generated Nuxt config used by alias fixtures"
+            }
+          ]
+        },
+        {
+          "heading": "Miscellaneous",
+          "items": [
+            {
+              "scope": "",
+              "summary": "scaffold shadscan-vue monorepo"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
