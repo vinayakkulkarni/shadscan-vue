@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.2.0](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.1.2...v0.2.0) (2026-07-26)
+
+
+### Features
+
+* **rules:** port the ten upstream checks that translate to Vue ([02eb641](https://github.com/vinayakkulkarni/shadscan-vue/commit/02eb6414d07e28f2e09dd92f3ce481a3effe6e90))
+
+
+### Bug Fixes
+
+* **rules:** follow a project SEO composable to its head call ([0a9433b](https://github.com/vinayakkulkarni/shadscan-vue/commit/0a9433b7313515277f0799ab8a064cd75dd62e3d))
+* **rules:** skip redirect-only pages in the metadata check ([77d1c66](https://github.com/vinayakkulkarni/shadscan-vue/commit/77d1c66fdcbd0e4945abda10e8f65e3a58a0a3fb))
+
+
+### Documentation
+
+* **cli:** mention the GitHub Action on the npm readme ([7a4ecfc](https://github.com/vinayakkulkarni/shadscan-vue/commit/7a4ecfc674bb1e741d4c6b63e68d0da23c64d2cb))
+
 ## [0.1.2](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.1.1...v0.1.2) (2026-07-26)
 
 
