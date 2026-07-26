@@ -1,6 +1,6 @@
 {
   "rulesetVersion": "0.1.0",
-  "ruleCount": 52,
+  "ruleCount": 62,
   "categories": [
     {
       "id": "foundation",
@@ -140,7 +140,7 @@
       "id": "interaction",
       "title": "Interaction",
       "weight": 20,
-      "totalPoints": 23,
+      "totalPoints": 26,
       "rules": [
         {
           "id": "theme-hotkey-present",
@@ -253,6 +253,20 @@
             "vite-vue",
             "generic-vue"
           ]
+        },
+        {
+          "id": "typing-target-guard",
+          "title": "Global shortcuts ignore keystrokes aimed at a field",
+          "description": "A global single-key shortcut should not fire while the user is typing. Handlers bound to the document need a check that the event target is not an input, textarea, select, or contenteditable element.",
+          "category": "interaction",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
         }
       ]
     },
@@ -260,7 +274,7 @@
       "id": "states",
       "title": "States",
       "weight": 20,
-      "totalPoints": 28,
+      "totalPoints": 31,
       "rules": [
         {
           "id": "toast-provider-present",
@@ -282,6 +296,20 @@
           "description": "A toast provider element must be rendered from an app-shell file (app.vue, App.vue, a layout, or error.vue), not merely present somewhere in the component tree.",
           "category": "states",
           "severity": "warning",
+          "confidence": "high",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "toast-runtime",
+          "title": "Toast calls have a runtime behind them",
+          "description": "Code that calls toast() needs a toast library installed, otherwise the call resolves to nothing at runtime and the notification silently never appears.",
+          "category": "states",
+          "severity": "error",
           "confidence": "high",
           "points": 3,
           "adapters": [
@@ -380,7 +408,7 @@
       "id": "accessibility",
       "title": "Accessibility",
       "weight": 20,
-      "totalPoints": 33,
+      "totalPoints": 40,
       "rules": [
         {
           "id": "html-lang-present",
@@ -535,6 +563,62 @@
             "vite-vue",
             "generic-vue"
           ]
+        },
+        {
+          "id": "custom-controls-have-labels",
+          "title": "Custom controls have accessible labels",
+          "description": "Controls such as Checkbox, Switch, Slider, and SelectTrigger render no text of their own, so each needs a label, an aria-label, or an aria-labelledby reference.",
+          "category": "accessibility",
+          "severity": "error",
+          "confidence": "medium",
+          "points": 4,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "status-messages-announced",
+          "title": "Status messages are announced",
+          "description": "Dynamic status messages should reach assistive technology through a live region or an accessible toast channel, otherwise a sighted user sees the update and a screen reader user does not.",
+          "category": "accessibility",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 3,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "dialog-focus-trap-works",
+          "title": "Dialogs trap and restore focus",
+          "description": "Looks for a focus-managed primitive behind dialog-like surfaces. Focus containment and restoration cannot be proven statically, so this reports what backs the dialog rather than scoring it.",
+          "category": "accessibility",
+          "severity": "warning",
+          "confidence": "low",
+          "points": 0,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "keyboard-navigation-works",
+          "title": "Composite widgets support keyboard navigation",
+          "description": "Looks for a keyboard-aware primitive behind composite widgets such as menus, tabs, and listboxes. Arrow-key, Home/End, and focus behaviour cannot be proven statically, so this reports what backs the widget rather than scoring it.",
+          "category": "accessibility",
+          "severity": "warning",
+          "confidence": "low",
+          "points": 0,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
         }
       ]
     },
@@ -636,6 +720,20 @@
           "severity": "warning",
           "confidence": "medium",
           "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "input-group-composition",
+          "title": "InputGroup uses its own parts",
+          "description": "An InputGroup wired with a raw input or textarea loses the padding, focus ring, and addon alignment its own parts provide, so the group renders correctly only by accident.",
+          "category": "forms",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 0,
           "adapters": [
             "nuxt",
             "vite-vue",
@@ -770,6 +868,48 @@
           "severity": "info",
           "confidence": "medium",
           "points": 2,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "alert-anatomy",
+          "title": "Alert matches its anatomy",
+          "description": "An Alert should carry an AlertTitle and at most one icon. A title-less alert announces as an unlabelled region, and a second icon competes with the first for meaning.",
+          "category": "production-polish",
+          "severity": "warning",
+          "confidence": "medium",
+          "points": 0,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "responsive-visibility",
+          "title": "Responsive show and hide pairs cover every viewport",
+          "description": "A surface that hides an element at a breakpoint should present the alternative at the complementary range, otherwise one viewport shows nothing where content is expected.",
+          "category": "production-polish",
+          "severity": "warning",
+          "confidence": "low",
+          "points": 0,
+          "adapters": [
+            "nuxt",
+            "vite-vue",
+            "generic-vue"
+          ]
+        },
+        {
+          "id": "color-contrast-passes",
+          "title": "Rendered colour contrast meets accessibility thresholds",
+          "description": "Marks styled colour pairs for browser verification. Computed contrast depends on cascade, theme, and opacity, none of which can be resolved from source, so this reports where to look rather than scoring it.",
+          "category": "production-polish",
+          "severity": "warning",
+          "confidence": "low",
+          "points": 0,
           "adapters": [
             "nuxt",
             "vite-vue",

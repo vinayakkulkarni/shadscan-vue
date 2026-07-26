@@ -9,18 +9,18 @@ Regenerate with `pnpm qa:expected` after an intentional rule change.
 ## vite-app
 
 - adapter: `vite-vue`
-- score: **57/100** (grade F)
+- score: **59/100** (grade F)
 - files scanned: 49 (complete coverage)
 - ruleset: 0.1.0 · report schema: 1
 
 | Category | Score | Rules |
 | --- | ---: | ---: |
 | Foundation | 76 | 9 |
-| Interaction | 52 | 8 |
-| States | 100 | 8 |
-| Accessibility | 39 | 11 |
-| Forms and Data Entry | 0 | 7 |
-| Production Polish | 33 | 9 |
+| Interaction | 58 | 9 |
+| States | 100 | 9 |
+| Accessibility | 46 | 15 |
+| Forms and Data Entry | 0 | 8 |
+| Production Polish | 33 | 12 |
 
 ### Failing (19)
 
@@ -46,36 +46,37 @@ Regenerate with `pnpm qa:expected` after an intentional rule change.
 | `responsive-shell-present` | production-polish | `src/App.vue` |
 | `button-icons-have-data-icon` | production-polish | `src/views/HomeView.vue:39` |
 
-### Advisory (2)
+### Advisory (3)
 
 | Rule | Category | Evidence |
 | --- | --- | --- |
 | `items-belong-to-groups` | interaction | `src/components/ui/select/SelectItem.vue:17` |
 | `destructive-actions-confirmed` | interaction | `src/views/HomeView.vue:73` |
+| `color-contrast-passes` | production-polish | `index.html:12` |
 
-### Passing (20)
+### Passing (25)
 
-`shadcn-config-present`, `theme-provider-configured`, `metadata-configured`, `favicon-present`, `components-aliases-resolve`, `theme-provider-mounted-in-shell`, `command-menu-present`, `command-menu-hotkey-present`, `global-hotkeys-are-safe`, `toast-provider-present`, `toast-provider-mounted`, `empty-state-present`, `async-action-pending-state`, `html-lang-present`, `links-have-accessible-names`, `nav-landmarks-have-names`, `heading-structure-sane`, `no-nested-interactive-controls`, `no-starter-copy`, `mobile-overflow-absent`
+`shadcn-config-present`, `theme-provider-configured`, `metadata-configured`, `favicon-present`, `components-aliases-resolve`, `theme-provider-mounted-in-shell`, `command-menu-present`, `command-menu-hotkey-present`, `global-hotkeys-are-safe`, `typing-target-guard`, `toast-provider-present`, `toast-provider-mounted`, `toast-runtime`, `empty-state-present`, `async-action-pending-state`, `html-lang-present`, `links-have-accessible-names`, `nav-landmarks-have-names`, `heading-structure-sane`, `no-nested-interactive-controls`, `custom-controls-have-labels`, `dialog-focus-trap-works`, `keyboard-navigation-works`, `no-starter-copy`, `mobile-overflow-absent`
 
-### Not applicable (11)
+### Not applicable (15)
 
-`theme-hydration-safe`, `route-loading-boundary-present`, `suspense-fallback-useful`, `error-state-retry-present`, `not-found-recovery-present`, `field-errors-rendered`, `invalid-fields-associated-with-errors`, `grouped-controls-have-legend`, `validation-wired-to-form`, `animations-respect-reduced-motion`, `pointer-target-size-passes`
+`theme-hydration-safe`, `route-loading-boundary-present`, `suspense-fallback-useful`, `error-state-retry-present`, `not-found-recovery-present`, `status-messages-announced`, `field-errors-rendered`, `invalid-fields-associated-with-errors`, `grouped-controls-have-legend`, `validation-wired-to-form`, `input-group-composition`, `animations-respect-reduced-motion`, `pointer-target-size-passes`, `alert-anatomy`, `responsive-visibility`
 
 ## nuxt-app
 
 - adapter: `nuxt`
-- score: **65/100** (grade D)
+- score: **66/100** (grade D)
 - files scanned: 46 (complete coverage)
 - ruleset: 0.1.0 · report schema: 1
 
 | Category | Score | Rules |
 | --- | ---: | ---: |
 | Foundation | 84 | 9 |
-| Interaction | 52 | 8 |
-| States | 100 | 8 |
-| Accessibility | 39 | 11 |
-| Forms and Data Entry | 18 | 7 |
-| Production Polish | 78 | 9 |
+| Interaction | 58 | 9 |
+| States | 100 | 9 |
+| Accessibility | 39 | 15 |
+| Forms and Data Entry | 18 | 8 |
+| Production Polish | 78 | 12 |
 
 ### Failing (15)
 
@@ -97,17 +98,19 @@ Regenerate with `pnpm qa:expected` after an intentional rule change.
 | `public-app-seo-files-present` | production-polish | `public/sitemap.xml` |
 | `button-icons-have-data-icon` | production-polish | `app/pages/index.vue:32` |
 
-### Advisory (2)
+### Advisory (4)
 
 | Rule | Category | Evidence |
 | --- | --- | --- |
 | `items-belong-to-groups` | interaction | `app/components/ui/select/SelectItem.vue:17` |
 | `destructive-actions-confirmed` | interaction | `app/pages/index.vue:57` |
+| `responsive-visibility` | production-polish | `app/layouts/default.vue:24` |
+| `color-contrast-passes` | production-polish | `app/error.vue:14` |
 
-### Passing (28)
+### Passing (31)
 
-`theme-provider-configured`, `metadata-configured`, `favicon-present`, `not-found-route-present`, `error-boundary-present`, `theme-provider-mounted-in-shell`, `theme-hydration-safe`, `command-menu-present`, `command-menu-hotkey-present`, `global-hotkeys-are-safe`, `toast-provider-present`, `toast-provider-mounted`, `route-loading-boundary-present`, `empty-state-present`, `error-state-retry-present`, `not-found-recovery-present`, `async-action-pending-state`, `html-lang-present`, `links-have-accessible-names`, `nav-landmarks-have-names`, `heading-structure-sane`, `no-nested-interactive-controls`, `grouped-controls-have-legend`, `no-starter-copy`, `metadata-title-description-complete`, `social-preview-present`, `responsive-shell-present`, `mobile-overflow-absent`
+`theme-provider-configured`, `metadata-configured`, `favicon-present`, `not-found-route-present`, `error-boundary-present`, `theme-provider-mounted-in-shell`, `theme-hydration-safe`, `command-menu-present`, `command-menu-hotkey-present`, `global-hotkeys-are-safe`, `typing-target-guard`, `toast-provider-present`, `toast-provider-mounted`, `toast-runtime`, `route-loading-boundary-present`, `empty-state-present`, `error-state-retry-present`, `not-found-recovery-present`, `async-action-pending-state`, `html-lang-present`, `links-have-accessible-names`, `nav-landmarks-have-names`, `heading-structure-sane`, `no-nested-interactive-controls`, `dialog-focus-trap-works`, `grouped-controls-have-legend`, `no-starter-copy`, `metadata-title-description-complete`, `social-preview-present`, `responsive-shell-present`, `mobile-overflow-absent`
 
-### Not applicable (7)
+### Not applicable (12)
 
-`components-aliases-resolve`, `suspense-fallback-useful`, `field-errors-rendered`, `invalid-fields-associated-with-errors`, `validation-wired-to-form`, `animations-respect-reduced-motion`, `pointer-target-size-passes`
+`components-aliases-resolve`, `suspense-fallback-useful`, `custom-controls-have-labels`, `status-messages-announced`, `keyboard-navigation-works`, `field-errors-rendered`, `invalid-fields-associated-with-errors`, `validation-wired-to-form`, `input-group-composition`, `animations-respect-reduced-motion`, `pointer-target-size-passes`, `alert-anatomy`

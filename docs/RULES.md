@@ -1,6 +1,6 @@
 # Rule catalog
 
-shadscan-vue ships 52 rules across 6 categories (ruleset 0.1.0).
+shadscan-vue ships 62 rules across 6 categories (ruleset 0.1.0).
 
 Every rule is deterministic: it reports what it can prove from source. A rule
 that cannot apply to a project returns *not applicable* and leaves the score
@@ -10,11 +10,11 @@ subtracts points.
 | Category | Weight | Rules | Points |
 | --- | ---: | ---: | ---: |
 | [Foundation](#foundation) | 20 | 9 | 27 |
-| [Interaction](#interaction) | 20 | 8 | 23 |
-| [States](#states) | 20 | 8 | 28 |
-| [Accessibility](#accessibility) | 20 | 11 | 33 |
-| [Forms and Data Entry](#forms) | 10 | 7 | 20 |
-| [Production Polish](#production-polish) | 10 | 9 | 22 |
+| [Interaction](#interaction) | 20 | 9 | 26 |
+| [States](#states) | 20 | 9 | 31 |
+| [Accessibility](#accessibility) | 20 | 15 | 40 |
+| [Forms and Data Entry](#forms) | 10 | 8 | 20 |
+| [Production Polish](#production-polish) | 10 | 12 | 22 |
 
 ## Foundation
 
@@ -85,7 +85,7 @@ For Nuxt apps, confirms theme state is read in an SSR-safe way: via the color-mo
 
 ## Interaction
 
-<a id="interaction"></a>Weight 20 of 100 · 8 rules
+<a id="interaction"></a>Weight 20 of 100 · 9 rules
 
 ### `theme-hotkey-present`
 
@@ -143,9 +143,16 @@ Destructive controls should be paired with a confirmation or undo affordance so 
 - Warning · low confidence · 0 points
 - Applies to: all adapters
 
+### `typing-target-guard`
+
+A global single-key shortcut should not fire while the user is typing. Handlers bound to the document need a check that the event target is not an input, textarea, select, or contenteditable element.
+
+- Warning · medium confidence · 3 points
+- Applies to: all adapters
+
 ## States
 
-<a id="states"></a>Weight 20 of 100 · 8 rules
+<a id="states"></a>Weight 20 of 100 · 9 rules
 
 ### `toast-provider-present`
 
@@ -159,6 +166,13 @@ A recognized toast runtime must be installed and a matching provider element (To
 A toast provider element must be rendered from an app-shell file (app.vue, App.vue, a layout, or error.vue), not merely present somewhere in the component tree.
 
 - Warning · high confidence · 3 points
+- Applies to: all adapters
+
+### `toast-runtime`
+
+Code that calls toast() needs a toast library installed, otherwise the call resolves to nothing at runtime and the notification silently never appears.
+
+- Error · high confidence · 3 points
 - Applies to: all adapters
 
 ### `route-loading-boundary-present`
@@ -205,7 +219,7 @@ A form that submits asynchronously without a pending state gives no feedback and
 
 ## Accessibility
 
-<a id="accessibility"></a>Weight 20 of 100 · 11 rules
+<a id="accessibility"></a>Weight 20 of 100 · 15 rules
 
 ### `html-lang-present`
 
@@ -284,9 +298,37 @@ Nesting a control inside another control produces invalid markup with undefined 
 - Error · high confidence · 3 points
 - Applies to: all adapters
 
+### `custom-controls-have-labels`
+
+Controls such as Checkbox, Switch, Slider, and SelectTrigger render no text of their own, so each needs a label, an aria-label, or an aria-labelledby reference.
+
+- Error · medium confidence · 4 points
+- Applies to: all adapters
+
+### `status-messages-announced`
+
+Dynamic status messages should reach assistive technology through a live region or an accessible toast channel, otherwise a sighted user sees the update and a screen reader user does not.
+
+- Warning · medium confidence · 3 points
+- Applies to: all adapters
+
+### `dialog-focus-trap-works`
+
+Looks for a focus-managed primitive behind dialog-like surfaces. Focus containment and restoration cannot be proven statically, so this reports what backs the dialog rather than scoring it.
+
+- Warning · low confidence · 0 points
+- Applies to: all adapters
+
+### `keyboard-navigation-works`
+
+Looks for a keyboard-aware primitive behind composite widgets such as menus, tabs, and listboxes. Arrow-key, Home/End, and focus behaviour cannot be proven statically, so this reports what backs the widget rather than scoring it.
+
+- Warning · low confidence · 0 points
+- Applies to: all adapters
+
 ## Forms and Data Entry
 
-<a id="forms"></a>Weight 10 of 100 · 7 rules
+<a id="forms"></a>Weight 10 of 100 · 8 rules
 
 ### `forms-have-labels`
 
@@ -337,9 +379,16 @@ An installed validation library that no form is connected to provides no protect
 - Warning · medium confidence · 2 points
 - Applies to: all adapters
 
+### `input-group-composition`
+
+An InputGroup wired with a raw input or textarea loses the padding, focus ring, and addon alignment its own parts provide, so the group renders correctly only by accident.
+
+- Warning · medium confidence · 0 points
+- Applies to: all adapters
+
 ## Production Polish
 
-<a id="production-polish"></a>Weight 10 of 100 · 9 rules
+<a id="production-polish"></a>Weight 10 of 100 · 12 rules
 
 ### `no-starter-copy`
 
@@ -402,5 +451,26 @@ Interactive controls sized below the WCAG 2.2 minimum target area are hard to hi
 Icons rendered inside a labelled control should be hidden from assistive technology so screen readers announce the label once instead of reading icon markup.
 
 - Info · medium confidence · 2 points
+- Applies to: all adapters
+
+### `alert-anatomy`
+
+An Alert should carry an AlertTitle and at most one icon. A title-less alert announces as an unlabelled region, and a second icon competes with the first for meaning.
+
+- Warning · medium confidence · 0 points
+- Applies to: all adapters
+
+### `responsive-visibility`
+
+A surface that hides an element at a breakpoint should present the alternative at the complementary range, otherwise one viewport shows nothing where content is expected.
+
+- Warning · low confidence · 0 points
+- Applies to: all adapters
+
+### `color-contrast-passes`
+
+Marks styled colour pairs for browser verification. Computed contrast depends on cascade, theme, and opacity, none of which can be resolved from source, so this reports where to look rather than scoring it.
+
+- Warning · low confidence · 0 points
 - Applies to: all adapters
 

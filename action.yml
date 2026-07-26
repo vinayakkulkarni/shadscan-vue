@@ -1,0 +1,134 @@
+name: 'shadscan-vue — shadcn-vue / shadcn-nuxt UI Audit'
+description: 'Deterministic UI audits for shadcn-vue and shadcn-nuxt apps. Scores theming, interaction, states, accessibility, forms, and production polish, publishes the result to the job summary, and can gate the job below a score floor.'
+author: 'vinayakkulkarni'
+
+branding:
+  icon: 'search'
+  color: 'yellow'
+
+inputs:
+  path:
+    description: 'Project directory to scan, relative to the workspace.'
+    required: false
+    default: '.'
+  version:
+    description: 'shadscan-vue version or dist-tag to run. Pin an exact version for reproducible CI.'
+    required: false
+    default: 'latest'
+  fail-under:
+    description: 'Minimum passing score (0-100). The job fails when the score is below this value. 0 disables the gate.'
+    required: false
+    default: '0'
+  category:
+    description: 'Run a single category: foundation | interaction | states | accessibility | forms | prod-polish. Empty runs every category.'
+    required: false
+    default: ''
+  summary:
+    description: "Publish the score and findings to the job summary. Set to 'false' to disable."
+    required: false
+    default: 'true'
+
+outputs:
+  score:
+    description: 'The integer score (0-100) reported by shadscan-vue.'
+    value: ${{ steps.scan.outputs.score }}
+  grade:
+    description: 'The letter grade (A-F) reported by shadscan-vue.'
+    value: ${{ steps.scan.outputs.grade }}
+  findings-count:
+    description: 'The number of failing rules.'
+    value: ${{ steps.scan.outputs.findings-count }}
+
+runs:
+  using: composite
+  steps:
+    - name: Validate category input
+      shell: bash
+      env:
+        INPUT_CATEGORY: ${{ inputs.category }}
+      run: |
+        case "$INPUT_CATEGORY" in
+          ''|foundation|interaction|states|accessibility|forms|prod-polish) ;;
+          *)
+            echo "::error::Invalid category '$INPUT_CATEGORY'. Expected one of: foundation, interaction, states, accessibility, forms, prod-polish."
+            exit 2
+            ;;
+        esac
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: '24'
+
+    - name: Run shadscan-vue
+      id: scan
+      shell: bash
+      working-directory: ${{ inputs.path }}
+      env:
+        INPUT_VERSION: ${{ inputs.version }}
+        INPUT_FAIL_UNDER: ${{ inputs.fail-under }}
+        INPUT_CATEGORY: ${{ inputs.category }}
+      run: |
+        args=()
+        if [ -n "$INPUT_CATEGORY" ]; then
+          args+=(--category "$INPUT_CATEGORY")
+        fi
+
+        # Scan once to JSON for the outputs and summary, then re-apply the gate
+        # separately. `set +e` captures the gate exit code instead of letting
+        # `set -e` abort the step before the summary is written.
+        npx --yes "shadscan-vue@${INPUT_VERSION}" . "${args[@]}" --json > shadscan-report.json
+
+        score=$(jq -r '.score' shadscan-report.json)
+        grade=$(jq -r '.grade' shadscan-report.json)
+        findings=$(jq -r '[.findings[] | select(.status == "fail")] | length' shadscan-report.json)
+
+        {
+          echo "score=$score"
+          echo "grade=$grade"
+          echo "findings-count=$findings"
+        } >> "$GITHUB_OUTPUT"
+
+        gate=0
+        if [ "$INPUT_FAIL_UNDER" -gt 0 ] && [ "$score" -lt "$INPUT_FAIL_UNDER" ]; then
+          gate=1
+        fi
+        echo "gate-code=$gate" >> "$GITHUB_OUTPUT"
+
+    - name: Publish job summary
+      if: ${{ inputs.summary == 'true' }}
+      shell: bash
+      working-directory: ${{ inputs.path }}
+      run: |
+        {
+          echo "## shadscan-vue"
+          echo
+          echo "**${{ steps.scan.outputs.score }}/100 · grade ${{ steps.scan.outputs.grade }}**"
+          echo
+          echo "| Category | Score | Rules |"
+          echo "| --- | --- | --- |"
+          jq -r '.categories[] | "| \(.title) | \(if .score == null then "n/a" else .score end) | \(.ruleCount) |"' shadscan-report.json
+          echo
+          failing=$(jq -r '[.findings[] | select(.status == "fail")] | length' shadscan-report.json)
+          if [ "$failing" -gt 0 ]; then
+            echo "### Failing rules"
+            echo
+            jq -r '.findings[] | select(.status == "fail") | "- `\(.id)` — \(.message // .title)"' shadscan-report.json
+          else
+            echo "No failing rules."
+          fi
+        } >> "$GITHUB_STEP_SUMMARY"
+
+    # Gate LAST so the summary is always published, even on a failing score.
+    - name: Enforce gate
+      if: always()
+      shell: bash
+      env:
+        GATE_CODE: ${{ steps.scan.outputs.gate-code }}
+        SCORE: ${{ steps.scan.outputs.score }}
+        FAIL_UNDER: ${{ inputs.fail-under }}
+      run: |
+        if [ -n "$GATE_CODE" ] && [ "$GATE_CODE" -ne 0 ]; then
+          echo "::error::shadscan-vue gate failed: score $SCORE is below the floor of $FAIL_UNDER."
+          exit 1
+        fi

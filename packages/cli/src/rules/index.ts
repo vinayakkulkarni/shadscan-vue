@@ -1,5 +1,9 @@
 import type { AuditRule } from '../audit.js';
+import { customControlsHaveLabels } from './accessibility/custom-controls-have-labels.js';
+import { dialogFocusTrapWorks } from './accessibility/dialog-focus-trap-works.js';
 import { dialogsHaveAccessibleNames } from './accessibility/dialogs-have-accessible-names.js';
+import { keyboardNavigationWorks } from './accessibility/keyboard-navigation-works.js';
+import { statusMessagesAnnounced } from './accessibility/status-messages-announced.js';
 import { headingStructureSane } from './accessibility/heading-structure-sane.js';
 import { htmlLangPresent } from './accessibility/html-lang-present.js';
 import { iconButtonsHaveLabels } from './accessibility/icon-buttons-have-labels.js';
@@ -27,10 +31,12 @@ import { globalHotkeysAreSafe } from './interaction/global-hotkeys-are-safe.js';
 import { itemsBelongToGroups } from './interaction/items-belong-to-groups.js';
 import { mobileNavPresent } from './interaction/mobile-nav-present.js';
 import { themeHotkeyPresent } from './interaction/theme-hotkey-present.js';
+import { typingTargetGuard } from './interaction/typing-target-guard.js';
 import { fieldErrorsRendered } from './forms/field-errors-rendered.js';
 import { formButtonsHaveExplicitType } from './forms/form-buttons-have-explicit-type.js';
 import { formsHaveLabels } from './forms/forms-have-labels.js';
 import { groupedControlsHaveLegend } from './forms/grouped-controls-have-legend.js';
+import { inputGroupComposition } from './forms/input-group-composition.js';
 import { invalidFieldsAssociatedWithErrors } from './forms/invalid-fields-associated-with-errors.js';
 import { personalDataAutocompletePresent } from './forms/personal-data-autocomplete-present.js';
 import { validationWiredToForm } from './forms/validation-wired-to-form.js';
@@ -42,14 +48,18 @@ import { routeLoadingBoundaryPresent } from './states/route-loading-boundary-pre
 import { suspenseFallbackUseful } from './states/suspense-fallback-useful.js';
 import { toastProviderMounted } from './states/toast-provider-mounted.js';
 import { toastProviderPresent } from './states/toast-provider-present.js';
+import { toastRuntime } from './states/toast-runtime.js';
+import { alertAnatomy } from './production-polish/alert-anatomy.js';
 import { animationsRespectReducedMotion } from './production-polish/animations-respect-reduced-motion.js';
 import { buttonIconsHaveDataIcon } from './production-polish/button-icons-have-data-icon.js';
+import { colorContrastPasses } from './production-polish/color-contrast-passes.js';
 import { metadataTitleDescriptionComplete } from './production-polish/metadata-title-description-complete.js';
 import { mobileOverflowAbsent } from './production-polish/mobile-overflow-absent.js';
 import { noStarterCopy } from './production-polish/no-starter-copy.js';
 import { pointerTargetSizePasses } from './production-polish/pointer-target-size-passes.js';
 import { publicAppSeoFilesPresent } from './production-polish/public-app-seo-files-present.js';
 import { responsiveShellPresent } from './production-polish/responsive-shell-present.js';
+import { responsiveVisibility } from './production-polish/responsive-visibility.js';
 import { socialPreviewPresent } from './production-polish/social-preview-present.js';
 
 /**
@@ -76,9 +86,11 @@ export const defaultRules: readonly AuditRule[] = [
   focusVisibleNotSuppressed,
   itemsBelongToGroups,
   destructiveActionsConfirmed,
+  typingTargetGuard,
   // States
   toastProviderPresent,
   toastProviderMounted,
+  toastRuntime,
   routeLoadingBoundaryPresent,
   suspenseFallbackUseful,
   emptyStatePresent,
@@ -97,6 +109,10 @@ export const defaultRules: readonly AuditRule[] = [
   iframesHaveTitle,
   interactiveElementsAreSemantic,
   noNestedInteractiveControls,
+  customControlsHaveLabels,
+  statusMessagesAnnounced,
+  dialogFocusTrapWorks,
+  keyboardNavigationWorks,
   // Forms and data entry
   formsHaveLabels,
   fieldErrorsRendered,
@@ -105,6 +121,7 @@ export const defaultRules: readonly AuditRule[] = [
   groupedControlsHaveLegend,
   personalDataAutocompletePresent,
   validationWiredToForm,
+  inputGroupComposition,
   // Production polish
   noStarterCopy,
   metadataTitleDescriptionComplete,
@@ -115,4 +132,7 @@ export const defaultRules: readonly AuditRule[] = [
   animationsRespectReducedMotion,
   pointerTargetSizePasses,
   buttonIconsHaveDataIcon,
+  alertAnatomy,
+  responsiveVisibility,
+  colorContrastPasses,
 ];
