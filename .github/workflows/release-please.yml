@@ -73,3 +73,32 @@ jobs:
       - name: Publish
         run: npm publish --access public
         working-directory: packages/cli
+
+  major-tag:
+    name: 'Move the major version tag'
+    needs: [release-please, publish]
+    if: needs.release-please.outputs.releases_created == 'true' || github.event_name == 'release'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # Consumers write `uses: vinayakkulkarni/shadscan-vue@v0`, so the major
+      # tag has to follow each release. GitHub resolves an action ref as a
+      # literal branch or tag, which is why `@latest` cannot work here.
+      - name: Point the major tag at this release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version="$(node -p "require('./packages/cli/package.json').version")"
+          major="v${version%%.*}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git tag -fa "$major" -m "Release $major -> v$version"
+          git push --force origin "refs/tags/$major"
+          echo "moved $major to v$version"
