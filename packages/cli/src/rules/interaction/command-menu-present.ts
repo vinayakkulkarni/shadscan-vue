@@ -75,10 +75,11 @@ export const commandMenuPresent: AuditRule = {
 
     return result.fail([
       {
-        message: 'No complete mounted app-level command menu was found.',
+        message:
+          'The command module is installed but no template assembles it into a command menu.',
         evidence: [],
         remediation:
-          'Ensure a single template renders CommandDialog, CommandInput, CommandEmpty, and at least one CommandItem together.',
+          'Ensure a single template renders CommandDialog, CommandInput, CommandEmpty, and at least one CommandItem together. A hand-rolled palette misses the keyboard and labelling behaviour these parts provide.',
       },
     ]);
   },

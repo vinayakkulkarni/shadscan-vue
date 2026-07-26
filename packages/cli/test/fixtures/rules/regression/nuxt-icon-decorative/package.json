@@ -1,0 +1,1 @@
+{ "name": "nuxt-icon-decorative", "private": true, "dependencies": { "nuxt": "^4.0.0", "@nuxt/icon": "^2.3.1" } }

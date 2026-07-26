@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { discoverProject, runAudit, type AuditRule } from '../src/index.js';
 import { componentsAliasesResolve } from '../src/rules/foundation/components-aliases-resolve.js';
 import { formsHaveLabels } from '../src/rules/forms/forms-have-labels.js';
+import { buttonIconsHaveDataIcon } from '../src/rules/production-polish/button-icons-have-data-icon.js';
 import { metadataTitleDescriptionComplete } from '../src/rules/production-polish/metadata-title-description-complete.js';
 import { noStarterCopy } from '../src/rules/production-polish/no-starter-copy.js';
 import { emptyStatePresent } from '../src/rules/states/empty-state-present.js';
@@ -90,5 +91,17 @@ describe('false positives found by dogfooding on production applications', () =>
     const outcome = await outcomeOf('definepagemeta-only', metadataTitleDescriptionComplete);
     expect(outcome.status).toBe('fail');
     expect(outcome.findings[0]!.message).toContain('does not declare its own metadata');
+  });
+});
+
+describe('icons already hidden by the icon module', () => {
+  it('does not flag a @nuxt/icon component inside a control', async () => {
+    const outcome = await outcomeOf('nuxt-icon-decorative', buttonIconsHaveDataIcon);
+    expect(outcome.status).toBe('not-applicable');
+  });
+
+  it('still flags a raw svg inside a control', async () => {
+    const outcome = await outcomeOf('raw-icon-exposed', buttonIconsHaveDataIcon);
+    expect(outcome.status).toBe('fail');
   });
 });

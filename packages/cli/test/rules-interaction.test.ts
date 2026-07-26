@@ -72,7 +72,9 @@ describe('command-menu-present', () => {
   it('fails when parts are missing', async () => {
     const outcome = await outcomeOf('command-menu-partial-fail', 'command-menu-present');
     expect(outcome.status).toBe('fail');
-    expect(outcome.findings[0]!.message).toContain('No complete mounted app-level command menu');
+    expect(outcome.findings[0]!.message).toContain(
+      'command module is installed but no template assembles it',
+    );
   });
 
   it('fails when no command module is used', async () => {

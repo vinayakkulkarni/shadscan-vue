@@ -11,6 +11,15 @@ const isIconTag = (tag: string): boolean => {
 
 const BUTTON_TAGS = new Set(['button', 'Button', 'a', 'NuxtLink', 'RouterLink', 'router-link']);
 
+/**
+ * @nuxt/icon applies `{ "aria-hidden": true }` to every icon it renders (its
+ * documented `attrs` default), so its `<Icon>` and `<NuxtIcon>` components are
+ * already decorative without the author writing the attribute. Auditing them
+ * reports a failure that cannot be acted on.
+ */
+const NUXT_ICON_MODULE = '@nuxt/icon';
+const NUXT_ICON_TAGS = new Set(['icon', 'nuxt-icon']);
+
 export const buttonIconsHaveDataIcon: AuditRule = {
   id: 'button-icons-have-data-icon',
   title: 'Icons inside controls are marked decorative',
@@ -21,13 +30,17 @@ export const buttonIconsHaveDataIcon: AuditRule = {
   confidence: 'medium',
   maxScore: 2,
   adapters: ['nuxt', 'vite-vue', 'generic-vue'],
-  run: async ({ sources, result }) => {
+  run: async ({ sources, discovery, result }) => {
     const files = await sources();
     const findings: Finding[] = [];
     let evaluated = 0;
+    const iconModuleHidesIcons = discovery.dependencies[NUXT_ICON_MODULE] !== undefined;
 
     forEachElement(files, (element, file, ancestors) => {
       if (!isIconTag(element.tag)) {
+        return;
+      }
+      if (iconModuleHidesIcons && NUXT_ICON_TAGS.has(pascalToKebab(element.tag))) {
         return;
       }
       const insideControl = ancestors.some((ancestor) => BUTTON_TAGS.has(ancestor.tag));
