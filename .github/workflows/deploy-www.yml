@@ -53,6 +53,12 @@ jobs:
       - name: Build the rule catalog
         run: pnpm run docs:rules
 
+      # release-please writes CHANGELOG.md on its own branch, so regenerating
+      # here keeps the deployed page current without a drift gate that would
+      # fail every release pull request.
+      - name: Build the changelog data
+        run: pnpm run docs:changelog
+
       - name: Build the site
         run: pnpm --filter www run build
         env:
