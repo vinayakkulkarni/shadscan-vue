@@ -4,7 +4,11 @@ import { isPageFile } from './polish-shared.js';
 
 const TITLE_PATTERN = /\b(?:title|titleTemplate)\s*:/u;
 const DESCRIPTION_PATTERN = /\bdescription\s*:/u;
-const HEAD_CALL_PATTERN = /\b(?:useSeoMeta|useHead|definePageMeta)\s*\(/u;
+// definePageMeta is deliberately excluded: it configures routing (layout,
+// middleware, validate) and does not emit a title or description, so counting
+// it as a metadata call reports "missing title and description" on pages that
+// never declared metadata at all.
+const HEAD_CALL_PATTERN = /\b(?:useSeoMeta|useHead)\s*\(/u;
 
 export const metadataTitleDescriptionComplete: AuditRule = {
   id: 'metadata-title-description-complete',

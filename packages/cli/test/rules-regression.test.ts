@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { discoverProject, runAudit, type AuditRule } from '../src/index.js';
 import { componentsAliasesResolve } from '../src/rules/foundation/components-aliases-resolve.js';
 import { formsHaveLabels } from '../src/rules/forms/forms-have-labels.js';
+import { metadataTitleDescriptionComplete } from '../src/rules/production-polish/metadata-title-description-complete.js';
 import { noStarterCopy } from '../src/rules/production-polish/no-starter-copy.js';
 import { emptyStatePresent } from '../src/rules/states/empty-state-present.js';
 
@@ -71,5 +72,23 @@ describe('alias resolution when generated configs are absent', () => {
     expect(outcome.findings[0]!.message).toContain('not been generated yet');
     expect(outcome.impactsScore).toBe(true);
     expect(outcome.score).toBe(componentsAliasesResolve.maxScore);
+  });
+});
+
+describe('false positives found by dogfooding on production applications', () => {
+  it('does not demand an empty state for a collection declared as a non-empty literal', async () => {
+    const outcome = await outcomeOf('static-literal-collection', emptyStatePresent);
+    expect(outcome.status).toBe('pass');
+  });
+
+  it('still demands an empty state for a collection populated at runtime', async () => {
+    const outcome = await outcomeOf('dynamic-collection', emptyStatePresent);
+    expect(outcome.status).toBe('fail');
+  });
+
+  it('does not treat definePageMeta as a metadata declaration', async () => {
+    const outcome = await outcomeOf('definepagemeta-only', metadataTitleDescriptionComplete);
+    expect(outcome.status).toBe('fail');
+    expect(outcome.findings[0]!.message).toContain('does not declare its own metadata');
   });
 });

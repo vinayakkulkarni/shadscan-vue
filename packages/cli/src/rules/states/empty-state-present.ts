@@ -21,11 +21,26 @@ const baseIdentifier = (collection: string): string | undefined => {
 };
 
 /** True when the file's script region references the identifier. */
+const scriptSource = (file: ParsedFile): string =>
+  file.sfc?.descriptor.scriptSetup?.content ?? file.sfc?.descriptor.script?.content ?? '';
+
 const scriptDefines = (file: ParsedFile, identifier: string): boolean => {
-  const script =
-    file.sfc?.descriptor.scriptSetup?.content ?? file.sfc?.descriptor.script?.content ?? '';
   const pattern = new RegExp(`\\b${identifier}\\b`, 'u');
-  return pattern.test(script);
+  return pattern.test(scriptSource(file));
+};
+
+/**
+ * A collection assigned a non-empty array literal at declaration cannot be
+ * empty at runtime, so demanding an empty state for it reports a failure the
+ * author cannot act on. Matches `const tabs = [` and typed forms such as
+ * `const tabs: Tab[] = [`, then confirms the literal has at least one entry.
+ */
+const isStaticNonEmptyLiteral = (file: ParsedFile, identifier: string): boolean => {
+  const declaration = new RegExp(
+    `\\b(?:const|let|var)\\s+${identifier}\\b[^=]*=\\s*\\[\\s*([^\\]])`,
+    'su',
+  ).exec(scriptSource(file));
+  return declaration !== null && declaration[1] !== undefined;
 };
 
 /** True when the file contains an empty-branch guard for the collection. */
@@ -96,7 +111,7 @@ export const emptyStatePresent: AuditRule = {
       if (identifier === undefined) {
         continue;
       }
-      if (!scriptDefines(file, identifier)) {
+      if (!scriptDefines(file, identifier) || isStaticNonEmptyLiteral(file, identifier)) {
         continue;
       }
       if (hasEmptyBranch(file.text, collection, identifier)) {
