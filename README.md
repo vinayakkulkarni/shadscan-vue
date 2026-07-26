@@ -73,14 +73,43 @@ shadscan-vue rules                       # print the rule catalog
 shadscan-vue setup --pre-commit          # install a git pre-commit hook
 ```
 
-In CI:
+`--fail-under` also fails when the score is unassessed or when source coverage
+was partial, so a silently-skipped scan cannot pass a gate.
+
+## GitHub Action
+
+This repository ships a composite action. It scans the project, writes the
+score and every failing rule to the job summary, and optionally gates the job.
+
+```yaml
+- uses: vinayakkulkarni/shadscan-vue@v0.2.0
+  with:
+    fail-under: 70
+```
+
+| Input        | Default  | Purpose                                                                                   |
+| ------------ | -------- | ----------------------------------------------------------------------------------------- |
+| `path`       | `.`      | Project directory to scan, relative to the workspace                                      |
+| `version`    | `latest` | Version or dist-tag to run — pin an exact version for reproducible CI                     |
+| `fail-under` | `0`      | Fail the job below this score; `0` disables the gate                                      |
+| `category`   | —        | Run one of `foundation`, `interaction`, `states`, `accessibility`, `forms`, `prod-polish` |
+| `summary`    | `true`   | Publish the score, category table, and failing rules to the job summary                   |
+
+It exposes `score`, `grade`, and `findings-count` as outputs:
+
+```yaml
+- uses: vinayakkulkarni/shadscan-vue@v0.2.0
+  id: audit
+- run: echo "scored ${{ steps.audit.outputs.score }} (${{ steps.audit.outputs.grade }})"
+```
+
+The gate runs last, so the summary is published even when the score fails it.
+
+If you would rather not use the action, the CLI works directly:
 
 ```yaml
 - run: npx shadscan-vue --fail-under 70 --no-interactive
 ```
-
-`--fail-under` also fails when the score is unassessed or when source coverage
-was partial, so a silently-skipped scan cannot pass a gate.
 
 ## Repository layout
 
