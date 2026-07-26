@@ -15,6 +15,13 @@ const COMPOSABLE_PATH = /(?:^|\/)composables\//u;
 const EXPORTED_COMPOSABLE = /export\s+(?:const|function|async\s+function)\s+(use[A-Z]\w*)/gu;
 
 /**
+ * A page that redirects during setup never renders, so a crawler follows the
+ * redirect and reads the destination's metadata instead. Demanding a title and
+ * description for it reports a failure with nothing to fix.
+ */
+const REDIRECT_ONLY = /await\s+navigateTo\s*\(|definePageMeta\s*\(\s*\{[^}]*\bredirect\s*:/su;
+
+/**
  * Extracting the head call into a `usePageSeo`-style composable is the
  * documented Nuxt pattern, so a page that calls one of those wrappers has
  * declared its metadata just as surely as one calling useSeoMeta inline.
@@ -57,6 +64,9 @@ export const metadataTitleDescriptionComplete: AuditRule = {
 
     const findings: Finding[] = [];
     for (const page of pages) {
+      if (REDIRECT_ONLY.test(page.text)) {
+        continue;
+      }
       const declaresHead =
         HEAD_CALL_PATTERN.test(page.text) || wrapperCall?.test(page.text) === true;
       if (!declaresHead) {
