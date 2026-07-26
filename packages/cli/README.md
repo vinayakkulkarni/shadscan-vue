@@ -84,6 +84,19 @@ Exit codes are `0` (completed) and `1` (threshold not met, or an error).
 `--fail-under` also fails when the score is unassessed or when source coverage
 was partial, so a silently-skipped scan cannot pass a gate.
 
+There is also a composite action, which writes the score and every failing
+rule to the job summary:
+
+```yaml
+- uses: vinayakkulkarni/shadscan-vue@v0.2.0
+  with:
+    fail-under: 70
+```
+
+It takes `path`, `version`, `fail-under`, `category`, and `summary`, and
+exposes `score`, `grade`, and `findings-count` as outputs. See the
+[repository readme](https://github.com/vinayakkulkarni/shadscan-vue#github-action).
+
 ### Agent handoff
 
 `--prompt` emits a remediation brief with the machine-readable report embedded
