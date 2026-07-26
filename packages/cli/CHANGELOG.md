@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.2.1...v0.3.0) (2026-07-26)
+
+
+### Features
+
+* **scan:** skip illustrative directories ([50fec75](https://github.com/vinayakkulkarni/shadscan-vue/commit/50fec753c75378e5dede5ce65bf69e09aed41c39))
+
+
+### Documentation
+
+* reference the action by its moving major tag ([0ee2d7d](https://github.com/vinayakkulkarni/shadscan-vue/commit/0ee2d7d0d503cb3d68312f5172a53da00bbf19c6))
+
 ## [0.2.1](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.2.0...v0.2.1) (2026-07-26)
 
 
