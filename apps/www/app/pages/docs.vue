@@ -82,6 +82,16 @@ const commands = [
           Exit codes are 0 when the scan completes within the threshold and 1 otherwise. The
           threshold also fails on an unassessed score or partial source coverage.
         </p>
+        <div class="rule-all bg-ink text-bg mt-6 overflow-x-auto">
+          <pre class="px-5 py-5 text-xs leading-relaxed md:text-sm">
+- uses: vinayakkulkarni/shadscan-vue@v0.2.0
+  with:
+    fail-under: 70</pre>
+        </div>
+        <p class="mt-6 text-sm leading-relaxed">
+          The action writes the score, the category table, and every failing rule to the job
+          summary, then applies the gate last so the summary survives a failing score.
+        </p>
       </div>
 
       <div class="min-w-0 px-5 py-10 md:px-8 md:py-14">
