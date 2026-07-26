@@ -1,4 +1,5 @@
 import type { AuditRule } from '../../audit.js';
+import type { ParsedFile } from '../../parse/project-files.js';
 import type { Finding } from '../rule-result.js';
 import { isPageFile } from './polish-shared.js';
 
@@ -9,6 +10,29 @@ const DESCRIPTION_PATTERN = /\bdescription\s*:/u;
 // it as a metadata call reports "missing title and description" on pages that
 // never declared metadata at all.
 const HEAD_CALL_PATTERN = /\b(?:useSeoMeta|useHead)\s*\(/u;
+
+const COMPOSABLE_PATH = /(?:^|\/)composables\//u;
+const EXPORTED_COMPOSABLE = /export\s+(?:const|function|async\s+function)\s+(use[A-Z]\w*)/gu;
+
+/**
+ * Extracting the head call into a `usePageSeo`-style composable is the
+ * documented Nuxt pattern, so a page that calls one of those wrappers has
+ * declared its metadata just as surely as one calling useSeoMeta inline.
+ * Collect every project composable that reaches a head call, then treat a call
+ * to it as a metadata declaration.
+ */
+const seoComposableNames = (files: readonly ParsedFile[]): Set<string> => {
+  const names = new Set<string>();
+  for (const file of files) {
+    if (!COMPOSABLE_PATH.test(file.relPath) || !HEAD_CALL_PATTERN.test(file.text)) {
+      continue;
+    }
+    for (const match of file.text.matchAll(EXPORTED_COMPOSABLE)) {
+      names.add(match[1]!);
+    }
+  }
+  return names;
+};
 
 export const metadataTitleDescriptionComplete: AuditRule = {
   id: 'metadata-title-description-complete',
@@ -27,9 +51,14 @@ export const metadataTitleDescriptionComplete: AuditRule = {
       return result.notApplicable();
     }
 
+    const wrappers = seoComposableNames(files);
+    const wrapperCall =
+      wrappers.size > 0 ? new RegExp(`\\b(?:${[...wrappers].join('|')})\\s*\\(`, 'u') : undefined;
+
     const findings: Finding[] = [];
     for (const page of pages) {
-      const declaresHead = HEAD_CALL_PATTERN.test(page.text);
+      const declaresHead =
+        HEAD_CALL_PATTERN.test(page.text) || wrapperCall?.test(page.text) === true;
       if (!declaresHead) {
         findings.push({
           message: 'Page does not declare its own metadata.',

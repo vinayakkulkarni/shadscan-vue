@@ -113,3 +113,10 @@ describe('command-menu hotkey detection across VueUse idioms', () => {
     expect(outcome.status).toBe('pass');
   });
 });
+
+describe('metadata declared through a project SEO composable', () => {
+  it('accepts a page whose metadata comes from a usePageSeo wrapper', async () => {
+    const outcome = await outcomeOf('seo-composable-wrapper', metadataTitleDescriptionComplete);
+    expect(outcome.status).toBe('pass');
+  });
+});
