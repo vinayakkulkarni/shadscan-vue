@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.2.0...v0.2.1) (2026-07-26)
+
+
+### Bug Fixes
+
+* **rules:** treat slot-projected content as an accessible name ([4dc2cc0](https://github.com/vinayakkulkarni/shadscan-vue/commit/4dc2cc0413b28f76783c85035f4ca83b46feaa39))
+
 ## [0.2.0](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.1.2...v0.2.0) (2026-07-26)
 
 
