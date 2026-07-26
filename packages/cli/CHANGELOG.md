@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.1.1...v0.1.2) (2026-07-26)
+
+
+### Bug Fixes
+
+* **rules:** detect the destructured useMagicKeys hotkey binding ([175fd5e](https://github.com/vinayakkulkarni/shadscan-vue/commit/175fd5e89549e2c91677b6a48974bc20c8b168d5))
+* **rules:** exempt icon-module icons and clarify the command-menu message ([904f76d](https://github.com/vinayakkulkarni/shadscan-vue/commit/904f76d3dfd7cc270cec65d6945c9a82cccb3455))
+
 ## [0.1.1](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.1.0...v0.1.1) (2026-07-25)
 
 
