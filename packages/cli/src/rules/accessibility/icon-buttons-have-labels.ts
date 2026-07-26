@@ -8,6 +8,7 @@ import {
   hasAriaName,
   hasScreenReaderText,
   isIconTag,
+  projectsSlotContent,
   visibleText,
 } from './a11y-shared.js';
 
@@ -39,7 +40,7 @@ export const iconButtonsHaveLabels: AuditRule = {
       if (visibleText(element).length > 0) {
         return;
       }
-      if (hasAriaName(element) || hasScreenReaderText(element)) {
+      if (hasAriaName(element) || hasScreenReaderText(element) || projectsSlotContent(element)) {
         return;
       }
       findings.push({

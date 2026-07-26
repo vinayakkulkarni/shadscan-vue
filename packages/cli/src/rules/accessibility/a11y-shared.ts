@@ -1,5 +1,5 @@
 import type { ElementNode, TemplateChildNode } from '@vue/compiler-dom';
-import { NodeTypes } from '@vue/compiler-dom';
+import { ElementTypes, NodeTypes } from '@vue/compiler-dom';
 import type { ParsedFile } from '../../parse/project-files.js';
 import { findAttribute, pascalToKebab, walkTemplate } from '../../parse/sfc.js';
 
@@ -58,6 +58,26 @@ const collectText = (children: readonly TemplateChildNode[]): string => {
 };
 
 export const visibleText = (element: ElementNode): string => collectText(element.children).trim();
+
+/**
+ * True when the element projects caller-supplied content through a `<slot>`.
+ * The name then lives at the call site, so the component itself cannot be
+ * judged nameless — `<a><slot /></a>` is a wrapper, not an anonymous link.
+ */
+export const projectsSlotContent = (element: ElementNode): boolean => {
+  for (const child of element.children) {
+    if (child.type !== NodeTypes.ELEMENT) {
+      continue;
+    }
+    if (child.tagType === ElementTypes.SLOT) {
+      return true;
+    }
+    if (projectsSlotContent(child)) {
+      return true;
+    }
+  }
+  return false;
+};
 
 /**
  * True when the element carries an explicit accessible name via ARIA,

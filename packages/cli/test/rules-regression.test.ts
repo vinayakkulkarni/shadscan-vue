@@ -2,6 +2,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { discoverProject, runAudit, type AuditRule } from '../src/index.js';
+import { iconButtonsHaveLabels } from '../src/rules/accessibility/icon-buttons-have-labels.js';
+import { linksHaveAccessibleNames } from '../src/rules/accessibility/links-have-accessible-names.js';
 import { componentsAliasesResolve } from '../src/rules/foundation/components-aliases-resolve.js';
 import { formsHaveLabels } from '../src/rules/forms/forms-have-labels.js';
 import { commandMenuHotkeyPresent } from '../src/rules/interaction/command-menu-hotkey-present.js';
@@ -118,5 +120,29 @@ describe('metadata declared through a project SEO composable', () => {
   it('accepts a page whose metadata comes from a usePageSeo wrapper', async () => {
     const outcome = await outcomeOf('seo-composable-wrapper', metadataTitleDescriptionComplete);
     expect(outcome.status).toBe('pass');
+  });
+});
+
+describe('links whose content is projected by the caller', () => {
+  it('accepts a link whose only child is a slot', async () => {
+    const outcome = await outcomeOf('slot-projected-link', linksHaveAccessibleNames);
+    expect(outcome.status).toBe('pass');
+  });
+
+  it('still fails a link with no text and no slot', async () => {
+    const outcome = await outcomeOf('empty-link-no-slot', linksHaveAccessibleNames);
+    expect(outcome.status).toBe('fail');
+  });
+});
+
+describe('icon-only buttons whose content is projected by the caller', () => {
+  it('accepts an icon-sized button whose only child is a slot', async () => {
+    const outcome = await outcomeOf('slot-projected-icon-button', iconButtonsHaveLabels);
+    expect(outcome.status).toBe('pass');
+  });
+
+  it('still fails an icon-only button with a real icon and no name', async () => {
+    const outcome = await outcomeOf('icon-button-no-slot', iconButtonsHaveLabels);
+    expect(outcome.status).toBe('fail');
   });
 });

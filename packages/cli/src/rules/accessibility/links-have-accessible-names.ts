@@ -7,6 +7,7 @@ import {
   hasAriaName,
   hasScreenReaderText,
   LINK_TAGS,
+  projectsSlotContent,
   visibleText,
 } from './a11y-shared.js';
 
@@ -48,7 +49,7 @@ export const linksHaveAccessibleNames: AuditRule = {
       if (hasAriaName(element) || hasScreenReaderText(element)) {
         return;
       }
-      if (hasLabelledImage(element)) {
+      if (hasLabelledImage(element) || projectsSlotContent(element)) {
         return;
       }
       findings.push({
