@@ -84,7 +84,7 @@ const commands = [
         </p>
         <div class="rule-all bg-ink text-bg mt-6 overflow-x-auto">
           <pre class="px-5 py-5 text-xs leading-relaxed md:text-sm">
-- uses: vinayakkulkarni/shadscan-vue@v0.2.0
+- uses: vinayakkulkarni/shadscan-vue@v0
   with:
     fail-under: 70</pre>
         </div>

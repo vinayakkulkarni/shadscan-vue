@@ -88,7 +88,7 @@ There is also a composite action, which writes the score and every failing
 rule to the job summary:
 
 ```yaml
-- uses: vinayakkulkarni/shadscan-vue@v0.2.0
+- uses: vinayakkulkarni/shadscan-vue@v0
   with:
     fail-under: 70
 ```

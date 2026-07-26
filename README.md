@@ -82,7 +82,7 @@ This repository ships a composite action. It scans the project, writes the
 score and every failing rule to the job summary, and optionally gates the job.
 
 ```yaml
-- uses: vinayakkulkarni/shadscan-vue@v0.2.0
+- uses: vinayakkulkarni/shadscan-vue@v0
   with:
     fail-under: 70
 ```
@@ -95,10 +95,13 @@ score and every failing rule to the job summary, and optionally gates the job.
 | `category`   | —        | Run one of `foundation`, `interaction`, `states`, `accessibility`, `forms`, `prod-polish` |
 | `summary`    | `true`   | Publish the score, category table, and failing rules to the job summary                   |
 
+`@v0` is a moving tag that follows every release. Pin `@v0.2.1` instead when
+you want the action itself frozen, and set `version` to pin the CLI it runs.
+
 It exposes `score`, `grade`, and `findings-count` as outputs:
 
 ```yaml
-- uses: vinayakkulkarni/shadscan-vue@v0.2.0
+- uses: vinayakkulkarni/shadscan-vue@v0
   id: audit
 - run: echo "scored ${{ steps.audit.outputs.score }} (${{ steps.audit.outputs.grade }})"
 ```
