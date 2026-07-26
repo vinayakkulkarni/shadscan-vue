@@ -63,6 +63,35 @@ describe('collectSources', () => {
     expect(collected.coverage.status).toBe('partial');
   });
 
+  it('ignores illustrative directories but keeps real app code', async () => {
+    const dir = await makeTempProject();
+    for (const sub of ['components/demo', 'components/examples', 'demos', 'components']) {
+      await fs.mkdir(path.join(dir, sub), { recursive: true });
+    }
+    await fs.writeFile(
+      path.join(dir, 'components/demo/ButtonDemo.vue'),
+      '<template><b /></template>',
+    );
+    await fs.writeFile(
+      path.join(dir, 'components/examples/Card.vue'),
+      '<template><b /></template>',
+    );
+    await fs.writeFile(path.join(dir, 'demos/Sink.vue'), '<template><b /></template>');
+    await fs.mkdir(path.join(dir, 'components/_internal'), { recursive: true });
+    await fs.writeFile(
+      path.join(dir, 'components/_internal/Sink.vue'),
+      '<template><b /></template>',
+    );
+    await fs.writeFile(path.join(dir, 'components/Real.vue'), '<template><b /></template>');
+    await fs.writeFile(path.join(dir, 'components/DemoBanner.vue'), '<template><b /></template>');
+    const discovery = await discoverProject(dir);
+    const collected = await collectSources(discovery);
+    expect(collected.files.map((file) => file.relPath)).toEqual([
+      'components/DemoBanner.vue',
+      'components/Real.vue',
+    ]);
+  });
+
   it('ignores node_modules, dist and test files', async () => {
     const dir = await makeTempProject();
     await fs.mkdir(path.join(dir, 'node_modules/pkg'), { recursive: true });

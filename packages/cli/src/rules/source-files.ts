@@ -69,6 +69,18 @@ const IGNORE_PATTERNS = [
   '**/fixtures/**',
   '**/__tests__/**',
   '**/__mocks__/**',
+  '**/__registry__/**',
+  // Illustrative code documents an API rather than shipping a surface, so a
+  // deliberately minimal example is not a defect. Component libraries keep
+  // hundreds of these, and auditing them buries the findings that matter.
+  // Directory names only: a component called DemoBanner.vue is real code.
+  '**/demo/**',
+  '**/demos/**',
+  '**/example/**',
+  '**/examples/**',
+  // A leading underscore marks a directory as private across Vue, Nuxt and
+  // Vite conventions, so it holds scaffolding rather than a shipped surface.
+  '**/_*/**',
   '**/*.spec.*',
   '**/*.test.*',
   '**/*.stories.*',
