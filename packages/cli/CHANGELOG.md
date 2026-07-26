@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.3.0...v0.3.1) (2026-07-26)
+
+
+### Bug Fixes
+
+* **www:** generate the changelog page and stop hardcoding counts ([18b7923](https://github.com/vinayakkulkarni/shadscan-vue/commit/18b792329106ad1dea7734eae14091d1e67f5c7a))
+
 ## [0.3.0](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.2.1...v0.3.0) (2026-07-26)
 
 
