@@ -38,9 +38,9 @@
     "@types/node": "^26.1.1",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
-    "lint-staged": "^17.0.8",
+    "lint-staged": "^17.2.0",
     "typescript": "^6.0.3",
-    "vite-plus": "^0.2.4",
+    "vite-plus": "^0.2.6",
     "vitest": "^4.1.10"
   },
   "devEngines": {

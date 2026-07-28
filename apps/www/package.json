@@ -19,8 +19,8 @@
     "vue": "^3.5.40"
   },
   "devDependencies": {
-    "@iconify-json/lucide": "^1.2.119",
-    "@nuxt/fonts": "^0.13.0",
+    "@iconify-json/lucide": "^1.2.120",
+    "@nuxt/fonts": "^0.14.0",
     "@nuxt/icon": "^2.3.1",
     "@nuxtjs/plausible": "^3.0.2",
     "@openpanel/nuxt": "^0.4.1",

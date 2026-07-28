@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import changelog from '~/data/changelog.json';
+
+const version = changelog.releases[0]?.version ?? '0.0.0';
+
 const categories = [
   { label: 'FOUNDATION', score: 84 },
   { label: 'INTERACTION', score: 52 },
@@ -18,7 +22,7 @@ const bar = (score: number) => {
   <div class="rule-all bg-ink text-bg w-full min-w-0 overflow-x-auto">
     <pre
       class="px-5 py-6 text-xs leading-relaxed md:px-8 md:text-sm"
-    ><span class="font-bold">shadscan-vue v0.1.0</span>
+    ><span class="font-bold">shadscan-vue v{{ version }}</span>
 my-app · nuxt · pnpm
 
 <span class="text-accent font-bold">Score 66/100 · Grade D</span>
