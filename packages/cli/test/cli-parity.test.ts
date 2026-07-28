@@ -6,7 +6,9 @@ import { fileURLToPath } from 'node:url';
 import { afterAll, describe, expect, it } from 'vitest';
 import { CATEGORIES } from '../src/audit.js';
 import { buildRuleCatalog, renderCatalogMarkdown } from '../src/rule-catalog.js';
+import { renderAgentPrompt } from '../src/render-agent-prompt.js';
 import { renderHuman } from '../src/render-human.js';
+import { buildJsonReport } from '../src/render-json.js';
 import { roastLine } from '../src/roast.js';
 import { defaultRules } from '../src/rules/index.js';
 import { scanProject } from '../src/scan.js';
@@ -84,6 +86,35 @@ describe('roast copy', () => {
 
   it('returns nothing when the score is unassessed', () => {
     expect(roastLine(undefined, 'forms')).toBeUndefined();
+  });
+});
+
+describe('engine label rendering', () => {
+  const caps = { isTTY: false, isCI: true, color: false, unicode: false };
+
+  it('prefixes a bare version with v', async () => {
+    const result = await scanProject(path.join(fixturesDir, 'vite-vue-minimal'));
+
+    expect(renderHuman(result, '0.3.1', caps)).toContain('shadscan-vue v0.3.1');
+    expect(renderAgentPrompt(result, '0.3.1')).toContain('shadscan-vue v0.3.1');
+  });
+
+  it('leaves a named engine label alone', async () => {
+    const result = await scanProject(path.join(fixturesDir, 'vite-vue-minimal'));
+
+    expect(renderHuman(result, 'vue-doctor-design', caps)).toContain(
+      'shadscan-vue vue-doctor-design',
+    );
+    expect(renderAgentPrompt(result, 'vue-doctor-design')).toContain(
+      'shadscan-vue vue-doctor-design',
+    );
+  });
+
+  it('keeps the machine-readable engineVersion undecorated', async () => {
+    const result = await scanProject(path.join(fixturesDir, 'vite-vue-minimal'));
+
+    expect(buildJsonReport(result, '0.3.1').engineVersion).toBe('0.3.1');
+    expect(buildJsonReport(result, 'vue-doctor-design').engineVersion).toBe('vue-doctor-design');
   });
 });
 

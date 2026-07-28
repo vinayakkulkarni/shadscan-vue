@@ -1,3 +1,4 @@
+import { formatEngineLabel } from './engine-label.js';
 import { buildJsonReport } from './render-json.js';
 import type { ScanResult } from './scan.js';
 
@@ -33,7 +34,7 @@ export const renderAgentPrompt = (result: ScanResult, engineVersion: string): st
     '',
     `Project: ${json.framework.packageName} (${json.framework.adapter})`,
     `Score: ${json.score ?? 'unassessed'}/100${json.grade !== null ? ` · Grade ${json.grade}` : ''}`,
-    `Engine: shadscan-vue v${json.engineVersion} · ruleset ${json.rulesetVersion} · report schema ${json.schemaVersion}`,
+    `Engine: shadscan-vue ${formatEngineLabel(json.engineVersion)} · ruleset ${json.rulesetVersion} · report schema ${json.schemaVersion}`,
     '',
     'You are fixing UI-fundamental findings in a shadcn-vue app. Work through the items below.',
     'After each fix, re-run `npx shadscan-vue --json` and confirm the finding disappears.',

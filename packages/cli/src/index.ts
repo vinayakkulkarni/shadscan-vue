@@ -32,6 +32,7 @@ export {
 } from './rules/rule-result.js';
 export { defaultRules } from './rules/index.js';
 export { buildJsonReport, renderJson, JSON_SCHEMA_VERSION } from './render-json.js';
+export { formatEngineLabel } from './engine-label.js';
 export { renderHuman } from './render-human.js';
 export { renderAgentPrompt, PROMPT_VERSION } from './render-agent-prompt.js';
 export { CliError, isCliError, type CliErrorCode } from './cli-error.js';

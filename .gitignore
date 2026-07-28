@@ -22,3 +22,6 @@ tmp
 # npm login. It exists so npm has a package to attach a trusted publisher to;
 # every real release is cut by release-please through OIDC.
 scripts/bootstrap-npm-publish.sh
+
+# Agent harness state
+.omo

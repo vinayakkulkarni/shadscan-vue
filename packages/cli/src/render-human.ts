@@ -1,5 +1,6 @@
 import pc from 'picocolors';
 import type { CategoryScore } from './audit.js';
+import { formatEngineLabel } from './engine-label.js';
 import { roastLine } from './roast.js';
 import type { ScanResult } from './scan.js';
 import { resolveTerminalCapabilities, type TerminalCapabilities } from './terminal-capabilities.js';
@@ -42,7 +43,7 @@ export const renderHuman = (
   const paint = (text: string, color: (value: string) => string): string =>
     caps.color ? color(text) : text;
 
-  lines.push(paint(`shadscan-vue v${engineVersion}`, pc.bold));
+  lines.push(paint(`shadscan-vue ${formatEngineLabel(engineVersion)}`, pc.bold));
   lines.push(`${discovery.packageName} · ${discovery.adapter} · ${discovery.packageManager}`);
   lines.push('');
 
