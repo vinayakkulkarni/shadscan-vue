@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.2](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.3.1...v0.3.2) (2026-07-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependencies and drop unused execa ([4c12c90](https://github.com/vinayakkulkarni/shadscan-vue/commit/4c12c9007fd1d3b47df82e6f3fd35b15046c60f6))
+* **report:** stop prefixing a named engine label with v ([247b9be](https://github.com/vinayakkulkarni/shadscan-vue/commit/247b9beff186f858f986cf3d43bc0b9c6095ff34))
+
 ## [0.3.1](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.3.0...v0.3.1) (2026-07-26)
 
 
