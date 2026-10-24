@@ -25,3 +25,4 @@ scripts/bootstrap-npm-publish.sh
 
 # Agent harness state
 .omo
+.vitest/

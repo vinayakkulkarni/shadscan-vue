@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { discoverProject, runAudit, type AuditRule } from '../src/index.js';
 import { animationsRespectReducedMotion } from '../src/rules/production-polish/animations-respect-reduced-motion.js';
 import { buttonIconsHaveDataIcon } from '../src/rules/production-polish/button-icons-have-data-icon.js';

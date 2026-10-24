@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { discoverProject, runAudit, type AuditRule } from '../src/index.js';
 import { asyncActionPendingState } from '../src/rules/states/async-action-pending-state.js';
 import { emptyStatePresent } from '../src/rules/states/empty-state-present.js';
