@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const { track } = useAnalytics();
+</script>
+
 <template>
   <footer class="rule-t">
     <div class="mx-auto max-w-[1600px]">
@@ -33,6 +37,7 @@
               <a
                 href="https://www.npmjs.com/package/shadscan-vue"
                 class="underline underline-offset-4"
+                @click="track('outbound_click', { target: 'npm', location: 'footer' })"
                 >npm</a
               >
             </li>
@@ -40,11 +45,17 @@
               <a
                 href="https://github.com/vinayakkulkarni/shadscan-vue"
                 class="underline underline-offset-4"
+                @click="track('outbound_click', { target: 'github', location: 'footer' })"
                 >GitHub</a
               >
             </li>
             <li>
-              <a href="https://github.com/TheOrcDev/shadscan" class="underline underline-offset-4"
+              <a
+                href="https://github.com/TheOrcDev/shadscan"
+                class="underline underline-offset-4"
+                @click="
+                  track('outbound_click', { target: 'shadscan_original', location: 'footer' })
+                "
                 >shadscan (original)</a
               >
             </li>
@@ -58,7 +69,10 @@
         <p>MIT © Vinayak Kulkarni</p>
         <p>
           Vue port of
-          <a href="https://github.com/TheOrcDev/shadscan" class="underline underline-offset-4"
+          <a
+            href="https://github.com/TheOrcDev/shadscan"
+            class="underline underline-offset-4"
+            @click="track('outbound_click', { target: 'shadscan_original', location: 'footer' })"
             >shadscan</a
           >
           by TheOrcDev, with permission.

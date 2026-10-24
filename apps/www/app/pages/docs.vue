@@ -34,9 +34,9 @@ const commands = [
       <div class="lg:rule-r px-5 py-10 md:px-8 md:py-14">
         <h2 class="text-xs font-bold tracking-[0.25em]">INSTALL</h2>
         <div class="mt-6 space-y-4">
-          <CopyCommand command="npx shadscan-vue" />
-          <CopyCommand command="pnpm dlx shadscan-vue" />
-          <CopyCommand command="npm install -D shadscan-vue" />
+          <CopyCommand command="npx shadscan-vue" location="docs_install" />
+          <CopyCommand command="pnpm dlx shadscan-vue" location="docs_install" />
+          <CopyCommand command="npm install -D shadscan-vue" location="docs_install" />
         </div>
         <p class="mt-6 text-sm leading-relaxed">
           Requires Node 20.19 or newer. No global install is necessary.

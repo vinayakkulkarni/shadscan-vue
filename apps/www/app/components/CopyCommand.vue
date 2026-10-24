@@ -1,5 +1,9 @@
 <script setup lang="ts">
-const props = defineProps<{ command: string }>();
+import type { AnalyticsLocation } from '~/types/analytics';
+
+const props = defineProps<{ command: string; location: AnalyticsLocation }>();
+
+const { track } = useAnalytics();
 
 const copied = ref(false);
 let timer: ReturnType<typeof setTimeout> | undefined;
@@ -8,6 +12,7 @@ const copy = async () => {
   try {
     await navigator.clipboard.writeText(props.command);
     copied.value = true;
+    track('install_command_copied', { command: props.command, location: props.location });
     clearTimeout(timer);
     timer = setTimeout(() => (copied.value = false), 2000);
   } catch {

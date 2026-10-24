@@ -32,6 +32,8 @@ const steps = [
     copy: 'Emit a prompt an agent can act on, or a JSON report a pipeline can gate.',
   },
 ];
+
+const { track } = useAnalytics();
 </script>
 
 <template>
@@ -55,19 +57,21 @@ const steps = [
         </p>
 
         <div class="mt-8 max-w-xl">
-          <CopyCommand command="npx shadscan-vue" />
+          <CopyCommand command="npx shadscan-vue" location="home_hero" />
         </div>
 
         <div class="mt-8 flex flex-wrap gap-3">
           <NuxtLink
             to="/rules"
             class="invert-hover rule-all px-6 py-3 text-xs font-bold tracking-[0.18em]"
+            @click="track('cta_click', { target: 'rules', location: 'home_hero' })"
           >
             BROWSE {{ catalog.ruleCount }} RULES
           </NuxtLink>
           <NuxtLink
             to="/docs"
             class="invert-hover rule-all px-6 py-3 text-xs font-bold tracking-[0.18em]"
+            @click="track('cta_click', { target: 'docs', location: 'home_hero' })"
           >
             READ THE DOCS
           </NuxtLink>
@@ -180,12 +184,16 @@ const steps = [
           <a
             href="https://github.com/TheOrcDev/shadscan"
             class="invert-hover rule-all px-6 py-3 text-xs font-bold tracking-[0.18em]"
+            @click="
+              track('outbound_click', { target: 'shadscan_original', location: 'home_credit' })
+            "
           >
             ORIGINAL PROJECT
           </a>
           <NuxtLink
             to="/credits"
             class="invert-hover rule-all px-6 py-3 text-xs font-bold tracking-[0.18em]"
+            @click="track('cta_click', { target: 'credits', location: 'home_credit' })"
           >
             FULL ATTRIBUTION
           </NuxtLink>

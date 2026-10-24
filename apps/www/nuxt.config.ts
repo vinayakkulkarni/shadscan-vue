@@ -2,6 +2,11 @@ import tailwindcss from '@tailwindcss/vite';
 
 const siteUrl = process.env.NUXT_PUBLIC_SITE_URL ?? 'https://shadscan-vue.geoql.in';
 
+// Public tracker IDs for shadscan-vue.geoql.in. They ship in the HTML, so they
+// are not secrets; each is overridable via its NUXT_PUBLIC_* env var.
+const openpanelClientId =
+  process.env.NUXT_PUBLIC_OPENPANEL_CLIENT_ID || 'be357f8b-5518-4bb4-b34a-1ada2743b67b';
+
 const workerRuntimeFeatures = {
   cache: { enabled: true },
   placement: { mode: 'smart' as const },
@@ -15,22 +20,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-07-25',
   devtools: { enabled: false },
 
-  modules: [
-    '@nuxt/fonts',
-    '@nuxt/icon',
-    [
-      '@nuxtjs/plausible',
-      {
-        domain: 'shadscan-vue.geoql.in',
-        apiHost: 'https://analytics.geoql.in',
-        autoOutboundTracking: true,
-      },
-    ],
-    '@openpanel/nuxt',
-  ],
+  modules: ['@nuxt/fonts', '@nuxt/icon', '@nuxt/scripts', '@openpanel/nuxt'],
 
   openpanel: {
-    clientId: process.env.NUXT_PUBLIC_OPENPANEL_CLIENT_ID ?? '',
+    clientId: openpanelClientId,
     apiUrl: 'https://events.geoql.in/api',
     trackScreenViews: true,
     trackOutgoingLinks: true,
@@ -38,6 +31,9 @@ export default defineNuxtConfig({
     // The bundled proxy handler hardcodes api.openpanel.dev and would bypass
     // the self-hosted apiUrl.
     proxy: false,
+    // Events queue until plugins/8.openpanel-ready.client.ts releases them,
+    // which it skips for automation browsers.
+    disabled: true,
   },
 
   css: ['~/assets/css/main.css'],
@@ -46,11 +42,15 @@ export default defineNuxtConfig({
     // Server-only: never exposed to the client bundle. Used by
     // server/utils/openpanel.ts to authenticate server-side track calls.
     openpanel: {
-      clientId: process.env.NUXT_PUBLIC_OPENPANEL_CLIENT_ID ?? '',
+      clientId: openpanelClientId,
       clientSecret: process.env.NUXT_OPENPANEL_CLIENT_SECRET ?? '',
     },
     public: {
       siteUrl,
+      gtagId: 'G-YH7P87VNXV',
+      plausibleScriptId: 'sqL8HbG9hbUxmTejuqoAz',
+      plausibleApiHost: 'https://analytics.geoql.in',
+      openpanelClientId,
     },
   },
 
@@ -84,7 +84,7 @@ export default defineNuxtConfig({
     '/**': {
       headers: {
         'Content-Security-Policy':
-          "base-uri 'none'; connect-src 'self' https://analytics.geoql.in https://events.geoql.in https://cloudflareinsights.com; font-src 'self' https: data:; form-action 'self'; frame-ancestors 'none'; img-src 'self' data: blob: https:; object-src 'none'; script-src 'self' https://analytics.geoql.in https://static.cloudflareinsights.com 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; worker-src 'self' blob:; upgrade-insecure-requests",
+          "base-uri 'none'; connect-src 'self' https://analytics.geoql.in https://events.geoql.in https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://cloudflareinsights.com; font-src 'self' https: data:; form-action 'self'; frame-ancestors 'none'; img-src 'self' data: blob: https:; object-src 'none'; script-src 'self' https://analytics.geoql.in https://www.googletagmanager.com https://static.cloudflareinsights.com 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; worker-src 'self' blob:; upgrade-insecure-requests",
         'Permissions-Policy':
           'camera=(), display-capture=(), fullscreen=(self), geolocation=(), microphone=()',
         'Referrer-Policy': 'strict-origin-when-cross-origin',
