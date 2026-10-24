@@ -33,24 +33,20 @@
     "docs:changelog": "node scripts/changelog-data.ts"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.2.1",
-    "@commitlint/config-conventional": "^21.2.0",
-    "@types/node": "^26.1.1",
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
+    "@types/node": "^26.6.5",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
-    "lint-staged": "^17.2.0",
+    "lint-staged": "^17.6.0",
     "typescript": "^6.0.3",
-    "vite-plus": "^0.2.6",
-    "vitest": "^4.1.10"
+    "vite-plus": "catalog:"
   },
   "devEngines": {
     "runtime": {
       "name": "node",
-      "version": ">=24.11.0"
+      "version": ">=26.x"
     }
   },
-  "engines": {
-    "node": ">=24.11.0"
-  },
-  "packageManager": "pnpm@11.17.0"
+  "packageManager": "pnpm@12.15.0+sha512.b3951d6d6ff4a9f13dc7cf56cd28d2b8eb37dbcc9c68e52e1e1191873ea9f82a017287ab50baadc5ccc494f036c67c0e47eb13608c2fa36f47711b61ea128e61"
 }

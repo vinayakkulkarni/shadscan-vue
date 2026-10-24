@@ -55,26 +55,25 @@
   },
   "scripts": {
     "build": "vp pack",
-    "test": "vitest run",
+    "test": "vp test run",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "vp lint src",
     "lint:fix": "vp lint src --fix"
   },
   "dependencies": {
-    "@vue/compiler-dom": "^3.5.40",
-    "@vue/compiler-sfc": "^3.5.40",
-    "cac": "^7.0.0",
+    "@vue/compiler-dom": "^3.5.44",
+    "@vue/compiler-sfc": "^3.5.44",
+    "cac": "^7.1.0",
     "cross-spawn": "^7.0.6",
     "jsonc-parser": "^3.3.1",
     "picocolors": "^1.1.1",
     "tinyglobby": "^0.2.17",
     "typescript": "^6.0.3",
-    "zod": "^4.4.3"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.6",
-    "@types/node": "^26.1.1",
-    "vitest": "^4.1.10"
+    "@types/node": "^26.6.5"
   },
   "engines": {
     "node": ">=20.19.0"

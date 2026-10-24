@@ -3,7 +3,7 @@ import { existsSync, promises as fs } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { afterAll, describe, expect, it } from 'vitest';
+import { afterAll, describe, expect, it } from 'vite-plus/test';
 import { CATEGORIES } from '../src/audit.js';
 import { buildRuleCatalog, renderCatalogMarkdown } from '../src/rule-catalog.js';
 import { renderAgentPrompt } from '../src/render-agent-prompt.js';

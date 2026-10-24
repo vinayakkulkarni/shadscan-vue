@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { discoverProject, runAudit, type AuditRule } from '../src/index.js';
 import { dialogsHaveAccessibleNames } from '../src/rules/accessibility/dialogs-have-accessible-names.js';
 import { headingStructureSane } from '../src/rules/accessibility/heading-structure-sane.js';

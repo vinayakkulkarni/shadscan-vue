@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { discoverProject, runAudit, type AuditRule } from '../src/index.js';
 import { fieldErrorsRendered } from '../src/rules/forms/field-errors-rendered.js';
 import { formButtonsHaveExplicitType } from '../src/rules/forms/form-buttons-have-explicit-type.js';

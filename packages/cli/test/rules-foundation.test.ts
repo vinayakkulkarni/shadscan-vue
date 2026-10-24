@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import type { AuditRule, RuleOutcome } from '../src/audit.js';
 import { discoverProject, runAudit } from '../src/index.js';
 import { componentsAliasesResolve } from '../src/rules/foundation/components-aliases-resolve.js';

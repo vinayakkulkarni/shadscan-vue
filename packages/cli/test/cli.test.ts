@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { run } from '../src/cli.js';
 import { resolveOutputFormat } from '../src/output-format.js';
 import { CliError } from '../src/cli-error.js';
