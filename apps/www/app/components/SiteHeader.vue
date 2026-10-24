@@ -5,6 +5,8 @@ const links = [
   { to: '/changelog', label: 'CHANGELOG' },
   { to: '/credits', label: 'CREDITS' },
 ];
+
+const { track } = useAnalytics();
 </script>
 
 <template>
@@ -29,6 +31,7 @@ const links = [
         <li>
           <a
             href="https://github.com/vinayakkulkarni/shadscan-vue"
+            @click="track('outbound_click', { target: 'github', location: 'header' })"
             class="invert-hover rule-l flex h-full items-center gap-2 px-4 py-4 text-xs font-medium tracking-[0.18em] md:px-6"
           >
             <Icon name="lucide:github" aria-hidden="true" class="size-4" />

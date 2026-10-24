@@ -20,7 +20,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm --filter shadscan-vue run build",
-    "test": "pnpm --filter shadscan-vue run test",
+    "test": "pnpm -r run test",
     "typecheck": "pnpm -r run typecheck",
     "lint": "vp lint",
     "lint:fix": "vp lint --fix",

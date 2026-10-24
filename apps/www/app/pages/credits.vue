@@ -8,6 +8,8 @@ usePageSeo({
   ogSlug: 'credits',
 });
 
+const { track } = useAnalytics();
+
 const ported = [
   'The rule taxonomy and category model.',
   'The weighted scoring model and A–F grading.',
@@ -43,12 +45,14 @@ const rebuilt = [
         <a
           href="https://github.com/TheOrcDev/shadscan"
           class="invert-hover rule-all px-6 py-3 text-xs font-bold tracking-[0.18em]"
+          @click="track('outbound_click', { target: 'shadscan_original', location: 'credits' })"
         >
           SHADSCAN ON GITHUB
         </a>
         <a
           href="https://github.com/TheOrcDev"
           class="invert-hover rule-all px-6 py-3 text-xs font-bold tracking-[0.18em]"
+          @click="track('outbound_click', { target: 'theorcdev', location: 'credits' })"
         >
           THEORCDEV
         </a>
