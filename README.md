@@ -8,7 +8,7 @@
 
 Deterministic checks. Evidence. Agent-ready fixes. Static audit — no AI required.
 
-**[shadscan-vue.geoql.in](https://shadscan-vue.geoql.in)** — rule catalog, docs, and changelog.
+**[Live demo](https://shadscan-vue.geoql.in?utm_source=github&utm_medium=readme&utm_campaign=shadscan-vue)** — rule catalog, docs, and changelog · [npm](https://www.npmjs.com/package/shadscan-vue)
 
 `shadscan-vue` audits **shadcn-vue** (Vue 3 + Vite) and **shadcn-nuxt** (Nuxt 4)
 applications for the fundamentals that are easy to skip and expensive to miss:
@@ -158,6 +158,16 @@ by [TheOrcDev](https://github.com/TheOrcDev), built with the original author's
 permission. The rule taxonomy, scoring model, and product concept originate
 there; the Vue SFC engine, Nuxt adapters, and reka-ui awareness are new work.
 See [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
+
+## More from the author
+
+- [nxui](https://nxui.geoql.in?utm_source=github&utm_medium=readme&utm_campaign=shadscan-vue) — Vue port of Paper Shaders + animated components (shadcn-vue registry)
+- [mapcn-vue](https://mapcn-vue.geoql.in?utm_source=github&utm_medium=readme&utm_campaign=shadscan-vue) — shadcn-vue map components (MapLibre)
+- [v-maplibre](https://v-maplibre.geoql.in?utm_source=github&utm_medium=readme&utm_campaign=shadscan-vue) — Vue 3 MapLibre GL components
+- [the-doctor.report](https://the-doctor.report?utm_source=github&utm_medium=readme&utm_campaign=shadscan-vue) — Vue/Nuxt code health auditor
+- [v-tweakpane](https://v-tweakpane.vinayakkulkarni.dev?utm_source=github&utm_medium=readme&utm_campaign=shadscan-vue) — Tweakpane for Vue 3
+
+See every project at [vinayakkulkarni.dev/projects](https://vinayakkulkarni.dev/projects?utm_source=github&utm_medium=readme&utm_campaign=shadscan-vue) and [geoql.in](https://geoql.in?utm_source=github&utm_medium=readme&utm_campaign=shadscan-vue).
 
 ## License
 
