@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.3.2...v0.3.3) (2026-10-24)
+
+
+### Miscellaneous
+
+* **deps:** latest dependencies, node 26 and pnpm 12.15.0 ([#11](https://github.com/vinayakkulkarni/shadscan-vue/issues/11)) ([10060df](https://github.com/vinayakkulkarni/shadscan-vue/commit/10060df02dfe9bc38c082ed34789682541be43dd))
+
 ## [0.3.2](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.3.1...v0.3.2) (2026-07-28)
 
 
