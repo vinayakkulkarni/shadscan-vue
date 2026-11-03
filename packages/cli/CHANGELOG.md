@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.4](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.3.3...v0.3.4) (2026-11-03)
+
+
+### Bug Fixes
+
+* **rules:** port react.doctor a11y accuracy fixes ([#18](https://github.com/vinayakkulkarni/shadscan-vue/issues/18)) ([daea368](https://github.com/vinayakkulkarni/shadscan-vue/commit/daea3684443e8a5c4eae76505ebcf7991278fa59))
+
 ## [0.3.3](https://github.com/vinayakkulkarni/shadscan-vue/compare/v0.3.2...v0.3.3) (2026-10-24)
 
 
