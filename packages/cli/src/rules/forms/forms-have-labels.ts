@@ -1,6 +1,6 @@
 import type { ElementNode } from '@vue/compiler-dom';
 import type { AuditRule } from '../../audit.js';
-import { pascalToKebab } from '../../parse/sfc.js';
+import { findAttribute, pascalToKebab } from '../../parse/sfc.js';
 import type { Finding } from '../rule-result.js';
 import {
   attributeValue,
@@ -58,7 +58,7 @@ export const formsHaveLabels: AuditRule = {
       if (type !== undefined && NON_LABELLED_INPUT_TYPES.has(type)) {
         continue;
       }
-      if (hasAnyAttribute(element, ['aria-label', 'aria-labelledby'])) {
+      if (hasAnyAttribute(element, ['aria-label', 'aria-labelledby']) || hasNamingTitle(element)) {
         continue;
       }
       const id = attributeValue(element, 'id');
@@ -81,6 +81,12 @@ export const formsHaveLabels: AuditRule = {
 
     return findings.length > 0 ? result.fail(findings) : result.pass();
   },
+};
+
+/** A non-empty native `title` is the last-resort accessible name for a control. */
+const hasNamingTitle = (element: ElementNode): boolean => {
+  const title = findAttribute(element, 'title');
+  return title !== undefined && (title.bound || (title.static ?? '').trim() !== '');
 };
 
 const hasSiblingFormLabel = (ancestors: readonly ElementNode[]): boolean => {
