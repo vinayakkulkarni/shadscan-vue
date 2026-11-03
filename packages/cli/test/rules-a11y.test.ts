@@ -41,6 +41,11 @@ describe('icon-buttons-have-labels', () => {
   it('passes aria-label, bound label, and sr-only text', async () => {
     expect((await outcomeOf('iconbtn-pass', iconButtonsHaveLabels)).status).toBe('pass');
   });
+
+  // react.doctor #1889: screen-reader-only text names an icon button.
+  it('passes size="icon" buttons named by sr-only or VisuallyHidden text', async () => {
+    expect((await outcomeOf('iconbtn-srtext-pass', iconButtonsHaveLabels)).status).toBe('pass');
+  });
 });
 
 describe('links-have-accessible-names', () => {
@@ -105,6 +110,20 @@ describe('interactive-elements-are-semantic', () => {
 
   it('passes native controls and fully wired custom controls', async () => {
     expect((await outcomeOf('semantic-pass', interactiveElementsAreSemantic)).status).toBe('pass');
+  });
+
+  // react.doctor #1919: a keyboard-activatable child reaches the parent click
+  // through bubbling, unless the bubbling path is blocked.
+  it('passes a clickable wrapper reached through a keyboard-activatable child', async () => {
+    expect((await outcomeOf('semantic-child-pass', interactiveElementsAreSemantic)).status).toBe(
+      'pass',
+    );
+  });
+
+  it('fails when the child stops propagation or the wrapper only handles .self clicks', async () => {
+    const outcome = await outcomeOf('semantic-child-blocked', interactiveElementsAreSemantic);
+    expect(outcome.status).toBe('fail');
+    expect(outcome.findings.map((finding) => finding.evidence[0]!.line)).toEqual([3, 4, 5, 6, 7]);
   });
 });
 

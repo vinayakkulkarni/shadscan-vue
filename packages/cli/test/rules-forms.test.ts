@@ -38,6 +38,17 @@ describe('forms-have-labels', () => {
   it('passes label-for, wrapping label, and aria-label', async () => {
     expect((await outcomeOf('labels-pass', formsHaveLabels)).status).toBe('pass');
   });
+
+  // react.doctor #1888: a native title is a control's accessible name.
+  it('passes controls named by a static or bound title', async () => {
+    expect((await outcomeOf('labels-title-pass', formsHaveLabels)).status).toBe('pass');
+  });
+
+  it('fails controls whose title is empty', async () => {
+    const outcome = await outcomeOf('labels-title-empty', formsHaveLabels);
+    expect(outcome.status).toBe('fail');
+    expect(outcome.findings).toHaveLength(2);
+  });
 });
 
 describe('form-buttons-have-explicit-type', () => {
